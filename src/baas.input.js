@@ -1,0 +1,1 @@
+BaaS.input = function(){}
