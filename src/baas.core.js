@@ -79,9 +79,6 @@
 		return tail.join("&");
 	}
 
-	function successLogin() {
-		alert('success login')
-	}
 	/**
 	 * public methods
 	 */
@@ -101,12 +98,26 @@
 
 		Baas.CLIENT_ID = clientId;
 		Baas.CLIENT_SECRET = clientSecret;
+	}
+
+	Baas.login = function() {
+		function successHandler(res) {
+			console.log(res);
+
+			Baas.APP_ACCESS_TOKEN = res.access_token;
+			Baas.APP_UUID = res.application;
+			Baas.APP_EXPIRES_IN = res.expires_in;
+		}
+
+		function errorHandler(res) {
+			console.log(res);
+		}
 
 		Baas._request('token', 'GET', {
 			grant_type: 'client_credentials',
 			client_id: Baas.CLIENT_ID,
 			client_secret: Baas.CLIENT_SECRET
-		}, { success: successLogin });
+		}, { success: successHandler, error: errorHandler });
 	}
 
 	Baas._ajaxIE8 = function(method, url, data, success, error) {
