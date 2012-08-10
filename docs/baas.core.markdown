@@ -72,3 +72,4 @@ Baas.credential('YXA63eQS1ODwEeGgNAIAKWIAAw','YXA6jqWG30rpzyjJhr4L-5wNb01qVXc');
 Baas.on('credential_fail', function(response) {
 	alert('Credential Fail : "'+ reponse.error_description +'"');
 });
+```
