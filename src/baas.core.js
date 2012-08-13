@@ -27,16 +27,6 @@
 	*/
 	Baas.PUBLIC_API_URL = 'http://devapi.baas.io:8080/';
 
-	Baas.ORGANZAITON_NAME;
-	Baas.ORGANZAITON_UUID;
-
-	Baas.APPLICATION_NAME;
-
-	var APP_UUID,
-		APP_ACCESS_TOKEN,
-		APP_EXPIRES_IN = 3600;
-
-
 	function _initApigeeSDK() {
 		ApiClient.setApiUrl(Baas.PUBLIC_API_URL);
 	}
@@ -51,8 +41,6 @@
 
 				ApiClient.setApplicationName(appName);
 				ApiClient.setOrganizationName(orgName);
-
-				_.extend(Baas, Baas.Events);
 			},
 
 			loginUser: ApiClient.loginAppUser.bind(ApiClient),

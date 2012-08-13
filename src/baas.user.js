@@ -6,9 +6,15 @@
 
 	Baas.User = apigee.User;
 
-	_.extend(Baas.User.prototype, Baas.Event, {
-		login: function(){
-		},
-		logout: null,
+	_.extend(Baas.User.prototype, {
+		isCurrent: function() {},
+		getEmail: function() {},
+		getUserName: function() {},
+		login: function() {},
+		logout: function() {},
+		setEmail: function() {},
+		setPassword: function() {},
+		setUsername: function() {},
+		
 	});
 }(this));
