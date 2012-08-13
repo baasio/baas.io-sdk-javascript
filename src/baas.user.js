@@ -1,13 +1,14 @@
 // Parse.Query is a way to create a list of Baas.Objects.
 (function(root) {
-  root.Baas = root.Baas || {};
-  var Baas = root.Baas;
+	root.Baas = root.Baas || {};
+	var Baas = root.Baas,
+		ApiClient = Baas.ApiClient;
 
-  Baas.User = function() {}
+	Baas.User = apigee.User;
 
-  Baas.User.prototype = {
-  	login: function() {
-  		
-  	}
-  }
+	_.extend(Baas.User.prototype, Baas.Event, {
+		login: function(){
+		},
+		logout: null,
+	});
 }(this));

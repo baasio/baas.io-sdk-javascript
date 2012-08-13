@@ -60,7 +60,7 @@ apigee.SDK_VERSION = '0.9.1';
  */
 apigee.ApiClient = (function () {
   //API endpoint
-  var _apiUrl = "http://devapi.baas.io/";
+  var _apiUrl = "http://api.usergrid.com/";
   //var _apiUrl = "http://ug-developer-testing.elasticbeanstalk.com/";
   var _orgName = null;
   var _orgUUID = null;

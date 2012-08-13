@@ -21,13 +21,11 @@ Baas.app('kth', 'pudding');
 
 ```js
 Baas.app('organization', 'application');
-Baas.credential('clientId', 'clientSecret');
 ```
 
 ```js
 var BS = Baas;
 Baas.app('kth', 'pudding');
-Baas.credential('YXA63eQS1ODwEeGgNAIAKWIAAw','YXA6jqWG30rpzyjJhr4L-5wNb01qVXc');
 ```
 	
 ### Event
@@ -46,7 +44,6 @@ example
 ```js
 var BS = Baas;
 BS.app('kth', 'pudding');
-Baas.credential('YXA63eQS1ODwEeGgNAIAKWIAAw','YXA6jqWG30rpzyjJhr4L-5wNb01qVXc');
 
 Baas.on('credential_success', function(response) {
 	alert('Credential Success, Access Token : '+ reponse.access_token);
@@ -67,7 +64,6 @@ example
 ```js
 var BS = Baas;
 BS.app('kth', 'pudding');
-Baas.credential('YXA63eQS1ODwEeGgNAIAKWIAAw','YXA6jqWG30rpzyjJhr4L-5wNb01qVXc');
 
 Baas.on('credential_fail', function(response) {
 	alert('Credential Fail : "'+ reponse.error_description +'"');

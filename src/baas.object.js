@@ -3,8 +3,6 @@
   root.Baas = root.Baas || {};
   var Baas = root.Baas;
 
-  Baas.Object = function() {}
+  Baas.Object = apigee.Entity;
 
-  Baas.Object.prototype = {
-  }
 }(this));

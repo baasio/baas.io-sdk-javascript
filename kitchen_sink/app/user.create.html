@@ -7,38 +7,29 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="../../vendors/underscore/underscore.js"></script>
   <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
+  <script type="text/javascript" src="../../src/baas.core.js"></script>
   <script type="text/javascript" src="../../src/baas.event.js"></script>
   <script type="text/javascript" src="../../src/baas.user.js"></script>
-  <script type="text/javascript" src="../../src/baas.core.js"></script>
 </head>
 
 <body>
   
   <div id="main">
+  	<button onclick="createNewUser();">create</button>
   </div>
 
   <script type="text/javascript">
     function log(res) {
-      document.body.innerHTML = JSON.stringify(res);
+      document.body.innerHTML += JSON.stringify(res) +'<hr>';
     }
 
   	var BS = Baas;
-    BS.app("haroo", "haroopress");
-  	BS.credential("YXA63eQS1ODwEeGgNAIAKWIAAw", "YXA6jqWG30rpzyjJhr4L-5wNb01qVXc");
+    BS.App.init("haroo", "haroopress");
 
-    /**
-     * 애플리케이션 인증 성공
-     */
-    BS.on('credential_success', function(res) {
-      log(res);
-    });
+    function createNewUser() {
+    	BS.App.createUser('test1', 'test1@test.com', 'test1', '123456', null, log, log);
+    }
 
-    /**
-     * 애플리케이션 인증 실패
-     */
-    BS.on('credential_fail', function(res) {
-      log(res);
-    });
   </script>
 </body>
 

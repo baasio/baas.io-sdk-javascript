@@ -25,7 +25,7 @@
 	/**
 	* const
 	*/
-	Baas.PUBLIC_API_URL = 'http://devapi.baas.io/';
+	Baas.PUBLIC_API_URL = 'http://devapi.baas.io:8080/';
 
 	Baas.ORGANZAITON_NAME;
 	Baas.ORGANZAITON_UUID;
@@ -41,60 +41,40 @@
 		ApiClient.setApiUrl(Baas.PUBLIC_API_URL);
 	}
 
-	function successHandler(res) {
-		Baas.APP_ACCESS_TOKEN = res.access_token;
-		Baas.APP_UUID = res.application;
-		Baas.APP_EXPIRES_IN = res.expires_in;
-
-        Baas.trigger('credential_success', res, this);
-	}
-
-	function errorHandler(res) {
-        Baas.trigger('credential_fail', res, this);
-	}
 	/**
 	* public methods
 	*/
+	Baas.App = (function() {
+		return {
+			init: function(orgName, appName) {
+				_initApigeeSDK();
 
-	_.extend(Baas, Baas.Events, {
+				ApiClient.setApplicationName(appName);
+				ApiClient.setOrganizationName(orgName);
 
-		app: function(orgName, appName) {
-			_initApigeeSDK();
+				_.extend(Baas, Baas.Events);
+			},
 
-			ApiClient.setApplicationName(appName);
-			ApiClient.setOrganizationName(orgName);
-		},
-
-		/*
-		 *  A method to set up the Baas with Application Client ID and Client Secret Key
-		 *  @method init
-		 *  @public
-		 *  @param {string} clientId
-		 *  @param {string} clientSecret
-		 *  @return none
-		 *
-		 */
-		credential: function(clientId, clientSecret) {
-			var self = ApiClient;
-		    var data = {"client_id": clientId, "client_secret": clientSecret, "grant_type": "client_credentials"};
-		    ApiClient.runAppQuery(new QueryObj('GET', 'token', null, data, successHandler, errorHandler));
-		},
-
-		/**
-		 */
-		login: function() {
-			function successHandler(res) {
-				console.log(res);
-
-				Baas.APP_ACCESS_TOKEN = res.access_token;
-				Baas.APP_UUID = res.application;
-				Baas.APP_EXPIRES_IN = res.expires_in;
-			}
-
-			function errorHandler(res) {
-				console.log(res);
+			loginUser: ApiClient.loginAppUser.bind(ApiClient),
+			logoutUser: ApiClient.logoutAppUser.bind(ApiClient),
+			createUser: ApiClient.createAppUser.bind(ApiClient),
+			updateUser: ApiClient.updateAppUser.bind(ApiClient),
+			deleteUser: function(uuid, data, successCallback, failureCallback) {
+			    var data = data || {}
+			    ApiClient.runAppQuery(new QueryObj('DELETE', 'users/'+uuid, data, null,
+			      function (response) {
+			        if (successCallback && typeof(successCallback) == "function") {
+			          successCallback(response);
+			        }
+			      },
+			      function (response) {
+			        if (failureCallback && typeof(failureCallback) == "function") {
+			          failureCallback(response);
+			        }
+			      }
+			     ));
 			}
 		}
-	});
+	}());
 
 })(this);	
