@@ -79,8 +79,43 @@
 		        ));	
 			},
 
-			addUser: function() {},
-			removeUser: function() {}	
+			addUser: function(groupPath, userName, data, successCallback, failureCallback) {
+			    var data = data || {};
+			    data.path = groupPath;
+			    data.user = userName;
+
+			    ApiClient.runAppQuery(new QueryObj('POST', 'groups/'+ groupPath +'/users/'+ userName, data, null,
+			      function (response) {
+			        if (successCallback && typeof(successCallback) == "function") {
+			          successCallback(response);
+			        }
+			      },
+			      function (response) {
+			        if (failureCallback && typeof(failureCallback) == "function") {
+			          failureCallback(response);
+			        }
+			      }
+		        ));	
+			},
+
+			removeUser: function(groupPath, userName, data, successCallback, failureCallback) {
+			    var data = data || {};
+			    data.path = groupPath;
+			    data.user = userName;
+
+			    ApiClient.runAppQuery(new QueryObj('DELETE', 'groups/'+ groupPath +'/users/'+ userName, data, null,
+			      function (response) {
+			        if (successCallback && typeof(successCallback) == "function") {
+			          successCallback(response);
+			        }
+			      },
+			      function (response) {
+			        if (failureCallback && typeof(failureCallback) == "function") {
+			          failureCallback(response);
+			        }
+			      }
+		        ));	
+			}	
 		}
 	}());
 }(this));
