@@ -1,77 +1,119 @@
-// Parse.Query is a way to create a list of Parse.Objects.
+// Baas.Collection is a way to create a list of Baas.Objects.
 (function(root) {
   root.Baas = root.Baas || {};
-  var Baas = root.Baas;
+  var Baas = root.Baas,
+    ApiClient = Baas.ApiClient,
+    QueryObj = Baas.QueryObj;
 
-  /**
-   *  Collection is a container class for holding entities
-   *
-   *  @class Collection
-   */
-  Baas.Collection = function(name, uuid) {
-    this._name = name;
-    this._uuid = uuid;
-    this._list = [];
-  };
+  Baas.Collection = (function() {
 
-  Baas.Collection.prototype = {
-    getName: function() {
-      return this._name;
-    },
-    setName: function(name) {
-      this._name = name;
-    },
-    getUUID: function() {
-      return this._uuid;
-    },
-    setUUID: function(uuid) {
-      this._uuid = uuid;
-    },
-    setCurrentOrganization: function(org) {
-      this._name = org.getName();
-      this._uuid = org.getUUID();
-      this._list = org.getList();
-    },
-    addItem: function(item) {
-      var count = this._list.length;
-      this._list[count] = item;
-    },
-    getItemByName: function(name) {
-      var count = this._list.length;
-      var i=0;
-      for (i=0; i<count; i++) {
-        if (this._list[i].getName() == name) {
-          return this._list[i];
-        }
-      }
-      return null;
-    },
-    getItemByUUID: function(UUID) {
-      var count = this._list.length;
-      var i=0;
-      for (i=0; i<count; i++) {
-        if (this._list[i].getUUID() == UUID) {
-          return this._list[i];
-        }
-      }
-      return null;
-    },
-    getFirstItem: function() {
-      var count = this._list.length;
-      if (count > 0) {
-        return this._list[0];
-      }
-      return null;
-    },
-    getList: function() {
-      return this._list;
-    },
-    setList: function(list) {
-      this._list = list;
-    },
-    clearList: function() {
-      this._list = [];
+    return {
+      create: function(collectionName, data, successCallback, failureCallback) {
+          var data = data || {};
+
+          ApiClient.runAppQuery(new QueryObj('POST', collectionName, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      },
+
+      update: function() {
+          var data = data || {};
+          data.path = groupPath;
+
+          ApiClient.runAppQuery(new QueryObj('PUT', 'groups/'+ groupPath, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      },
+      remove: function() {
+          var data = data || {};
+          data.path = groupPath;
+
+          ApiClient.runAppQuery(new QueryObj('DELETE', 'groups/'+ groupPath, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      },
+      get: function() {
+          var data = data || {};
+          data.path = groupPath;
+
+          ApiClient.runAppQuery(new QueryObj('GET', 'groups/'+ groupPath, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      },
+
+      addUser: function() {
+          var data = data || {};
+          data.path = groupPath;
+          data.user = userName;
+
+          ApiClient.runAppQuery(new QueryObj('POST', 'groups/'+ groupPath +'/users/'+ userName, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      },
+
+      removeUser: function() {
+          var data = data || {};
+          data.path = groupPath;
+          data.user = userName;
+
+          ApiClient.runAppQuery(new QueryObj('DELETE', 'groups/'+ groupPath +'/users/'+ userName, data, null,
+            function (response) {
+              if (successCallback && typeof(successCallback) == "function") {
+                successCallback(response);
+              }
+            },
+            function (response) {
+              if (failureCallback && typeof(failureCallback) == "function") {
+                failureCallback(response);
+              }
+            }
+          )); 
+      } 
     }
-  };
-
+  }());
 }(this));
