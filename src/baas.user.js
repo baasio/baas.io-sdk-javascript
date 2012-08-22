@@ -50,17 +50,21 @@
 
 	_.extend(Baas.User.prototype, {
 		save: function(attr, options) {
-			var prop;
+			var prop, username, data, path;
 			attr = attr || {};
 
 			for(prop in attr) {
 				this.setField(prop, attr[prop]);
 			}
 
-			ApiClient.createAppUser(name, email, username, password, null,
-		        options.success,
-		        options.error
-		    );
+			data = attr || this.getData();
+			username = ApiClient.getAppUserUsername() || attr.username;
+			path = 'users/'+ username;
+
+		    ApiClient.runAppQuery(new QueryObj('PUT', path, data, null,
+		      options.success,
+		      options.error
+	        ));	
 		},
 		isCurrent: function() {},
 		getEmail: function() {},

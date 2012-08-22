@@ -15,7 +15,7 @@
 <body>
   
   <div id="main">
-  	<button onclick="setPasswdUser();">set password</button>
+  	<button onclick="saveUser();">save</button>
   </div>
 
   <script type="text/javascript">
@@ -27,22 +27,10 @@
     BS.App.init("haroo", "haroopress");
     BS.App.loginUser('user-test', '123456', log, log);
 
-    function setPasswdUser() {
+    function saveUser() {
       var rand = parseInt(Math.random()*1000000);
 
-      Baas.User.save({
-        "username" : "SDK.Example."+ rand,
-        "email" : "SDK.Example-"+ rand +"@baas.io",
-        "name" : "SDK.Example" ,
-        "password" : 'a'+ rand
-      }, {
-        success: log,
-        error: log
-      });
-
-
-
-      // var user = new Baas.User({
+      // Baas.User.save({
       //   "username" : "SDK.Example."+ rand,
       //   "email" : "SDK.Example-"+ rand +"@baas.io",
       //   "name" : "SDK.Example" ,
@@ -51,6 +39,20 @@
       //   success: log,
       //   error: log
       // });
+
+      var user = new Baas.User({
+        "username" : "SDK.Example."+ rand,
+        "email" : "SDK.Example-"+ rand +"@baas.io",
+        "name" : "SDK.Example" ,
+        "password" : 'a'+ rand
+      });
+
+      user.save({
+      	// city: 'san francisco',
+      	country: 'borame',
+      	zip: '333-1',
+      	city: 'korea'
+      }, { success: log, error: log});
     }
 
 
