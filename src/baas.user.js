@@ -52,6 +52,7 @@
 		save: function(attr, options) {
 			var prop, username, data, path;
 			attr = attr || {};
+			options = options || {};
 
 			for(prop in attr) {
 				this.setField(prop, attr[prop]);
@@ -66,20 +67,26 @@
 		      options.error
 	        ));	
 		},
+
 		isCurrent: function() {},
 		getEmail: function() {},
 		getUserName: function() {},
 		login: function() {},
-		logout: function() {},
-		setEmail: function() {},
+		logout: function() {
+    		ApiClient.logoutAppUser();
+		},
+		setEmail: function(email) {
+			this.setField('email', email);
+		},
 		setPassword: function(attr, options) {
-			var newpasswd, oldpasswd, user, path;
+			var newpasswd, oldpasswd, username, path;
+			options = options || {};
 
 			attr = attr || {};
-			user = ApiClient.getAppUserUsername();
-			path = 'users/'+ user +'/password';
+			username = ApiClient.getAppUserUsername();
+			path = 'users/'+ username +'/password';
 
-		    ApiClient.runAppQuery(new QueryObj('POST', path, data, null,
+		    ApiClient.runAppQuery(new QueryObj('POST', path, attr, null,
 		      options.success,
 		      options.error
 	        ));	

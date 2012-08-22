@@ -15,7 +15,7 @@
 <body>
   
   <div id="main">
-  	<button onclick="setPasswdUser();">set password</button>
+  	<button onclick="createUser();">create</button>
   </div>
 
   <script type="text/javascript">
@@ -25,27 +25,40 @@
 
   	var BS = Baas;
     BS.App.init("haroo", "haroopress");
-    BS.App.loginUser('user-test', '1234567', log, log);
 
-    function setPasswdUser() {
+    var passwd;
+    function login(response) {
+      log(response);
+      
+      BS.App.loginUser(response.entities[0].name, passwd, function(res) {
+        log(res)
+      }, function(res) {
+        log(res)
+      });
+    }
+
+    function createUser() {
       var rand = parseInt(Math.random()*1000000);
-
-      var user = new Baas.User({
-      	username: 'user-test'
-      });
-
-      user.setPassword({
-      	newpassword: '123456',
-      	oldpassword: '1234567'
+      passwd = 'a'+ rand;
+      Baas.User.create({
+        "username" : "SDK.Example."+ rand,
+        "email" : "SDK.Example-"+ rand +"@baas.io",
+        "name" : "SDK.Example" ,
+        "password" : passwd
       }, {
-      	success: log,
-      	error: log
+        success: login,
+        error: log
       });
 
-      user.setPassword({
-      	newpassword: '1234567',
-      	oldpassword: '123456'
-      });
+      // var user = new Baas.User({
+      //   "username" : "SDK.Example."+ rand,
+      //   "email" : "SDK.Example-"+ rand +"@baas.io",
+      //   "name" : "SDK.Example" ,
+      //   "password" : 'a'+ rand
+      // }, {
+      //   success: log,
+      //   error: log
+      // });
     }
 
 
