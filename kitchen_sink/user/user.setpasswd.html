@@ -26,29 +26,20 @@
   	var BS = Baas;
     BS.App.init("haroo", "haroopress");
 
-    var passwd;
-    function login(response) {
-      log(response);
-      
-      BS.App.loginUser(response.entities[0].name, passwd, function(res) {
-        log(res)
-      }, function(res) {
-        log(res)
-      });
-    }
-
     function createUser() {
       var rand = parseInt(Math.random()*1000000);
-      passwd = 'a'+ rand;
-      Baas.User.create({
+
+      var user = Baas.User.create({
         "username" : "SDK.Example."+ rand,
         "email" : "SDK.Example-"+ rand +"@baas.io",
         "name" : "SDK.Example" ,
-        "password" : passwd
+        "password" : 'a'+ rand
       }, {
-        success: login,
+        success: log,
         error: log
       });
+
+      
 
       // var user = new Baas.User({
       //   "username" : "SDK.Example."+ rand,

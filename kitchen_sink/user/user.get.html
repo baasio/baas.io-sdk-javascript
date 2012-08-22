@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>My BaaS.io Group</title>
+  <title>My BaaS.io User</title>
   <meta name="description" content="My BaaS.io App">
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="../../vendors/underscore/underscore.js"></script>
@@ -15,7 +15,7 @@
 <body>
   
   <div id="main">
-  	<button onclick="createUser();">create</button>
+  	<button onclick="getUser();">get</button>
   </div>
 
   <script type="text/javascript">
@@ -25,30 +25,23 @@
 
   	var BS = Baas;
     BS.App.init("haroo", "haroopress");
+    BS.App.loginUser('group-test', '123456', function(res) {
+      log(res)
+    }, function(res) {
+      log(res)
+    });
 
-    var passwd;
-    function login(response) {
-      log(response);
-      
-      BS.App.loginUser(response.entities[0].name, passwd, function(res) {
-        log(res)
-      }, function(res) {
-        log(res)
-      });
-    }
-
-    function createUser() {
+    function getUser() {
       var rand = parseInt(Math.random()*1000000);
-      passwd = 'a'+ rand;
-      Baas.User.create({
-        "username" : "SDK.Example."+ rand,
-        "email" : "SDK.Example-"+ rand +"@baas.io",
-        "name" : "SDK.Example" ,
-        "password" : passwd
+
+      BS.User.get({
+        "username" : "user-test"
       }, {
-        success: login,
+        success: log,
         error: log
       });
+
+      
 
       // var user = new Baas.User({
       //   "username" : "SDK.Example."+ rand,
