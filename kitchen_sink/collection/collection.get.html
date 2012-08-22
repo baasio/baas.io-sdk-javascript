@@ -15,7 +15,7 @@
 <body>
   
   <div id="main">
-  	<button onclick="createCollection();">create</button>
+  	<button onclick="getCollection();">get</button>
   </div>
 
   <script type="text/javascript">
@@ -31,7 +31,9 @@
       log(res)
     });
 
-    function createCollection() {
+    function getCollection() {
+    	var myNewCollection = new Baas.Collection('myNewCollection');
+    	myNewCollection.fetch(log, log);
     }
 
 

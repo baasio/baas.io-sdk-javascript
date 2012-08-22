@@ -15,7 +15,7 @@
 <body>
   
   <div id="main">
-  	<button onclick="createCollection();">create</button>
+  	<button onclick="queryCollection();">get</button>
   </div>
 
   <script type="text/javascript">
@@ -31,7 +31,26 @@
       log(res)
     });
 
-    function createCollection() {
+    function queryCollection() {
+    	var myNewCollection = new Baas.Collection('myNewCollection');
+
+    	/* multiple query */
+    	myNewCollection.setQuery({
+    		ql: "order by created asc",
+    		limit: 3,
+    		filter: "foo:'bar'"
+    	});
+
+    	/* 
+    	myNewCollection.Query.sort(field, order);
+    	myNewCollection.Query.start(3),
+    	myNewCollection.Query.cursor(1),
+    	myNewCollection.Query.limit(10),
+    	myNewCollection.Query.permission("GET")
+    	myNewCollection.Query.filter("foo:'bar'")
+    	*/
+
+    	myNewCollection.fetch(log, log);
     }
 
 

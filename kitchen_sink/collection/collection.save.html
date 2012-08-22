@@ -9,13 +9,14 @@
   <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
   <script type="text/javascript" src="../../src/baas.core.js"></script>
   <script type="text/javascript" src="../../src/baas.event.js"></script>
+  <script type="text/javascript" src="../../src/baas.object.js"></script>
   <script type="text/javascript" src="../../src/baas.collection.js"></script>
 </head>
 
 <body>
   
   <div id="main">
-  	<button onclick="createCollection();">create</button>
+  	<button onclick="saveCollection();">save</button>
   </div>
 
   <script type="text/javascript">
@@ -31,7 +32,15 @@
       log(res)
     });
 
-    function createCollection() {
+    function saveCollection() {
+    	var myObject = new Baas.Object('/myNewCollection');
+    	var myNewCollection = new Baas.Collection('myNewCollection');
+
+    	myObject.setData({
+    		foo: "bar",
+        rand: Math.random()
+    	})
+    	myNewCollection.save(myObject, log, log);
     }
 
 

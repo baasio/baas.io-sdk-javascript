@@ -2,25 +2,25 @@
 <head>
   <meta charset="utf-8">
 
-  <title>My BaaS.io Collection</title>
+  <title>My BaaS.io Group</title>
   <meta name="description" content="My BaaS.io App">
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="../../vendors/underscore/underscore.js"></script>
   <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
   <script type="text/javascript" src="../../src/baas.core.js"></script>
   <script type="text/javascript" src="../../src/baas.event.js"></script>
-  <script type="text/javascript" src="../../src/baas.collection.js"></script>
+  <script type="text/javascript" src="../../src/baas.user.js"></script>
 </head>
 
 <body>
   
   <div id="main">
-  	<button onclick="createCollection();">create</button>
+  	<button onclick="createUser();">create</button>
   </div>
 
   <script type="text/javascript">
     function log(res) {
-      document.body.innerHTML += JSON.stringify(res) +'<hr>';
+      document.body.innerHTML += "<pre>"+ JSON.stringify(res, null, 4) +'</pre><hr>';
     }
 
   	var BS = Baas;
@@ -31,7 +31,18 @@
       log(res)
     });
 
-    function createCollection() {
+    function createUser() {
+      var rand = parseInt(Math.random()*1000000);
+
+      Baas.User.create({
+        "username" : "SDK.Example."+ rand,
+        "email" : "SDK.Example-"+ rand +"@baas.io",
+        "name" : "SDK.Example" ,
+        "password" : 'a'+ rand
+      }, {
+        success: log,
+        error: log
+      });
     }
 
 

@@ -9,13 +9,14 @@
   <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
   <script type="text/javascript" src="../../src/baas.core.js"></script>
   <script type="text/javascript" src="../../src/baas.event.js"></script>
+  <script type="text/javascript" src="../../src/baas.object.js"></script>
   <script type="text/javascript" src="../../src/baas.collection.js"></script>
 </head>
 
 <body>
   
   <div id="main">
-  	<button onclick="createCollection();">create</button>
+  	<button onclick="deleteEntityOfCollection();">delete Entity Of Collection</button>
   </div>
 
   <script type="text/javascript">
@@ -31,7 +32,17 @@
       log(res)
     });
 
-    function createCollection() {
+    function deleteEntityOfCollection() {
+    	var myObject = new Baas.Object('/myNewCollection');
+    	var myNewCollection = new Baas.Collection('myNewCollection');
+
+    	myNewCollection.fetch(function(response) {
+    		var entities = myNewCollection.getEntities();
+    		var rnd = parseInt(Math.random() * entities.length, 10);
+    		var target = entities[rnd];
+
+    		myNewCollection.remove(target, log, log);
+    	}, log);
     }
 
 

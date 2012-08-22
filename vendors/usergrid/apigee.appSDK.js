@@ -2201,7 +2201,7 @@ apigee.validation = (function () {
           entity.save(); //need to deal with callbacks
         }
       }
-      this._queryObj.setAll('PUT', path, jsonObj, null,successCallback, errorCallback);
+      this._queryObj.setAll('PUT', this._path, jsonObj, null,successCallback, errorCallback);
     }
   };
 

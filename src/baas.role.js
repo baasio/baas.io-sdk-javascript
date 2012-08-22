@@ -4,69 +4,7 @@
   var Baas = root.Baas,
     ApiClient = Baas.ApiClient;
 
-  // Baas.Collection = apigee.Collection;
-
-  // _.extend(Baas.Collection.prototype, {
-
-    /**
-     * 앱에서 유동적으로 컬렉션을 생성할만한 목적성이 있는지 판단이 필요함
-     */
-    // create: function() {},
-    // save: function(data, successCallback, errorCallback) {
-
-    // }
-  // });
-
-  Baas.Collection = function(path, uuid) {
-    this.Query = (function() {
-      var _obj = {};
-
-      return {
-        get: function() {
-          return _obj;
-        },
-
-        merge: function(obj) {
-          var prop,
-              defaultObj = {
-                ql: null,
-                reversed: null,
-                start: null,
-                cursor: null,
-                limit: null,
-                permission: null,
-                filter: null
-              };
-
-          for(prop in obj) {
-            defaultObj[prop] = obj[prop];
-
-            //delete undefined value
-            if(defaultObj[prop] == null) {
-              delete defaultObj[prop];
-            }
-          }
-          _obj = defaultObj;
-
-          return defaultObj;
-        },
-
-        sort: function(key, order) {
-          order = order || "desc";
-          _obj.ql = "order by "+ key +" "+ order;
-        },
-
-        reverse: function() {},
-        start: function() {},
-        cursor: function() {},
-        limit: function() {},
-        permission: function() {},
-        filter: function() {}
-      }
-    }());
-    
-    this._instance = new apigee.Collection(path, uuid);
-
+  Baas.Role = function(path, uuid) {
     // return _collection;
   }
 

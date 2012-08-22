@@ -6,6 +6,21 @@
 
 	Baas.User = apigee.User;
 
+	Baas.User.create = function(attr, options) {
+		var name, email, username, password;
+		options = options || {};
+
+		name = attr.username;
+		email = attr.email;
+		username = attr.username;
+		password = attr.password;
+
+		ApiClient.createAppUser(name, email, username, password, null,
+	        options.success,
+	        options.error
+	    );
+	}
+
 	_.extend(Baas.User.prototype, {
 		isCurrent: function() {},
 		getEmail: function() {},
