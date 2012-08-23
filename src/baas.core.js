@@ -61,6 +61,21 @@
 			        }
 			      }
 			     ));
+			},
+
+			/**
+			 * 나는 앱을 떠난다.
+			 * TODO username 이 아닌 uuid 로, body 가 아닌 uri 로 넘겨야 한다.
+			 */
+			leave: function(options) {
+				var path, options = options || {};
+
+				path = 'users/'+ ApiClient.getAppUserUsername();
+
+			    ApiClient.runAppQuery(new QueryObj('DELETE', path, null, null,
+			      options.success,
+			      options.error
+		        ));	
 			}
 		}
 	}());

@@ -46,6 +46,34 @@
         ));	
 	}
 
+	Baas.User.login = function(username, password, options) {
+		options = options || {};
+		ApiClient.loginAppUser(username, password, options.success, options.error);
+	}
+
+	Baas.User.query = function(query, options) {
+		query = query || {};
+		options = options || {};
+
+	    ApiClient.runAppQuery(new QueryObj('GET', 'users', null, query,
+	      options.success,
+	      options.error
+        ));
+	}
+
+	// Baas.User.relationBy = function(username, relationship, query, options) {
+	// 	var path;
+	// 	query = query || {};
+	// 	options = options || {};
+
+	// 	path = 'users/'+ username +'/'+ relationship;
+
+	//     ApiClient.runAppQuery(new QueryObj('GET', path, null, query,
+	//       options.success,
+	//       options.error
+ //        ));
+	// }
+
   	Baas.User.prototype = new apigee.Entity();
 
 	_.extend(Baas.User.prototype, {
@@ -67,16 +95,28 @@
 		      options.error
 	        ));	
 		},
+		getUserName: function() {
+			return ApiClient.getAppUserUsername();
+		},
+		setUsername: function() {
+			ApiClient.setAppUserUsername(email);
+		},
+		login: function(options) {
+			var username, password
+			options = options || {};
+			username = this.getUserName();
+			password = this.getField('password');
 
-		isCurrent: function() {},
-		getEmail: function() {},
-		getUserName: function() {},
-		login: function() {},
+			Baas.User.login(username, password, options);
+		},
 		logout: function() {
     		ApiClient.logoutAppUser();
 		},
+		getEmail: function() {
+			return ApiClient.getAppUserEmail();
+		},
 		setEmail: function(email) {
-			this.setField('email', email);
+			ApiClient.setAppUserEmail(email);
 		},
 		setPassword: function(attr, options) {
 			var newpasswd, oldpasswd, username, path;
@@ -91,7 +131,37 @@
 		      options.error
 	        ));	
 		},
-		setUsername: function() {},
+
+		/**
+		 * 나는 앱을 떠난다.
+		 */
+		leaveFromApp: function(options) {
+			var options = options || {};
+			Baas.App.leave(options);
+		},
+
+		/**
+		 * 나와 어떤 관계를 맺는 사용자를 보여달라.
+		 */
+		relatedBy: function(relationship, query, options) {
+			var username, path;
+			query = query || {};
+			options = options || {};
+
+			username = ApiClient.getAppUserUsername();
+			path = 'users/'+ username +'/relationship';
+
+		    ApiClient.runAppQuery(new QueryObj('GET', path, null, query,
+		      options.success,
+		      options.error
+	        ));
+		},
+
+		/**
+		 * after v0.7.0
+		 */
+		follower: function() {},
+		following: function() {}
 		
 	});
 }(this));

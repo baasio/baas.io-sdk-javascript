@@ -15,8 +15,7 @@
 <body>
   
   <div id="main">
-    <button onclick="createUser();">create & login</button>
-  	<button onclick="leaveFromApp();">leaveFromApp</button>
+  	<button onclick="queryUser();">query</button>
   </div>
 
   <script type="text/javascript">
@@ -26,39 +25,16 @@
 
   	var BS = Baas;
     BS.App.init("haroo", "haroopress");
+    BS.App.loginUser('user-test', '1234567', log, log);
 
-    var rand, passwd;
-    function login(response) {
-      log(response);
-      
-      BS.App.loginUser(response.entities[0].name, passwd, function(res) {
-        log(res)
-      }, function(res) {
-        log(res)
-      });
-    }
-
-    function createUser() {
-      rand = parseInt(Math.random()*1000000);
-      passwd = 'a'+ rand;
-      Baas.User.create({
-        "username" : "SDK.Example."+ rand,
-        "email" : "SDK.Example-"+ rand +"@baas.io",
-        "name" : "SDK.Example" ,
-        "password" : passwd
-      }, {
-        success: login,
-        error: log
-      });
-    }
-
-
-
-    function leaveFromApp() {
-      BS.App.leave({
-        success: log,
-        error: log
-      });
+    function queryUser() {
+      BS.User.query({
+    		limit: 1,
+    		filter: "city='korea'"
+          }, {
+            success: log,
+            error: log
+        });   
     }
 
 
