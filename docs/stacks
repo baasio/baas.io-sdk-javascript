@@ -12,3 +12,5 @@
 ### Repository 
 
 https://github.com/kthcorp/baas.io-SDK-JavaScript
+
+open -a Google\ Chrome --args --disable-web-security

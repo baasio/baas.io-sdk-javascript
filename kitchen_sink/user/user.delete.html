@@ -1,0 +1,68 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>My BaaS.io Group</title>
+  <meta name="description" content="My BaaS.io App">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="../../vendors/underscore/underscore.js"></script>
+  <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
+  <script type="text/javascript" src="../../src/baas.core.js"></script>
+  <script type="text/javascript" src="../../src/baas.event.js"></script>
+  <script type="text/javascript" src="../../src/baas.user.js"></script>
+</head>
+
+<body>
+  
+  <div id="main">
+    <button onclick="createUser();">create & login</button>
+  	<button onclick="leaveFromApp();">leaveFromApp</button>
+  </div>
+
+  <script type="text/javascript">
+    function log(res) {
+      document.body.innerHTML += "<pre>"+ JSON.stringify(res, null, 4) +'</pre><hr>';
+    }
+
+  	var BS = Baas;
+    BS.App.init("haroo", "haroopress");
+
+    var rand, passwd;
+    function login(response) {
+      log(response);
+      
+      BS.App.loginUser(response.entities[0].name, passwd, function(res) {
+        log(res)
+      }, function(res) {
+        log(res)
+      });
+    }
+
+    function createUser() {
+      rand = parseInt(Math.random()*1000000);
+      passwd = 'a'+ rand;
+      Baas.User.create({
+        "username" : "SDK.Example."+ rand,
+        "email" : "SDK.Example-"+ rand +"@baas.io",
+        "name" : "SDK.Example" ,
+        "password" : passwd
+      }, {
+        success: login,
+        error: log
+      });
+    }
+
+
+
+    function leaveFromApp() {
+      BS.App.leave({
+        success: log,
+        error: log
+      });
+    }
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>My BaaS.io Group</title>
+  <meta name="description" content="My BaaS.io App">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="../../vendors/underscore/underscore.js"></script>
+  <script type="text/javascript" src="../../vendors/usergrid/apigee.appSDK.js"></script>
+  <script type="text/javascript" src="../../src/baas.core.js"></script>
+  <script type="text/javascript" src="../../src/baas.event.js"></script>
+  <script type="text/javascript" src="../../src/baas.group.js"></script>
+</head>
+
+<body>
+  
+  <div id="main">
+  	<button onclick="removeGroup();">remove</button>
+  </div>
+
+  <script type="text/javascript">
+    function log(res) {
+      document.body.innerHTML += JSON.stringify(res) +'<hr>';
+    }
+
+  	var BS = Baas;
+    BS.App.init("haroo", "haroopress");
+    BS.App.loginUser('group-test', '123456', function(res) {
+      log(res)
+    }, function(res) {
+      log(res)
+    });
+
+    function removeGroup() {
+ 	   BS.Group.remove('mobile2-path', null, log, log);
+    }
+
+
+  </script>
+</body>
+
+</html>
