@@ -1,6 +1,0 @@
-[submodule "vendors/underscore"]
-	path = vendors/underscore
-	url = git://github.com/documentcloud/underscore.git
-[submodule "lib/node-jscoverage"]
-	path = lib/node-jscoverage
-	url = git@github.com:visionmedia/node-jscoverage.git
