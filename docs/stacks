@@ -1,0 +1,23 @@
+### Requirement
+* Mac OS X & Linux
+* node.js v0.6.x~
+* git & git-flow
+
+### JavaScript Vendors
+* underscore
+
+### Test Coverage
+* Mocha : http://visionmedia.github.com/mocha/
+> 노드 기반 TDD/BDD 프레임워크 및 리포팅 툴
+* node-jscoverage : https://github.com/visionmedia/node-jscoverage
+> 자바스크립트 테스트 커버리지 측정 라이브러리
+* chai : http://chaijs.com/ 
+> 브라우저 기반 TDD/BDD 프레임워크
+> style : assert
+
+### Repository 
+
+https://github.com/kthcorp/baas.io-SDK-JavaScript
+
+* master : 안정 버젼
+* devel : 개발 브랜치

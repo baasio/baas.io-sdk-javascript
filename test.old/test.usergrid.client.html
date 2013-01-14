@@ -1,0 +1,22 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="lib/mocha.css" />
+  
+  <script src="lib/mocha.js"></script>
+  <script src="http://chaijs.com/chai.js"></script>
+  <script>
+  </script>
+  <script src="test.usergrid.client.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script>
+      mocha.setup('tdd');
+      mocha.run();
+
+      var assert = chai.assert; 
+  </script>
+</body>
+</html>

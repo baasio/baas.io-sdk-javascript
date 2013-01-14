@@ -1,0 +1,17 @@
+{
+  "name": "baasio",
+  "version": "0.1.0",
+  "description": "JavaScript SDK for Hybrid Web Application based on baas.io",
+  "main": "index.js",
+  "homepage": "https://baas.io",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "support@kthcorp.com",
+  "license": "LGPL",
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.1.0",
+    "grunt-contrib": "~0.3.0"
+  }
+}

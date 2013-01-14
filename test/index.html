@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Online Test Suite - Chai</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="mocha/mocha.js"></script>
+    <script>mocha.setup('tdd');</script>
+    <script src="chai/chai.js"></script>
+    
+    <!-- test resource -->
+    <script src="../../src/core/underscore.js"></script>
+    <script src="../../src/core/base.js"></script>
+
+    <!-- test suite start -->
+    <script src="test/configuration.js"></script>
+    <script src="test/should.js"></script>
+    <script src="test/core/base.js"></script>
+    <!-- test suite end -->
+
+    <script>
+      onload = function () {
+        mocha.run();
+      };  
+      
+    </script>
+    <link rel="stylesheet" href="mocha/mocha.css" />
+    
+  </head>
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>
