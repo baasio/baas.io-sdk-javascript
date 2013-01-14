@@ -59,12 +59,17 @@ module.exports = function(grunt) {
       build: {
         command: 'uglifyjs ./build/built.js -o ./dest/baas.io.min.js -p 5 -c -m'
         // stdout: true
+      },
+
+      kitchen: {
+        command: 'cp -R ./baas.*.js ./kitchen_sink/desktop/js/'
       }
     }
   });
 
 
   // grunt.registerTask('default', 'init');
-  grunt.registerTask('default', 'concat:dist exec concat:release');
+  grunt.registerTask('default', 'concat:dist exec:build concat:release');
   grunt.registerTask('release', 'concat:development concat:production');
+  grunt.registerTask('kitchen', 'exec:kitchen');
 };

@@ -7,7 +7,7 @@ $(function(){
 
 // display the version of jQM
 $(document).bind( 'pageinit', function() {
-	var version = $.mobile.version || "dev",
+	var version = baasio.VERSION || "dev",
 		words = version.split( "-" ),
 		ver = words[0],
 		str = (words[1] || "Final"),
@@ -20,7 +20,7 @@ $(document).bind( 'pageinit', function() {
 		str = str.toUpperCase().replace(".", "");
 	}
 
-	if ( $.mobile.version && str ) {
+	if ( baasio.VERSION && str ) {
 		html += " <b>" + str + "</b>";
 		foothtml += " " + str;
 	}
