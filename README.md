@@ -49,23 +49,58 @@
 * PhoneGap
 * Appspresso
 
-## Grunt.js
+## Grunt.js 자동화
+
+* grunt.js 용 모듈 필요
 
 ```
 $ npm install grunt-exec
 ```
 
 * minify, obfuscating
+
 > `grunt-exec` 모듈을 이용해서 uglify.js 스크립트를 CLI 에서 바로 실행할 수 있도록 개선
 	- grunt : 기본적인 최적화
 	- grunt release : release 용 생성 `baas.io.js`, `baas.io.min.js`
 	- grunt kitchen : kitchensink 앱에 최신의 라이브러리가 적용됨
 
+### 빌드
+
+```
+$ grunt
+
+# 혹은 다음과 같이 실행
+
+$ grunt default
+```
+
+위와 같이 실행하면 `src` 디렉토리에 존재하는 분리된 라이브러리들을 하나로 합치고 uglifyjs 를 이용한 최적화가 진행된 후 `dest` 폴더에 개발용 `baas.io.js`, 배포용 `baas.io.min.js` 가 생성된다.
+
+### 배포
+
+```
+$ grunt release
+```
+
+위와 같이 실행하면 `grunt default` 로 실행한 파일을 기준으로 생성된 파일으로 배포용 파일을 생성한다. 
+
+배포용 파일을 생성할 때는 의존성 있는 `underscore.js` 와 병합을 하거나 상단 라이센스, 버젼과 관련된 베너 코멘트가 추가된다.
+
+### 기타
+
+```
+$ grunt kitchen
+```
+
+위와 같이 실행하면 `grunt default` 로 실행한 파일을 기준으로 생성된 파일을 기준으로 kitchensink 앱에 최신의 빌드 파일을 적용한다.
+
 ## KitchenSink App
 
-`node-webkit` 를 github.com 을 참조하여 로컬 환경에 설치되어 있어야 한다.
+`node-webkit` 를 github.com 을 참조하여 로컬 환경에 설치되어 있어야 한다. 
 
 * [node-webkit](https://github.com/rogerwang/node-webkit)
+
+참고로 `node-webkit` 은 node 모듈이 아닌 구글 Chromium 브라우저를 임베디드한 웹킷 엔진으로 자바스크립트와 HTML 로 개발된 애플리케이션을 데스크탑에서 독립실행형 애플리케이션으로 동작할 수 있도록 해주는 실행 환경이다.
 
 ### 실행방법
 
