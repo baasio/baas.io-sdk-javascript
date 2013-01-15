@@ -2,7 +2,7 @@
   "name": "baasio",
   "version": "0.1.0",
   "description": "JavaScript SDK for Hybrid Web Application based on baas.io",
-  "main": "index.js",
+  "main": "baas.io.js",
   "homepage": "https://baas.io",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
