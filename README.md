@@ -40,6 +40,7 @@
 * mocha + chai
 * [http://visionmedia.github.com/mocha/](http://visionmedia.github.com/mocha/)
 
+<<<<<<< HEAD
 ## UI
 * Sencha Touch
 * jQuery Mobile
@@ -50,6 +51,9 @@
 * Appspresso
 
 ## Grunt.js
+=======
+### Grunt.js
+>>>>>>> 7321a3b73ee9f2edf137b4d9181e34ad95e0434d
 
 ```
 $ npm install grunt-exec
@@ -61,22 +65,35 @@ $ npm install grunt-exec
 	- grunt release : release 용 생성 `baas.io.js`, `baas.io.min.js`
 	- grunt kitchen : kitchensink 앱에 최신의 라이브러리가 적용됨
 
+<<<<<<< HEAD
 ## KitchenSink App
+=======
+### KitchenSink App
+>>>>>>> 7321a3b73ee9f2edf137b4d9181e34ad95e0434d
 
 `node-webkit` 를 github.com 을 참조하여 로컬 환경에 설치되어 있어야 한다.
 
 * [node-webkit](https://github.com/rogerwang/node-webkit)
 
+<<<<<<< HEAD
 ### 실행방법
+=======
+#### 실행방법
+>>>>>>> 7321a3b73ee9f2edf137b4d9181e34ad95e0434d
 
 ```
 $ cd kitchens_sink
 $ nw desktop
 ````
 
+<<<<<<< HEAD
 ## 기타 단기 목표
 * 도그푸팅을 통해 사내에서 사용할 수 있는 유용한 앱을 1개
 * 키친싱크 앱 개발을 통한 SDK 가이드 문서화와 예시를 동시 제공
+=======
+### 기타 단기 목표
+* 도그푸팅을 통해 사내에서 사용할 수 있는 유용한 앱을 1개
+>>>>>>> 7321a3b73ee9f2edf137b4d9181e34ad95e0434d
 
 ## changelog
 
