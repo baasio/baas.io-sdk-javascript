@@ -47,5 +47,35 @@
 * mocha + chai
 * [http://visionmedia.github.com/mocha/](http://visionmedia.github.com/mocha/)
 
+### Grunt.js
+
+```
+$ npm install grunt-exec
+```
+
+* minify, obfuscating
+> `grunt-exec` 모듈을 이용해서 uglify.js 스크립트를 CLI 에서 바로 실행할 수 있도록 개선
+	- grunt : 기본적인 최적화
+	- grunt release : release 용 생성 `baas.io.js`, `baas.io.min.js`
+	- grunt kitchen : kitchensink 앱에 최신의 라이브러리가 적용됨
+
+### KitchenSink App
+
+`node-webkit` 를 github.com 을 참조하여 로컬 환경에 설치되어 있어야 한다.
+
+* [node-webkit](https://github.com/rogerwang/node-webkit)
+
+#### 실행방법
+
+```
+$ cd kitchens_sink
+$ nw desktop
+````
+
 ### 기타 단기 목표
 * 도그푸팅을 통해 사내에서 사용할 수 있는 유용한 앱을 1개
+
+## changelog
+
+### v0.1.0
+* grunt.js 를 통한 minify, obfuscating, build, release 자동화
