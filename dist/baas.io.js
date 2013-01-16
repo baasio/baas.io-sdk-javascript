@@ -1,10 +1,3 @@
-/**
- * baas.io.js - v0.1.0
- * https://baas.io
- * JavaScript SDK for Hybrid Web Application based on baas.io
- * (c) 2012-2013 KTH, support@kthcorp.com
- */
-
 (function() {
 	
 /*
