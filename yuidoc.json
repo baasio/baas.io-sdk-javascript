@@ -1,0 +1,15 @@
+{
+    "name": "baasio",
+    "description": "JavaScript SDK for Hybrid Web Application based on baas.io",
+    "version": "0.1.0",
+    "url": "https://baas.io",
+    "options": {
+        "linkNatives": "true",        
+        "attributesEmit": "true",
+        "selleck": "true",
+        "paths": [
+                  "./src/core/"
+                ],
+        "outdir": "docs"
+    }
+}

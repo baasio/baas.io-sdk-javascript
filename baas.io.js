@@ -1,49 +1,35 @@
-/**
- * baas.io.js - v0.1.0
- * https://baas.io
- * JavaScript SDK for Hybrid Web Application based on baas.io
- * (c) 2012-2013 KTH, support@kthcorp.com
- */
-
+// baas.io.js - v0.1.0
+// https://baas.io
+// JavaScript SDK for Hybrid Web Application based on baas.io
+// (c) 2012-2013 KTH, support@kthcorp.com
 (function() {
 	
-/*
-*  This module is a collection of classes designed to make working with
-*  the Appigee App Services API as easy as possible.
-*  Learn more at http://apigee.com/docs/usergrid
-*
-*   Copyright 2012 Apigee Corporation
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*
-*  @author rod simpson (rod@apigee.com)
-*/
+var root = this;
+var Baas = root.Baas || {};
+
+root.console = root.console || {};
+root.console.log = root.console.log || function() {};
+
+// Current version.
+Baas.VERSION = '0.1.0';
+
+// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
+if (typeof exports !== 'undefined') {
+	if (typeof module !== 'undefined' && module.exports) {
+		exports = module.exports = Baas;
+	}
+
+	exports.Baas = Baas;
+} else {
+	root.Baas = Baas;
+}
 
 
-//define the console.log for IE
-window.console = window.console || {};
-window.console.log = window.console.log || function() {};
+Baas.IO = function(options) {
+  //Baas enpoint
+  this.URI = 'https://api.baas.io';
 
-//Usergrid namespace encapsulates this SDK
-window.Usergrid = window.Usergrid || {};
-Usergrid = Usergrid || {};
-Usergrid.SDK_VERSION = '0.10.03';
-
-Usergrid.Client = function(options) {
-  //usergrid enpoint
-  this.URI = 'https://api.usergrid.com';
-
-  //Find your Orgname and Appname in the Admin portal (http://apigee.com/usergrid)
+  //Find your Orgname and Appname in the Admin portal (http://apigee.com/Baas)
   this.orgName = options.orgName;
   this.appName = options.appName;
   
@@ -57,6 +43,8 @@ Usergrid.Client = function(options) {
   this.logoutCallback =  options.logoutCallback || null;
 
 };
+
+
 
 /*
 *  Main function for making requests to the API.  Can be called directly.
@@ -74,7 +62,7 @@ Usergrid.Client = function(options) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.request = function (options, callback) {
+Baas.IO.prototype.request = function (options, callback) {
   var self = this;
   var method = options.method || 'GET';
   var endpoint = options.endpoint;
@@ -203,12 +191,12 @@ Usergrid.Client.prototype.request = function (options, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.createEntity = function (options, callback) {
+Baas.IO.prototype.createEntity = function (options, callback) {
   var options = {
     client:this,
     data:options
   }
-  var entity = new Usergrid.Entity(options);
+  var entity = new Baas.Entity(options);
   entity.save(function(err, data) {
     if (typeof(callback) === 'function') {
       callback(err, entity);
@@ -227,9 +215,9 @@ Usergrid.Client.prototype.createEntity = function (options, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.createCollection = function (options, callback) {
+Baas.IO.prototype.createCollection = function (options, callback) {
   options.client = this;
-  var collection = new Usergrid.Collection(options, function(err, data) {
+  var collection = new Baas.Collection(options, function(err, data) {
     if (typeof(callback) === 'function') {
       callback(err, collection);
     }
@@ -272,13 +260,13 @@ Usergrid.Client.prototype.createCollection = function (options, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.createUserActivity = function (user, options, callback) {
+Baas.IO.prototype.createUserActivity = function (user, options, callback) {
   options.type = 'users/'+user+'/activities';
   var options = {
     client:this,
     data:options
   }
-  var entity = new Usergrid.Entity(options);
+  var entity = new Baas.Entity(options);
   entity.save(function(err, data) {
     if (typeof(callback) === 'function') {
       callback(err, entity);
@@ -289,7 +277,7 @@ Usergrid.Client.prototype.createUserActivity = function (user, options, callback
 /*
 *  A private method to get call timing of last call
 */
-Usergrid.Client.prototype.calcTimeDiff = function () {
+Baas.IO.prototype.calcTimeDiff = function () {
  var seconds = 0;
  var time = this._end - this._start;
  try {
@@ -306,7 +294,7 @@ Usergrid.Client.prototype.calcTimeDiff = function () {
 *  @params {string} token
 *  @return none
 */
-Usergrid.Client.prototype.setToken = function (token) {
+Baas.IO.prototype.setToken = function (token) {
   this.token = token;
   if(typeof(Storage)!=="undefined"){
     localStorage.setItem('token', token);
@@ -320,7 +308,7 @@ Usergrid.Client.prototype.setToken = function (token) {
 *  @public
 *  @return {string} token
 */
-Usergrid.Client.prototype.getToken = function () {
+Baas.IO.prototype.getToken = function () {
   if (this.token) {
     return this.token;
   } else if(typeof(Storage)!=="undefined") {
@@ -339,7 +327,7 @@ Usergrid.Client.prototype.getToken = function () {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.login = function (username, password, callback) {
+Baas.IO.prototype.login = function (username, password, callback) {
   var self = this;
   var options = {
     method:'GET',
@@ -355,7 +343,7 @@ Usergrid.Client.prototype.login = function (username, password, callback) {
     if (err && self.logging) {
       console.log('error trying to log user in');
     } else {
-      user = new Usergrid.Entity('users', data.user);
+      user = new Baas.Entity('users', data.user);
       self.setToken (data.access_token);
     }
     if (typeof(callback) === 'function') {
@@ -374,7 +362,7 @@ Usergrid.Client.prototype.login = function (username, password, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.loginFacebook = function (facebookToken, callback) {
+Baas.IO.prototype.loginFacebook = function (facebookToken, callback) {
   var self = this;
   var options = {
     method:'GET',
@@ -388,7 +376,7 @@ Usergrid.Client.prototype.loginFacebook = function (facebookToken, callback) {
     if (err && self.logging) {
       console.log('error trying to log user in');
     } else {
-      user = new Usergrid.Entity('users', data.user);
+      user = new Baas.Entity('users', data.user);
       self.setToken(data.access_token);
     }
     if (typeof(callback) === 'function') {
@@ -405,7 +393,7 @@ Usergrid.Client.prototype.loginFacebook = function (facebookToken, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Client.prototype.getLoggedInUser = function (callback) {
+Baas.IO.prototype.getLoggedInUser = function (callback) {
   if (!this.getToken) {
     callback(true, null, null);
   } else {
@@ -427,7 +415,7 @@ Usergrid.Client.prototype.getLoggedInUser = function (callback) {
           client:self,
           data:data.entities[0]
         }
-        var user = new Usergrid.Entity(options);
+        var user = new Baas.Entity(options);
         if (typeof(callback) === 'function') {
           callback(err, data, user);
         }
@@ -444,7 +432,7 @@ Usergrid.Client.prototype.getLoggedInUser = function (callback) {
 *  @public
 *  @return {boolean} Returns true the user is logged in (has token and uuid), false if not
 */
-Usergrid.Client.prototype.isLoggedIn = function () {
+Baas.IO.prototype.isLoggedIn = function () {
   if (this.getToken()) {
     return true;
   }
@@ -458,7 +446,7 @@ Usergrid.Client.prototype.isLoggedIn = function () {
 *  @public
 *  @return none
 */
-Usergrid.Client.prototype.logout = function () {
+Baas.IO.prototype.logout = function () {
   this.setToken(null);
 }
 
@@ -470,7 +458,7 @@ Usergrid.Client.prototype.logout = function () {
 *  @param {object} options
 *  @return {string} curl
 */
-Usergrid.Client.prototype.buildCurlCall = function (options) {
+Baas.IO.prototype.buildCurlCall = function (options) {
   var curl = 'curl';
   var method = (options.method || 'GET').toUpperCase();
   var body = options.body || {};
@@ -500,13 +488,64 @@ Usergrid.Client.prototype.buildCurlCall = function (options) {
 
 
 /*
-*  A class to Model a Usergrid Entity.
+* Tests if the string is a uuid
+*
+* @public
+* @method isUUID
+* @param {string} uuid The string to test
+* @returns {Boolean} true if string is uuid
+*/
+function isUUID (uuid) {
+  var uuidValueRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+  if (!uuid) return false;
+  return uuidValueRegex.test(uuid);
+}
+
+
+/*
+*  method to encode the query string parameters
+*
+*  @method encodeParams
+*  @public
+*  @params {object} params - an object of name value pairs that will be urlencoded
+*  @return {string} Returns the encoded string
+*/
+function encodeParams (params) {
+  tail = [];
+  var item = [];
+  if (params instanceof Array) {
+    for (i in params) {
+      item = params[i];
+      if ((item instanceof Array) && (item.length > 1)) {
+        tail.push(item[0] + "=" + encodeURIComponent(item[1]));
+      }
+    }
+  } else {
+    for (var key in params) {
+      if (params.hasOwnProperty(key)) {
+        var value = params[key];
+        if (value instanceof Array) {
+          for (i in value) {
+            item = value[i];
+            tail.push(key + "=" + encodeURIComponent(item));
+          }
+        } else {
+          tail.push(key + "=" + encodeURIComponent(value));
+        }
+      }
+    }
+  }
+  return tail.join("&");
+}
+
+/*
+*  A class to Model a Baas Entity.
 *  Set the type of entity in the 'data' json object
 *
 *  @constructor
 *  @param {object} options {client:client, data:{'type':'collection_type', 'key':'value'}, uuid:uuid}}
 */
-Usergrid.Entity = function(options) {
+Baas.Entity = function(options) {
   this._client = options.client;
   this._data = options.data || {};
 };
@@ -519,7 +558,7 @@ Usergrid.Entity = function(options) {
 *  @param {string} field
 *  @return {string} || {object} data
 */
-Usergrid.Entity.prototype.get = function (field) {
+Baas.Entity.prototype.get = function (field) {
   if (field) {
     return this._data[field];
   } else {
@@ -537,7 +576,7 @@ Usergrid.Entity.prototype.get = function (field) {
 *  @param {string} value
 *  @return none
 */
-Usergrid.Entity.prototype.set = function (key, value) {
+Baas.Entity.prototype.set = function (key, value) {
   if (typeof key === 'object') {
     for(var field in key) {
       this._data[field] = key[field];
@@ -561,7 +600,7 @@ Usergrid.Entity.prototype.set = function (key, value) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Entity.prototype.save = function (callback) {
+Baas.Entity.prototype.save = function (callback) {
   //TODO:  API will be changed soon to accomodate PUTs via name which create new entities
   //       This function should be changed to PUT only at that time, and updated to use
   //       either uuid or name
@@ -640,7 +679,7 @@ Usergrid.Entity.prototype.save = function (callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Entity.prototype.fetch = function (callback) {
+Baas.Entity.prototype.fetch = function (callback) {
   var type = this.get('type');
   var self = this;
 
@@ -705,7 +744,7 @@ Usergrid.Entity.prototype.fetch = function (callback) {
 *  @return {callback} callback(err, data)
 *
 */
-Usergrid.Entity.prototype.destroy = function (callback) {
+Baas.Entity.prototype.destroy = function (callback) {
   var type = this.get('type');
   if (isUUID(this.get('uuid'))) {
     type += '/' + this.get('uuid');
@@ -736,9 +775,8 @@ Usergrid.Entity.prototype.destroy = function (callback) {
 }
 
 
-
 /*
-*  The Collection class models Usergrid Collections.  It essentially
+*  The Collection class models Baas Collections.  It essentially
 *  acts as a container for holding Entity objects, while providing
 *  additional funcitonality such as paging, and saving
 *
@@ -747,7 +785,7 @@ Usergrid.Entity.prototype.destroy = function (callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Collection = function(options, callback) {
+Baas.Collection = function(options, callback) {
   this._client = options.client;
   this._type = options.type;
   this.qs = options.qs || {};
@@ -772,7 +810,7 @@ Usergrid.Collection = function(options, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Collection.prototype.fetch = function (callback) {
+Baas.Collection.prototype.fetch = function (callback) {
   var self = this;
   var qs = this.qs;
 
@@ -799,7 +837,7 @@ Usergrid.Collection.prototype.fetch = function (callback) {
         var count = data.entities.length;
         //save entities locally
         self._list = []; //clear the local list first
-        for (var i=0;i<count;i++) {
+        for (var i=0; i<count; i++) {
           var uuid = data.entities[i].uuid;
           if (uuid) {
             var entityData = data.entities[i] || {};
@@ -809,7 +847,7 @@ Usergrid.Collection.prototype.fetch = function (callback) {
               uuid:uuid,
               data:entityData
             };
-            var ent = new Usergrid.Entity(entityOptions);
+            var ent = new Baas.Entity(entityOptions);
             var ct = self._list.length;
             self._list[ct] = ent;
           }
@@ -830,7 +868,7 @@ Usergrid.Collection.prototype.fetch = function (callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data, entity)
 */
-Usergrid.Collection.prototype.addEntity = function (options, callback) {
+Baas.Collection.prototype.addEntity = function (options, callback) {
   var self = this;
   options.type = this._type;
 
@@ -855,7 +893,7 @@ Usergrid.Collection.prototype.addEntity = function (options, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Collection.prototype.destroyEntity = function (entity, callback) {
+Baas.Collection.prototype.destroyEntity = function (entity, callback) {
   var self = this;
   entity.destroy(function(err, data) {
     if (err) {
@@ -880,7 +918,7 @@ Usergrid.Collection.prototype.destroyEntity = function (entity, callback) {
 *  @param {function} callback
 *  @return {callback} callback(err, data, entity)
 */
-Usergrid.Collection.prototype.getEntityByUUID = function (uuid, callback) {
+Baas.Collection.prototype.getEntityByUUID = function (uuid, callback) {
   //get the entity from the database
   var options = {
     data: {
@@ -889,7 +927,7 @@ Usergrid.Collection.prototype.getEntityByUUID = function (uuid, callback) {
     },
     client: this._client
   }
-  var entity = new Usergrid.Entity(options);
+  var entity = new Baas.Entity(options);
   entity.fetch(callback);
 }
 
@@ -899,7 +937,7 @@ Usergrid.Collection.prototype.getEntityByUUID = function (uuid, callback) {
 *  @method getFirstEntity
 *  @return {object} returns an entity object
 */
-Usergrid.Collection.prototype.getFirstEntity = function () {
+Baas.Collection.prototype.getFirstEntity = function () {
   var count = this._list.length;
   if (count > 0) {
     return this._list[0];
@@ -913,7 +951,7 @@ Usergrid.Collection.prototype.getFirstEntity = function () {
 *  @method getLastEntity
 *  @return {object} returns an entity object
 */
-Usergrid.Collection.prototype.getLastEntity = function () {
+Baas.Collection.prototype.getLastEntity = function () {
   var count = this._list.length;
   if (count > 0) {
     return this._list[count-1];
@@ -930,7 +968,7 @@ Usergrid.Collection.prototype.getLastEntity = function () {
 *  @method hasNextEntity
 *  @return {boolean} true if there is a next entity, false if not
 */
-Usergrid.Collection.prototype.hasNextEntity = function () {
+Baas.Collection.prototype.hasNextEntity = function () {
   var next = this._iterator + 1;
   var hasNextElement = (next >=0 && next < this._list.length);
   if(hasNextElement) {
@@ -948,7 +986,7 @@ Usergrid.Collection.prototype.hasNextEntity = function () {
 *  @method hasNextEntity
 *  @return {object} entity
 */
-Usergrid.Collection.prototype.getNextEntity = function () {
+Baas.Collection.prototype.getNextEntity = function () {
   this._iterator++;
   var hasNextElement = (this._iterator >= 0 && this._iterator <= this._list.length);
   if(hasNextElement) {
@@ -964,7 +1002,7 @@ Usergrid.Collection.prototype.getNextEntity = function () {
 *  @method hasPrevEntity
 *  @return {boolean} true if there is a previous entity, false if not
 */
-Usergrid.Collection.prototype.hasPrevEntity = function () {
+Baas.Collection.prototype.hasPrevEntity = function () {
   var previous = this._iterator - 1;
   var hasPreviousElement = (previous >=0 && previous < this._list.length);
   if(hasPreviousElement) {
@@ -979,7 +1017,7 @@ Usergrid.Collection.prototype.hasPrevEntity = function () {
 *  @method getPrevEntity
 *  @return {object} entity
 */
-Usergrid.Collection.prototype.getPrevEntity = function () {
+Baas.Collection.prototype.getPrevEntity = function () {
    this._iterator--;
    var hasPreviousElement = (this._iterator >= 0 && this._iterator <= this._list.length);
    if(hasPreviousElement) {
@@ -995,7 +1033,7 @@ Usergrid.Collection.prototype.getPrevEntity = function () {
 *  @method resetEntityPointer
 *  @return none
 */
-Usergrid.Collection.prototype.resetEntityPointer = function () {
+Baas.Collection.prototype.resetEntityPointer = function () {
    this._iterator  = -1;
 }
 
@@ -1006,7 +1044,7 @@ Usergrid.Collection.prototype.resetEntityPointer = function () {
 * @method saveCursor
 * @return none
 */
-Usergrid.Collection.prototype.saveCursor = function(cursor) {
+Baas.Collection.prototype.saveCursor = function(cursor) {
   //if current cursor is different, grab it for next cursor
   if (this._next !== cursor) {
     this._next = cursor;
@@ -1020,7 +1058,7 @@ Usergrid.Collection.prototype.saveCursor = function(cursor) {
 * @method resetPaging
 * @return none
 */
-Usergrid.Collection.prototype.resetPaging = function() {
+Baas.Collection.prototype.resetPaging = function() {
   this._previous = [];
   this._next = null;
   this._cursor = null;
@@ -1032,7 +1070,7 @@ Usergrid.Collection.prototype.resetPaging = function() {
 *  @method hasNextPage
 *  @return {boolean} returns true if there is a next page of data, false otherwise
 */
-Usergrid.Collection.prototype.hasNextPage = function () {
+Baas.Collection.prototype.hasNextPage = function () {
   return (this._next);
 }
 
@@ -1045,7 +1083,7 @@ Usergrid.Collection.prototype.hasNextPage = function () {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Collection.prototype.getNextPage = function (callback) {
+Baas.Collection.prototype.getNextPage = function (callback) {
   if (this.hasNextPage()) {
     //set the cursor to the next page of data
     this._previous.push(this._cursor);
@@ -1062,7 +1100,7 @@ Usergrid.Collection.prototype.getNextPage = function (callback) {
 *  @method hasPreviousPage
 *  @return {boolean} returns true if there is a previous page of data, false otherwise
 */
-Usergrid.Collection.prototype.hasPreviousPage = function () {
+Baas.Collection.prototype.hasPreviousPage = function () {
   return (this._previous.length > 0);
 }
 
@@ -1075,7 +1113,7 @@ Usergrid.Collection.prototype.hasPreviousPage = function () {
 *  @param {function} callback
 *  @return {callback} callback(err, data)
 */
-Usergrid.Collection.prototype.getPreviousPage = function (callback) {
+Baas.Collection.prototype.getPreviousPage = function (callback) {
   if (this.hasPreviousPage()) {
     this._next=null; //clear out next so the comparison will find the next item
     this._cursor = this._previous.pop();
@@ -1085,325 +1123,4 @@ Usergrid.Collection.prototype.getPreviousPage = function (callback) {
   }
 }
 
-/*
-* Tests if the string is a uuid
-*
-* @public
-* @method isUUID
-* @param {string} uuid The string to test
-* @returns {Boolean} true if string is uuid
-*/
-function isUUID (uuid) {
-  var uuidValueRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-  if (!uuid) return false;
-  return uuidValueRegex.test(uuid);
-}
-
-
-/*
-*  method to encode the query string parameters
-*
-*  @method encodeParams
-*  @public
-*  @params {object} params - an object of name value pairs that will be urlencoded
-*  @return {string} Returns the encoded string
-*/
-function encodeParams (params) {
-  tail = [];
-  var item = [];
-  if (params instanceof Array) {
-    for (i in params) {
-      item = params[i];
-      if ((item instanceof Array) && (item.length > 1)) {
-        tail.push(item[0] + "=" + encodeURIComponent(item[1]));
-      }
-    }
-  } else {
-    for (var key in params) {
-      if (params.hasOwnProperty(key)) {
-        var value = params[key];
-        if (value instanceof Array) {
-          for (i in value) {
-            item = value[i];
-            tail.push(key + "=" + encodeURIComponent(item));
-          }
-        } else {
-          tail.push(key + "=" + encodeURIComponent(value));
-        }
-      }
-    }
-  }
-  return tail.join("&");
-}
-
-/**
- * validation is a Singleton that provides methods for validating common field types
- *
- * @class Usergrid.validation
- * @author Rod Simpson (rod@apigee.com)
-**/
-Usergrid.validation = (function () {
-
-  var usernameRegex = new RegExp("^([0-9a-zA-Z\.\-])+$");
-  var nameRegex     = new RegExp("^([0-9a-zA-Z@#$%^&!?;:.,'\"~*-=+_\[\\](){}/\\ |])+$");
-  var emailRegex    = new RegExp("^(([0-9a-zA-Z]+[_\+.-]?)+@[0-9a-zA-Z]+[0-9,a-z,A-Z,.,-]*(.){1}[a-zA-Z]{2,4})+$");
-  var passwordRegex = new RegExp("^([0-9a-zA-Z@#$%^&!?<>;:.,'\"~*-=+_\[\\](){}/\\ |])+$");
-  var pathRegex     = new RegExp("^([0-9a-z./-])+$");
-  var titleRegex    = new RegExp("^([0-9a-zA-Z.!-?/])+$");
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validateUsername
-    * @param {string} username - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validateUsername(username, failureCallback) {
-    if (usernameRegex.test(username) && checkLength(username, 4, 80)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getUsernameAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getUsernameAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getUsernameAllowedChars(){
-    return 'Length: min 4, max 80. Allowed: A-Z, a-z, 0-9, dot, and dash';
-  }
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validateName
-    * @param {string} name - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validateName(name, failureCallback) {
-    if (nameRegex.test(name) && checkLength(name, 4, 80)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getNameAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getNameAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getNameAllowedChars(){
-    return 'Length: min 4, max 80. Allowed: A-Z, a-z, 0-9, ~ @ # % ^ & * ( ) - _ = + [ ] { } \\ | ; : \' " , . / ? !';
-  }
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validatePassword
-    * @param {string} password - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validatePassword(password, failureCallback) {
-    if (passwordRegex.test(password) && checkLength(password, 5, 16)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getPasswordAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getPasswordAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getPasswordAllowedChars(){
-    return 'Length: min 5, max 16. Allowed: A-Z, a-z, 0-9, ~ @ # % ^ & * ( ) - _ = + [ ] { } \\ | ; : \' " , . < > / ? !';
-  }
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validateEmail
-    * @param {string} email - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validateEmail(email, failureCallback) {
-    if (emailRegex.test(email) && checkLength(email, 4, 80)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getEmailAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getEmailAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getEmailAllowedChars(){
-    return 'Email must be in standard form: e.g. example@Usergrid.com';
-  }
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validatePath
-    * @param {string} path - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validatePath(path, failureCallback) {
-    if (pathRegex.test(path) && checkLength(path, 4, 80)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getPathAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getPathAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getPathAllowedChars(){
-    return 'Length: min 4, max 80. Allowed: /, a-z, 0-9, dot, and dash';
-  }
-
-  /**
-    * Tests the string against the allowed chars regex
-    *
-    * @public
-    * @method validateTitle
-    * @param {string} title - The string to test
-    * @param {function} failureCallback - (optional), the function to call on a failure
-    * @return {boolean} Returns true if string passes regex, false if not
-    */
-  function validateTitle(title, failureCallback) {
-    if (titleRegex.test(title) && checkLength(title, 4, 80)) {
-      return true;
-    } else {
-      if (failureCallback && typeof(failureCallback) === "function") {
-        failureCallback(this.getTitleAllowedChars());
-      }
-      return false;
-    }
-  }
-
-  /**
-    * Returns the regex of allowed chars
-    *
-    * @public
-    * @method getTitleAllowedChars
-    * @return {string} Returns a string with the allowed chars
-    */
-  function getTitleAllowedChars(){
-    return 'Length: min 4, max 80. Allowed: space, A-Z, a-z, 0-9, dot, dash, /, !, and ?';
-  }
-
-  /**
-    * Tests if the string is the correct length
-    *
-    * @public
-    * @method checkLength
-    * @param {string} string - The string to test
-    * @param {integer} min - the lower bound
-    * @param {integer} max - the upper bound
-    * @return {boolean} Returns true if string is correct length, false if not
-    */
-  function checkLength(string, min, max) {
-    if (string.length > max || string.length < min) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
-    * Tests if the string is a uuid
-    *
-    * @public
-    * @method isUUID
-    * @param {string} uuid The string to test
-    * @returns {Boolean} true if string is uuid
-    */
-  function isUUID (uuid) {
-    var uuidValueRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    if (!uuid) return false;
-    return uuidValueRegex.test(uuid);
-  }
-
-  return {
-    validateUsername:validateUsername,
-    getUsernameAllowedChars:getUsernameAllowedChars,
-    validateName:validateName,
-    getNameAllowedChars:getNameAllowedChars,
-    validatePassword:validatePassword,
-    getPasswordAllowedChars:getPasswordAllowedChars,
-    validateEmail:validateEmail,
-    getEmailAllowedChars:getEmailAllowedChars,
-    validatePath:validatePath,
-    getPathAllowedChars:getPathAllowedChars,
-    validateTitle:validateTitle,
-    getTitleAllowedChars:getTitleAllowedChars,
-    isUUID:isUUID
-  }
 })();
-var root = this;
-
-var baasio = root.baasio || {};
-
-baasio = Usergrid;
-
-// Current version.
-baasio.VERSION = '0.1.0';
-
-// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
-if (typeof exports !== 'undefined') {
-	if (typeof module !== 'undefined' && module.exports) {
-		exports = module.exports = baasio;
-	}
-
-	exports.baasio = baasio;
-} else {
-	root.baasio = baasio;
-}
-
-
-
-}).call(this);

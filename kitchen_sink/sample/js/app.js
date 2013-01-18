@@ -3,7 +3,7 @@ $(document).ready(function () {
 	var appUser;
 	var myCollection;
 
-	var client = new baasio.Client({
+	var client = new Baas.IO({
 		//baas.io ID
 		orgName: '6666a80e-31ed-11e2-a2c1-02003a570010',
 		//Application ID
@@ -11,7 +11,6 @@ $(document).ready(function () {
 		logging: true,
 		buildCurl: true
 	});
-	client.URI = 'https://api.baas.io'
 
 	function isLoggedIn() {
     if (!client.isLoggedIn()) {

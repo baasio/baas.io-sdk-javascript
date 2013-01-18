@@ -11,7 +11,14 @@
   "author": "support@kthcorp.com",
   "license": "LGPL",
   "devDependencies": {
-    "grunt-contrib-uglify": "~0.1.0",
-    "grunt-contrib": "~0.3.0"
+    "grunt-contrib-uglify": "git://github.com/gruntjs/grunt-contrib-uglify.git",
+    "grunt-contrib": "~0.3.0",
+    "grunt-contrib-yuidoc": "git://github.com/gruntjs/grunt-contrib-yuidoc.git",
+    "grunt": "~0.4.x",
+    "grunt-contrib-concat": "git://github.com/gruntjs/grunt-contrib-concat.git",
+    "grunt-contrib-copy": "git://github.com/gruntjs/grunt-contrib-copy.git",
+    "grunt-dox": "git://github.com/phun-ky/grunt-dox.git",
+    "grunt-exec": "git://github.com/almost/grunt-exec.git",
+    "grunt-shell": "git://github.com/excellenteasy/grunt-shell.git#13d09d3c936036087bd814a920d19d55f0c44cb6"
   }
 }
