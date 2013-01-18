@@ -40,8 +40,8 @@ module.exports = function(grunt) {
         files: {
           'kitchen_sink/desktop/js/baas.io.min.js': [ 'dist/baas.io.min.js' ],
           'kitchen_sink/desktop/js/baas.io.js': [ 'dist/baas.io.js' ],
-          'kitchen_sink/sample/js/baas.io.min.js': [ 'dist/baas.io.min.js' ],
-          'kitchen_sink/sample/js/baas.io.js': [ 'dist/baas.io.js' ]
+          'kitchen_sink/demo/js/baas.io.min.js': [ 'dist/baas.io.min.js' ],
+          'kitchen_sink/demo/js/baas.io.js': [ 'dist/baas.io.js' ]
         }
       }
     },
