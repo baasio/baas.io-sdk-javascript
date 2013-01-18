@@ -104,11 +104,42 @@ $ grunt kitchen
 
 참고로 `node-webkit` 은 node 모듈이 아닌 구글 Chromium 브라우저를 임베디드한 웹킷 엔진으로 자바스크립트와 HTML 로 개발된 애플리케이션을 데스크탑에서 독립실행형 애플리케이션으로 동작할 수 있도록 해주는 실행 환경이다.
 
+
+## SDK API 문서 자동화
+
+* `npm install dox-foundation -g`
+* `npm install grunt-shell` (grunt 0.4rc5 대응 버젼을 설치해야함)
+	- git://github.com/excellenteasy/grunt-shell.git#13d09d3c936036087bd814a920d19d55f0c44cb6
+	
+```
+# 문서 생성
+$ grunt docs
+```
+
+```
+# 문서 초기화
+$ grunt clear
+```
+
 ### 실행방법
 
 ```
 $ cd kitchens_sink
 $ nw desktop
+````
+
+* 데모
+
+```
+$ cd kitchens_sink
+$ nw demo
+````
+
+* 스타트업 프로젝트(빈 프로젝트)
+
+```
+$ cd kitchens_sink
+$ nw startup
 ````
 
 ## 기타 단기 목표
