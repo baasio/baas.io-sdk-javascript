@@ -4,25 +4,25 @@
 // (c) 2012-2013 KTH, support@kthcorp.com
 (function() {
 	
-var root = this;
-var Baas = root.Baas || {};
+	var root = this;
+	var Baas = root.Baas || {};
 
-root.console = root.console || {};
-root.console.log = root.console.log || function() {};
+	root.console = root.console || {};
+	root.console.log = root.console.log || function() {};
 
-// Current version.
-Baas.VERSION = '0.1.0';
+	// Current version.
+	Baas.VERSION = '0.1.0';
 
-// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
-if (typeof exports !== 'undefined') {
-	if (typeof module !== 'undefined' && module.exports) {
-		exports = module.exports = Baas;
+	// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
+	if (typeof exports !== 'undefined') {
+		if (typeof module !== 'undefined' && module.exports) {
+			exports = module.exports = Baas;
+		}
+
+		exports.Baas = Baas;
+	} else {
+		root.Baas = Baas;
 	}
-
-	exports.Baas = Baas;
-} else {
-	root.Baas = Baas;
-}
 
 
 Baas.IO = function(options) {
@@ -837,7 +837,7 @@ Baas.Collection.prototype.fetch = function (callback) {
         var count = data.entities.length;
         //save entities locally
         self._list = []; //clear the local list first
-        for (var i=0; i<count; i++) {
+        for (var i=0; i < count; i++) {
           var uuid = data.entities[i].uuid;
           if (uuid) {
             var entityData = data.entities[i] || {};

@@ -20,6 +20,7 @@
     "grunt-dox": "git://github.com/phun-ky/grunt-dox.git",
     "grunt-exec": "git://github.com/almost/grunt-exec.git",
     "grunt-shell": "git://github.com/excellenteasy/grunt-shell.git#13d09d3c936036087bd814a920d19d55f0c44cb6",
-    "grunt-contrib-jsdoc": "git://github.com/krampstudio/grunt-jsdoc-plugin.git"
+    "grunt-contrib-jsdoc": "git://github.com/krampstudio/grunt-jsdoc-plugin.git",
+    "grunt-contrib-compress": "git://github.com/ctalkington/grunt-contrib-compress.git#18d386688961e8040c6169eccdbb941ef71cb2fb"
   }
 }
