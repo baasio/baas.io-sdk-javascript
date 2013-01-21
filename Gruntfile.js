@@ -72,7 +72,7 @@ module.exports = function(grunt) {
       base: {
         command: 'dox-foundation --title "baas.io SDK v0.1.0" -s ./src/base -T ./docs -i ./src/usergrid'
       },
-      clear: {
+      clean: {
         command: 'rm -rf docs/*'
       }
     }
@@ -82,5 +82,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['concat:dist', 'uglify:dist']);
   grunt.registerTask('release', ['concat:release', 'concat:kitchen']);
   grunt.registerTask('docs', [ 'shell:base' ]);
-  grunt.registerTask('clear', [ 'shell:clear' ]);
+  grunt.registerTask('clean', [ 'shell:clean' ]);
 };
