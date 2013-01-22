@@ -10,16 +10,21 @@ $(document).ready(function () {
 	});
 
 	//유저 엔티티 데이터 모델
+	// var options = {
+	//     type:'users',
+	//     username:'YOUR_ACCOUNT_NAME',
+	//     password:'YOUR_PASSWORD',
+	//     name:'YOUR_REAL_NAME',
+	//     email:'YOUR_EMAIL'
+	// }
 	var options = {
-	    type:'users',
-	    username:'YOUR_ACCOUNT_NAME',
-	    password:'YOUR_PASSWORD',
-	    name:'YOUR_REAL_NAME',
-	    email:'YOUR_EMAIL'
+		type: "mycollections",
+		name: "benz",
+		year: 1967
 	}
 
 	//엔티티 생성
-	myFirstApp.createEntity(options, function (err, account) {
+	myFirstApp.createEntity(options, function (err, entity) {
 	    if (err){
 	        //에러
 	        alert('실패');

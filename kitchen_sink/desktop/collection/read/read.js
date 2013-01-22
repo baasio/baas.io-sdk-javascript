@@ -1,14 +1,15 @@
 $(document).ready(function() {
 
-	var myFirstApp = new baasio.Client({
+	var myFirstApp = new Baas.IO({
 		orgName: YOUR_BAAS_IO_ID,
-		appName: YOUR_BAAS_APP_ID
+		appName: YOUR_BAAS_APP_ID,
     logging: false, //optional - turn on logging, off by default
     buildCurl: false //optional - turn on curl commands, off by default
   });
-alert('')
+
 	var options = {
-		type: 'mycollection'
+		type: "mycollections",
+		qs: { "ql": "order by created desc" }
 	};
 
 	myFirstApp.createCollection(options, function(err, cars) {
@@ -16,11 +17,13 @@ alert('')
 			//실패
 		} else {
 			//성공
-
-			while(dogs.hasNextEntity() {
-				dog = dogs.getNextEntity();
-				alert(dog.get('name'));
-			});
+			var car;
+			while(cars.hasNextEntity()) {
+				car = cars.getNextEntity();
+				alert(car.get('name'));
+			}
 		}
 	});
+
 });
+

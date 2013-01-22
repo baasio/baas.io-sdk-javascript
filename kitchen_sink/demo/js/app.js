@@ -121,8 +121,8 @@ $(document).ready(function () {
       // 컬렉션이 없는 경우
       var options = {
         // type:'user/me/feed',
-        type:'mycollections',
-        qs:{"ql":"order by created desc"}
+        type: 'mycollections',
+        qs: {"ql": "order by created desc"}
       }
       client.createCollection(options, function(err, collectionObj){
         if (err) {
