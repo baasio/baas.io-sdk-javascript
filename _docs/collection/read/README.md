@@ -64,7 +64,7 @@ var options = {
 
 ```
 //엔티티 생성
-myFirstApp.createEntity(options, function (err, entity) {
+myFirstApp.createEntity(options, function (err, items) {
   if (err){
     //에러
     alert('실패');
@@ -79,6 +79,32 @@ myFirstApp.createEntity(options, function (err, entity) {
 
 물론 **컬랙션에 엔티티 목록 가져오기** 에소 소개한 소스를 다시 실행해 보면 업데이트된 내용도 확인할 수 있을 것이다.
 
-baas.io 에서 가장 중요한 두가지 내용에 대해서 소개하였다.
-이미 생성된 컬랙션의 포함된 엔티티를 가져오고 지정한 컬랙션에 엔티티를 생성하는 방법은 기본으로 SDK 를 제대로 사용하기 전에 위의 내용은 꼭 실행보기 바란다.
 
+## 콜렉션의 포함된 엔티티 접근
+
+콜랙션은 일반적으로 많은 엔티티를 포함하고 있다. 다음은 컬랙션에 포함된 엔티티에 접근하는 가장 기본적인 예제 코드이다.
+
+```
+myFirstApp.createCollection(options, function (err, items) {
+  if (err){
+    //에러
+    alert('실패');
+  } else {
+    //성공
+		while(items.hasNextEntity()) {
+		    var car = items.getNextEntity();
+		    var name = car.get('name');
+		    notice('이 자동차는 "'+ name +'" 이라고 부른다.');
+		}
+  }
+});
+```
+
+코드에서도 알 수 있듯이 `createCollection` 의 콜백 함수에 전달된 `items` 인자에는 엔티티 정보를 담고 있다. 또한 기본적으로 SDK 에서 서버의 응답을 랩핑한 컬랙션 모델으로 몇가지 유용한 메소드들을 함께 제공한다.
+
+위의 코드에 `items.hasNextEntity` 메소드는 엔티티 유무를 체크하는 메소드이다. while 문을 통해 모든 엔티티를 반복해서 접근할 수 있다.
+
+좀더 자세한 SDK 사용법은 자세히 다룰 예정이지만 먼저 참고하고 싶다면 API Reference 를 참고 바란다.
+
+* [엔티티 모델]()
+* [컬랙션 모델]() 
