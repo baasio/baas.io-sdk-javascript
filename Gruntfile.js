@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         files: {
-          'Release/<%= pkg.version %>/baas.io.js': [
+          'build/Release/<%= pkg.version %>/baas.io.js': [
                 'src/build.before.js',
                 'src/base/core/core.js',
                 'src/base/entity/entity.js', 
@@ -32,17 +32,17 @@ module.exports = function(grunt) {
                   '// (c) 2012-2013 KTH, <%= pkg.author %>\n'
         },
         files: {
-          'baas.io.min.js': [ 'Release/<%= pkg.version %>/baas.io.min.js' ],
-          'baas.io.js': [ 'Release/<%= pkg.version %>/baas.io.js' ]
+          'baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
+          'baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
         }
       },
 
       kitchen: {
         files: {
-          'kitchen_sink/desktop/js/baas.io.min.js': [ 'Release/<%= pkg.version %>/baas.io.min.js' ],
-          'kitchen_sink/desktop/js/baas.io.js': [ 'Release/<%= pkg.version %>/baas.io.js' ],
-          'kitchen_sink/demo/js/baas.io.min.js': [ 'Release/<%= pkg.version %>/baas.io.min.js' ],
-          'kitchen_sink/demo/js/baas.io.js': [ 'Release/<%= pkg.version %>/baas.io.js' ]
+          'kitchen_sink/desktop/js/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
+          'kitchen_sink/desktop/js/baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ],
+          'kitchen_sink/demo/js/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
+          'kitchen_sink/demo/js/baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
         }
       }
     },
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'Release/<%= pkg.version %>/baas.io.min.js': [ 'Release/<%= pkg.version %>/baas.io.js' ]
+          'build/Release/<%= pkg.version %>/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
         }
       }
     },
@@ -65,16 +65,7 @@ module.exports = function(grunt) {
     compress: {
       startup: {
         options: {
-          archive: 'Release/<%= pkg.version %>/baasio_js_client_SDK_V<%= pkg.version %>.zip'
-        },
-
-        files: [
-          { expand: true, cwd: 'kitchen_sink/startup/', src: ['**'] }
-        ]
-      }
-      sdk: {
-        options: {
-          archive: 'Release/<%= pkg.version %>/baasio_js_client_SDK_V<%= pkg.version %>.zip'
+          archive: 'build/Release/<%= pkg.version %>/baasio_js_client_SDK_V<%= pkg.version %>.zip'
         },
 
         files: [
@@ -86,16 +77,16 @@ module.exports = function(grunt) {
     dox: {
       files: {
         src: [ 'src/**/*.js' ],
-        dest: 'docs'
+        dest: 'build/docs'
       }
     },
 
     shell: {
       base: {
-        command: 'dox-foundation --title "baas.io SDK v<%= pkg.version %>" -s ./src/base -T ./docs'
+        command: 'dox-foundation --title "baas.io SDK v<%= pkg.version %>" -s ./src/base -T ./build/Release/<%= pkg.version %>/docs'
       },
       clean: {
-        command: 'rm -rf docs/*'
+        command: 'rm -rf build/docs/*'
       }
     }
   });
