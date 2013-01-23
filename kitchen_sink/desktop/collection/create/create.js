@@ -8,7 +8,7 @@ $(document).ready(function() {
   });
 
 	var options = {
-		type: "newCollection",
+		type: "newcollection",
 		qs: { "ql": "order by created desc" }
 	};
 
