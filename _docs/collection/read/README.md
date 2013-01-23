@@ -16,8 +16,7 @@ var myFirstApp = new Baas.IO({
 });
 
 var options = {
-	type: "mycollections",
-	qs: { "ql": "order by created desc" }
+	type: "mycollections"
 };
 
 myFirstApp.createCollection(options, function(err, items) {
