@@ -91,9 +91,9 @@ myFirstApp.createCollection(options, function (err, items) {
   } else {
     //성공
 		while(items.hasNextEntity()) {
-		    var car = items.getNextEntity();
-		    var name = car.get('name');
-		    notice('이 자동차는 "'+ name +'" 이라고 부른다.');
+	    var car = items.getNextEntity();
+	    var name = car.get('name');
+	    notice('이 자동차는 "'+ name +'" 이라고 부른다.');
 		}
   }
 });

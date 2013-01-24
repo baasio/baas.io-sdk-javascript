@@ -6,7 +6,7 @@
   "keywords": [ "demo", "node-webkit" ],
   "window": {
     // "icon": "link.png",
-    "toolbar": true,
+    "toolbar": false, 
     "width": 640,
     "height": 960,
     "position": "center",
