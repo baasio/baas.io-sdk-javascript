@@ -5,7 +5,7 @@
 먼저 코드를 살펴보자.
 컬랙션 생성과 엔티티 정보 가져오는 코드와 동일하다. 
 
-```
+``` js
 var myFirstApp = new Baas.IO({
 	orgName: 'YOUR_BAAS_IO_ID',		// baas.io ID
 	appName: 'YOUR_BAAS_APP_ID',	// baas.io Application ID

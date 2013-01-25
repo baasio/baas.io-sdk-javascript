@@ -2,7 +2,7 @@
 
 baas.io 에서 엔티티를 가장 쉽게 설명하면 JSON 객체라고 할 수 있다.  그냥 내가 저장하고 싶은 정보 객체를 엔티티로 이해하면 된다.
 
-```
+``` js
 var entity = {
 	name: 'baas.io'
 };
@@ -12,7 +12,7 @@ var entity = {
 
 자 그럼 '1951년형 페라리 자동차' 엔티티를 생성해보자.
 
-```
+``` js
 var entity = {
 	type: 'cars',
 	name: 'ferrari',
@@ -24,7 +24,7 @@ var entity = {
 
 먼저 저장 할 애플리케이션 인스턴스를 생성해야 한다. 
 
-```
+``` js
 var myFirstApp = new Baas.IO({
 	orgName: 'YOUR_BAAS_IO_ID',		// baas.io ID
 	appName: 'YOUR_BAAS_APP_ID',	// baas.io Application ID
@@ -35,13 +35,13 @@ var myFirstApp = new Baas.IO({
 
 생성한 `myFirstApp` 인스턴스에 위에서 생성한 '1951년형 페라리 자동차' 엔티티를 생성해보자.
 
-```
+``` js
 myFirstApp.createEntity(entity, callback);
 ```
 
 생성한 앱 인스턴스에는 엔티티를 생성하는 `createEntity` 메소드를 제공하는데 2개의 파라미터를 전달해야 한다.  생성할 엔티티 `entity` 와 콜백함수 `callback` 이다. 
 
-```
+``` js
 var entity = {
 	type: 'cars',
 	name: 'ferrari',

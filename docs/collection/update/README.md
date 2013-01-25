@@ -9,7 +9,7 @@ RDMS 에서 말하는 테이블이 컬랙션이라 할 수 있고 테이블을 �
 
 먼저 코드를 보자.
 
-```
+``` js
 var myFirstApp = new Baas.IO({
 	orgName: 'YOUR_BAAS_IO_ID',		// baas.io ID
 	appName: 'YOUR_BAAS_APP_ID',	// baas.io Application ID
@@ -45,7 +45,7 @@ myFirstApp.createEntity(options, function (err, items) {
 >
 > 아래의 코드를 직접 실행해보기 위해서는 [https://baas.io](https://baas.io) 데이터브라우저에 `foocollections` 와 `barcollections` 컬랙션이 이미 존재해야 한다.
 
-```
+``` js
 var fooCollection;	// foo collection 인스턴스
 var barCollection;	// bar collection 인스턴스
 
@@ -72,7 +72,7 @@ myFirstApp.createCollection(barOptions, function(err, collectionObject) {
 
 * 콜랙션에 엔티티 추가
 
-```
+``` js
 var options = {
 	name: 'ferrari',
 	year: 1851

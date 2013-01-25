@@ -7,7 +7,7 @@
 > 콜렉션 명이 "mycollections" 복수형임을 유의하자.
 
 
-```
+``` js
 var myFirstApp = new Baas.IO({
 	orgName: 'YOUR_BAAS_IO_ID',		// baas.io ID
 	appName: 'YOUR_BAAS_APP_ID',	// baas.io Application ID
@@ -36,7 +36,7 @@ myFirstApp.createCollection(options, function(err, items) {
 
 아마 위의 코드로 "mycollections" 의 콜렉션을 요청했다면 결과에 아무런 값도 없을 것이다.
 
-```
+``` js
 myFirstApp.createCollection(options, function(err, items) {
 	console.log(items._list.length); // 0
 });
@@ -47,7 +47,7 @@ myFirstApp.createCollection(options, function(err, items) {
 ## 컬랙션에 엔티티 생성
 먼저, 생성할 데이터를 정의해보자.
 
-```
+``` js
 var options = {
 	type: "mycollections",
 	name: "benz",
@@ -61,7 +61,7 @@ var options = {
 
 앞서 소개한 컬랙션에 포함된 엔티티를 가져오는 단계에서 `createCollection` 메소드와 유사하다.
 
-```
+``` js
 //엔티티 생성
 myFirstApp.createEntity(options, function (err, items) {
   if (err){
@@ -83,7 +83,7 @@ myFirstApp.createEntity(options, function (err, items) {
 
 콜랙션은 일반적으로 많은 엔티티를 포함하고 있다. 다음은 컬랙션에 포함된 엔티티에 접근하는 가장 기본적인 예제 코드이다.
 
-```
+``` js
 myFirstApp.createCollection(options, function (err, items) {
   if (err){
     //에러

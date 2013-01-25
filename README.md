@@ -44,6 +44,12 @@
 * Sencha Touch
 * jQuery Mobile
 
+## 메뉴얼
+* 컬랙션
+* 엔티티
+* 쿼리
+* 유저
+
 ## 하이브리드 앱 빌드 자동화
 * Titanium
 * PhoneGap
