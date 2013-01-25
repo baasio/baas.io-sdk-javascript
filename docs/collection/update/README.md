@@ -1,7 +1,5 @@
 ## 컬랙션에 엔티티 추가하기
-RDMS 에서 말하는 테이블이 컬랙션이라 할 수 있고 테이블을 구성하는 하나 하나의 ROW 가 엔티티라고 할 수 있다.  하지만 baas.io 는 이것을 엔티티라고 부른다.
-
-컬랙션에 앱에서 생성한 구조적 정보를 엔티티로 저장하게 된다.
+RDMS 에서 말하는 테이블이 컬랙션이라 할 수 있고 테이블을 구성하는 하나 하나를 ROW 라 한다.  하지만 baas.io 는 이것을 엔티티라고 부른다.
 
 자 앞서 생성했던 `mycollctions` 컬랙션에 자동차 엔티티를 넣는 방법을 좀더 자세히 살펴보도록 하자.
 
@@ -70,7 +68,7 @@ myFirstApp.createCollection(barOptions, function(err, collectionObject) {
 
 위의 코드는 `foocollections`, `barcollections` 두개의 인스턴스를 만드는 코드이다. 인스턴스가 생성되었다면 이제 `foocollections` 에 엔티티를 생성해보자.
 
-* 콜랙션에 엔티티 추가
+### 콜랙션 관점에서 엔티티 추가
 
 ``` js
 var options = {

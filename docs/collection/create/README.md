@@ -18,6 +18,24 @@ baas.io 기반의 앱 개발을 위해서는 필수적인 개념이 바로 컬�
 > 또 하나의 예를 들어 "person" 으로 생성하면 "people" 로 생성된다.
 > 이것은 baas.io 내부적으로 사전 정보에 따라 변경되는 것으로 모든 것이 '-s', '-es' 형태의 복수형이 아닐 수도 있다.
 
+
+### SDK 를 이용한 컬랙션 생성
+
+먼저 코드를 보자.
+
+``` js
+var myFirstApp = new Baas.IO({
+	orgName: 'YOUR_BAAS_IO_ID',		// baas.io ID
+	appName: 'YOUR_BAAS_APP_ID',	// baas.io Application ID
+  logging: false,
+  buildCurl: false
+});
+
+var myCollection = new Baas.Collection({
+	type: 'mycollection'
+});
+```
+
 컬랙션 생성이 완료되었다면 컬랙션에 엔티티를 추가해보자.
 
 * [컬랙션에 엔티티 추가하기](/_doc/collection/update)
