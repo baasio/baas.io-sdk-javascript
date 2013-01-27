@@ -1,8 +1,23 @@
 ## 바스아이오를 이용한 하이브리드 앱 만들기
 
+### 1단계 - 설치(Installation)
+
+#### 소스를 이용하는 방법
+``` 
+git clone https://github.com/kthcorp/baas.io-SDK-JavaScript.git
+cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
+```
+
+#### 다운로드하는 방법 
+* [Development Version(0.4.0)](./baas.io-SDK-JavaScript/blob/devel/baas.io.js)	- 개발/디버깅용
+* [Production Version(0.4.0)](./baas.io-SDK-JavaScript/blob/devel/baas.io.min.js) - 압축/배포용
+
+#### 스타트업 프로젝트로 생성하기
+> 준비중입니다.
+
 ### 기본 페이지 템플릿 생성
 
-##### 1단계 - 기본 페이지 구성
+##### 2단계 - 기본 페이지 구성
 
 ``` html
 <!DOCTYPE html> 
@@ -48,11 +63,50 @@
 <a href="#" data-role="button" data-icon="star" data-theme="a">Button</a>
 ```
 
-### 기본 프로젝트 생성하기
-* 프로젝트 생성
-* SDK 다운로드
-* HTML/JS 소스 생성
-* 초기화 코드
+## 코딩하기
+
+* app.js
+
+```
+$(document).ready(function () {
+
+  /**
+   * 애플리케이션 초기화
+   * @type {Baas}
+   */
+	var myFirstApp = new Baas.IO({
+		orgName: 'YOUR_BAAS_IO_ID',			//baas.io UUID
+		appName: 'YOUR_APPLICATION_ID'	//Application UUID
+	});
+
+});
+```
+
+위의 코드는 SDK를 이용해 baas.io 를 이용하기 위한 가장 기본적인 코드이다. 
+`Baas.IO` 인스턴스 생성할 때 `baas.io` UUID `application` UUID 를 넣어주면 된다.
+
+* 로그인
+
+```
+	...
+
+  function loginHandler(err) {
+    if (err) {
+      //로그인 실패
+    } else {
+      //로그인 성공
+      
+      //로그인 정보 가져오기
+      myFirstApp.getLoggedInUser(function(err, data, user)) {
+        alert(user.name);
+      }
+    }
+  }
+
+  myFirstApp.login('USERNAME', 'PASSWORD', loginHandler);
+  
+  ...
+```
 
 ### 좀더 빠르게
 * boilerplate 다운로드
