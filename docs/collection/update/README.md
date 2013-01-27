@@ -1,7 +1,7 @@
 ## 컬랙션에 엔티티 추가하기
-RDMS 에서 말하는 테이블이 컬랙션이라 할 수 있고 테이블을 구성하는 하나 하나를 ROW 라 한다.  하지만 baas.io 는 이것을 엔티티라고 부른다.
+RDMS 에서 말하는 테이블이 컬랙션이라 할 수 있고 테이블을 구성하는 하나하나를 ROW 라 한다.  하지만 baas.io 는 이것을 엔티티라고 부른다.
 
-자 앞서 생성했던 `mycollctions` 컬랙션에 자동차 엔티티를 넣는 방법을 좀더 자세히 살펴보도록 하자.
+자 앞서 생성했던 `mycollctions` 컬랙션에 자동차 엔티티를 넣는 방법을 좀 더 자세히 살펴보도록 하자.
 
 ### 앱 인스턴스 관점에서 엔티티 생성
 
@@ -37,11 +37,11 @@ myFirstApp.createEntity(options, function (err, items) {
 
 * 컬랙션 인스턴스 생성
 
-컬랙션 인스턴스 생성은 `createCollection` 의 콜백함수로 전달된 두번째 인자이다.  다음의 코드를 보자.
+컬랙션 인스턴스 생성은 `createCollection` 의 콜백함수로 전달된 두 번째 인자이다.  다음의 코드를 보자.
 
 > 유의사항
 >
-> 아래의 코드를 직접 실행해보기 위해서는 [https://baas.io](https://baas.io) 데이터브라우저에 `foocollections` 와 `barcollections` 컬랙션이 이미 존재해야 한다.
+> 아래의 코드를 직접 실행해 보기 위해서는 [https://baas.io](https://baas.io) 데이터브라우저에 `foocollections` 와 `barcollections` 컬랙션이 이미 존재해야 한다.
 
 ``` js
 var fooCollection;	// foo collection 인스턴스
@@ -66,7 +66,7 @@ myFirstApp.createCollection(barOptions, function(err, collectionObject) {
 });
 ```
 
-위의 코드는 `foocollections`, `barcollections` 두개의 인스턴스를 만드는 코드이다. 인스턴스가 생성되었다면 이제 `foocollections` 에 엔티티를 생성해보자.
+위의 코드는 `foocollections`, `barcollections` 두개의 인스턴스를 만드는 코드이다. 인스턴스가 생성되었다면 이제 `foocollections` 에 엔티티를 생성해 보자.
 
 ### 콜랙션 관점에서 엔티티 추가
 
@@ -84,7 +84,7 @@ fooCollection.addEntity(options, function(err, entity) {
     //성공
     alert('성공');
 
-    // 콜백함수 두번째 인자로 넘어온 entity 는 Baas.Entity 인스턴스로 전달된다.
+    // 콜백함수 두 번째 인자로 넘어온 entity 는 Baas.Entity 인스턴스로 전달된다.
   }
 });
 ```

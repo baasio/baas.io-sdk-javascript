@@ -99,11 +99,11 @@ myFirstApp.createCollection(options, function (err, items) {
 });
 ```
 
-코드에서도 알 수 있듯이 `createCollection` 의 콜백 함수에 전달된 `items` 인자에는 엔티티 정보를 담고 있다. 또한 기본적으로 SDK 에서 서버의 응답을 랩핑한 컬랙션 모델으로 몇가지 유용한 메소드들을 함께 제공한다.
+코드에서도 알 수 있듯이 `createCollection` 의 콜백 함수에 전달된 `items` 인자에는 엔티티 정보를 담고 있다. 또한 기본적으로 SDK에서 서버의 응답을 랩핑한 컬랙션 모델으로 몇 가지 유용한 메소드들을 함께 제공한다.
 
 위의 코드에 `items.hasNextEntity` 메소드는 엔티티 유무를 체크하는 메소드이다. while 문을 통해 모든 엔티티를 반복해서 접근할 수 있다.
 
-좀더 자세한 SDK 사용법은 자세히 다룰 예정이지만 먼저 참고하고 싶다면 API Reference 를 참고 바란다.
+좀 더 자세한 SDK 사용법은 자세히 다룰 예정이지만 먼저 참고하고 싶다면 API Reference 를 참고 바란다.
 
 * [엔티티 모델]()
 * [컬랙션 모델]() 
