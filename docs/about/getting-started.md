@@ -85,6 +85,10 @@ $(document).ready(function () {
 위의 코드는 SDK를 이용해 baas.io 를 이용하기 위한 가장 기본적인 코드이다. 
 `Baas.IO` 인스턴스 생성할 때 `baas.io` UUID `application` UUID 를 넣어주면 된다.
 
+애플리케이션 엔드 포인트 정보는 포털 사이트에 애플리케이션 대쉬보드에 확인 가능하다.
+
+![애플리케이션 엔드 포인트](https://raw.github.com/kthcorp/baas.io-SDK-JavaScript/devel/docs/_assets/endpoint.png)
+
 * 로그인
 
 ```
@@ -108,5 +112,4 @@ $(document).ready(function () {
   ...
 ```
 
-### 좀더 빠르게
-* boilerplate 다운로드
+간단한 로그인 코드를 추가해보자.  사실 위의 코드가 성공적으로 실행하라면 SDK 사용법과 포털 사이트에 애플리케이션 대쉬보드를 활용하면 앱 개발이 더욱 편리해진다.
