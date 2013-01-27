@@ -5,5 +5,8 @@
 
 모든 컬랙션은 baas.io 포털에서 제공되는 데이터 브라우져에서 컬랙션 생성/삭제, 엔터티 생성/변경/삭제, 컬랙션 접근 권한 관리, Export / Import 기능을 사용할 수 있으며, 접근 권한에 부합하는 Access Token 을 생성하면 REST API 로도 동일한 기능을 수행할 수 있습니다.
 
-* [컬랙션 생성](https://github.com/kthcorp/collection/create)
-* [컬랙션 가져오기](https://github.com/kthcorp/collection/read)
+* [컬랙션 생성](./collection/create)
+* [컬랙션 가져오기](./collection/read)
+* [컬랙션 업데이트](./collection/update)
+* [컬랙션 쿼리 사용하기](./collection/query)
+* ~~[컬랙션 삭제하기](./collection/delete)~~
