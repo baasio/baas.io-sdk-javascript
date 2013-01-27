@@ -4,7 +4,7 @@
 
 ##### 1단계 - 기본 페이지 구성
 
-```
+``` html
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -29,7 +29,7 @@
 
 ##### 2 단계 - 레이아웃 디자인
 
-<pre><code>
+``` html
 <div data-role="page">
 	<div data-role="header">
 		<h1>My Title</h1>
@@ -40,12 +40,11 @@
 	</div><!-- /content -->
 
 </div><!-- /page -->
-</code>
-</pre>
+```
 
 ##### 3 단계 - 폼 요소 꾸미기
 
-```
+``` html
 <a href="#" data-role="button" data-icon="star" data-theme="a">Button</a>
 ```
 
