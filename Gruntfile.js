@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-dox');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -74,16 +73,9 @@ module.exports = function(grunt) {
       }
     },
 
-    dox: {
-      files: {
-        src: [ 'src/**/*.js' ],
-        dest: 'build/docs'
-      }
-    },
-
     shell: {
       base: {
-        command: 'dox-foundation --title "baas.io SDK v<%= pkg.version %>" -s ./src/base -T ./build/Release/<%= pkg.version %>/docs'
+        command: 'dox-foundation --title "baas.io Javascript SDK v<%= pkg.version %>" -s ./src/base -T ./build/Release/<%= pkg.version %>/docs'
       },
       clean: {
         command: 'rm -rf build/docs/*'

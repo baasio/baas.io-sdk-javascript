@@ -1,6 +1,6 @@
 {
   "name": "baasio",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "JavaScript SDK for Hybrid Web Application based on baas.io",
   "main": "baas.io.js",
   "homepage": "https://baas.io",
