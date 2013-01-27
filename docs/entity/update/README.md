@@ -35,7 +35,7 @@ myFirstApp.createEntity(entity, function(err, car) {
 });
 ```
 
-위의 코드에서 `createEntity` 의 콜백함수로 전달된 `car` 엔티티는 `Baas.IO.Entity` 의 인스턴스로 몇 가지 메소드를 제공한다.
+위의 코드에서 `createEntity` 의 콜백함수로 전달된 `car` 엔티티는 `Baas.Entity` 의 인스턴스로 몇 가지 메소드를 제공한다.
 
 여기에서 살펴볼 것은 `set` 과 `save` 메소드인데 앱 개발 시 가장 많이 사용하게 될 메소드이기도 하다.
 

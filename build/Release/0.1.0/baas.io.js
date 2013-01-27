@@ -390,7 +390,7 @@ Baas.IO.prototype.loginFacebook = function (facebookToken, callback) {
 *  @return {callback} callback(err, data)
 */
 Baas.IO.prototype.getLoggedInUser = function (callback) {
-  if (!this.getToken) {
+  if (!this.getToken()) {
     callback(true, null, null);
   } else {
     var self = this;
