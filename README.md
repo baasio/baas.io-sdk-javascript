@@ -11,15 +11,15 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 ```
 
 ### Downloads 
-* [Development Version(0.4.0)](./blob/devel/baas.io.js)	- 개발/디버깅용
-* [Production Version(0.4.0)](./blob/devel/baas.io.min.js) - 압축/배포용
+* [Development Version(0.4.0)](./baas.io-SDK-JavaScript/blob/devel/baas.io.js)	- 개발/디버깅용
+* [Production Version(0.4.0)](./baas.io-SDK-JavaScript/blob/devel/baas.io.min.js) - 압축/배포용
 
-## Usage
+## 사용법(Usage)
 
 ### Basic
-* [기본 페이지 템플릿 생성](./blob/devel/docs/about/getting-started.md#%EA%B8%B0%EB%B3%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%85%9C%ED%94%8C%EB%A6%BF-%EC%83%9D%EC%84%B1)
+* [기본 페이지 템플릿 생성](./baas.io-SDK-JavaScript/blob/devel/docs/about/getting-started.md#%EA%B8%B0%EB%B3%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%85%9C%ED%94%8C%EB%A6%BF-%EC%83%9D%EC%84%B1)
 
-## History
+## 히스토리(History)
 
 * v0.4.0rc0
 	- 가이드 문서 업데이트
@@ -32,7 +32,7 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 * v0.1.0
 	- merge usergrid sdk v0.9.0
 
-## Contributing
+## 참여(Contributing)
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
@@ -40,8 +40,6 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
-## Credits
+## 라이센스(License)
 
-TODO: Write credits
-
-## License
+라이센스는 [LICENSE.md](./baas.io-SDK-JavaScript/blob/devel/LICENSE.md) 를 참조하세요.
