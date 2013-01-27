@@ -1,9 +1,10 @@
-## 바스아이오를 이용한 하이브리드 앱 만들기
+# 바스아이오를 자바스크립트 SDK를 이용한 하이브리드 앱 만들기
 
-### 1단계 - 설치(Installation)
+## 1단계 - 설치(Installation)
 
 #### 소스를 이용하는 방법
-``` 
+
+``` bash
 git clone https://github.com/kthcorp/baas.io-SDK-JavaScript.git
 cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 ```
@@ -15,9 +16,9 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 #### 스타트업 프로젝트로 생성하기
 > 준비중입니다.
 
-### 기본 페이지 템플릿 생성
+## 2단계 - 기본 페이지 템플릿 생성
 
-##### 2단계 - 기본 페이지 구성
+#### HTML 페이지 구성
 
 ``` html
 <!DOCTYPE html> 
@@ -32,6 +33,7 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.min.js"></script>
 	<script src="js/baas.io-0.1.0.min.js"></script>
+	<script src="app.js"></script>
 </head> 
 
 <body> 
@@ -42,7 +44,7 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 
 >[ jQuery Mobile - Quick start guide](http://jquerymobile.com/demos/1.3.0-beta.1/docs/about/getting-started.html) 문서를 참고하시면 레이아웃 구성이 좀더 쉬워요.
 
-##### 2 단계 - 레이아웃 디자인
+#### 레이아웃 디자인
 
 ``` html
 <div data-role="page">
@@ -57,17 +59,17 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 </div><!-- /page -->
 ```
 
-##### 3 단계 - 폼 요소 꾸미기
+#### 폼 요소 꾸미기
 
 ``` html
-<a href="#" data-role="button" data-icon="star" data-theme="a">Button</a>
+<a href="#" id="login" data-role="button" data-icon="star" data-theme="a">Button</a>
 ```
 
 ## 코딩하기
 
 * app.js
 
-```
+``` js
 $(document).ready(function () {
 
   /**
@@ -91,9 +93,10 @@ $(document).ready(function () {
 
 * 로그인
 
-```
+``` js
 	...
 
+	//로그인 버튼 클릭 이벤트 핸들러
   function loginHandler(err) {
     if (err) {
       //로그인 실패
@@ -106,10 +109,13 @@ $(document).ready(function () {
       }
     }
   }
-
-  myFirstApp.login('USERNAME', 'PASSWORD', loginHandler);
   
+  //로그인 버튼에 클릭 이벤트 등록
+  $('#login').click(function(e) {
+  	myFirstApp.login('USERNAME', 'PASSWORD', loginHandler);
+	});
   ...
 ```
 
 간단한 로그인 코드를 추가해보자.  사실 위의 코드가 성공적으로 실행하라면 SDK 사용법과 포털 사이트에 애플리케이션 대쉬보드를 활용하면 앱 개발이 더욱 편리해진다.
+
