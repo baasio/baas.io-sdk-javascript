@@ -2,3 +2,4 @@
 npm_debug.log
 ./build
 ./docs/about
+./kitchen_sink/desktop
