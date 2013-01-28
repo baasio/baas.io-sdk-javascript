@@ -5,9 +5,9 @@ $(document).ready(function () {
 
 	var client = new Baas.IO({
 		//baas.io ID
-		orgName: '6666a80e-31ed-11e2-a2c1-02003a570010',
+		orgName: 'YOUR_BAAS_IO_ID',
 		//Application ID
-		appName: 'e9fcb221-384f-11e2-a2c1-02003a570010',
+		appName: 'YOUR_APPLICATION_ID',
 		logging: true,
 		buildCurl: true
 	});
