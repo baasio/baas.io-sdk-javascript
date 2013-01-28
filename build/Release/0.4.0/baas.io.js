@@ -7,7 +7,7 @@
 	root.console.log = root.console.log || function() {};
 
 	// Current version.
-	Baas.VERSION = '0.1.0';
+	Baas.VERSION = '0.4.0';
 
 	// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
 	if (typeof exports !== 'undefined') {

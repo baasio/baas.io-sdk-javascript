@@ -8,11 +8,12 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    buildPath: 'build/Release/<%= pkg.version %>',
 
     concat: {
       dist: {
         files: {
-          'build/Release/<%= pkg.version %>/baas.io.js': [
+          '<%= buildPath %>/baas.io.js': [
                 'src/build.before.js',
                 'src/base/core/core.js',
                 'src/base/entity/entity.js', 
@@ -31,17 +32,17 @@ module.exports = function(grunt) {
                   '// (c) 2012-2013 KTH, <%= pkg.author %>\n'
         },
         files: {
-          'baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
-          'baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
+          'baas.io.min.js': [ '<%= buildPath %>/baas.io.min.js' ],
+          'baas.io.js': [ '<%= buildPath %>/baas.io.js' ]
         }
       },
 
       kitchen: {
         files: {
-          'kitchen_sink/desktop/js/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
-          'kitchen_sink/desktop/js/baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ],
-          'kitchen_sink/demo/js/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.min.js' ],
-          'kitchen_sink/demo/js/baas.io.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
+          'kitchen_sink/desktop/js/baas.io.min.js': [ '<%= buildPath %>/baas.io.min.js' ],
+          'kitchen_sink/desktop/js/baas.io.js': [ '<%= buildPath %>/baas.io.js' ],
+          'kitchen_sink/demo/js/baas.io.min.js': [ '<%= buildPath %>/baas.io.min.js' ],
+          'kitchen_sink/demo/js/baas.io.js': [ '<%= buildPath %>/baas.io.js' ]
         }
       }
     },
@@ -56,15 +57,24 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'build/Release/<%= pkg.version %>/baas.io.min.js': [ 'build/Release/<%= pkg.version %>/baas.io.js' ]
+          '<%= buildPath %>/baas.io.min.js': [ '<%= buildPath %>/baas.io.js' ]
         }
       }
     },
 
     compress: {
+      release: {
+        options: {
+          archive: '<%= buildPath %>/sdk/baasio_js_sdk_V<%= pkg.version %>.zip'
+        },
+
+        files: [
+          { expand: true, cwd: '<%= buildPath %>/', src: ['*.js'] }
+        ]
+      },
       startup: {
         options: {
-          archive: 'build/Release/<%= pkg.version %>/baasio_js_startup_V<%= pkg.version %>.zip'
+          archive: '<%= buildPath %>/startup/baasio_js_startup_V<%= pkg.version %>.zip'
         },
 
         files: [
@@ -78,14 +88,24 @@ module.exports = function(grunt) {
         command: 'dox-foundation --title "baas.io Javascript SDK v<%= pkg.version %>" -s ./src/base -T ./build/Release/<%= pkg.version %>/docs'
       },
       clean: {
-        command: 'rm -rf build/docs/*'
+        command: 'rm -rf <%= buildPath %>/docs/*'
+      },
+      cpdoc: {
+        command: 'cp -R <%= buildPath %>/docs/* <%= pkg.deploy.docs %>'
+      },
+      cpsdk: {
+        command: 'cp -R <%= buildPath %>/sdk/* <%= pkg.deploy.sdk %>'
+      },
+      cpstartup: {
+        command: 'cp -R <%= buildPath %>/startup/* <%= pkg.deploy.sdk %>'
       }
     }
   });
 
 
   grunt.registerTask('default', ['concat:dist', 'uglify:dist']);
-  grunt.registerTask('release', ['concat:release', 'concat:kitchen', 'compress:startup' ]);
-  grunt.registerTask('docs', [ 'shell:base' ]);
+  grunt.registerTask('release', ['concat:release', 'concat:kitchen', 'compress:release', 'compress:startup' ]);
+  grunt.registerTask('docs', [ 'shell:clean', 'shell:base' ]);
   grunt.registerTask('clean', [ 'shell:clean' ]);
+  grunt.registerTask('deploy', [ 'shell:cpdoc', 'shell:cpsdk', 'shell:cpstartup' ]);
 };
