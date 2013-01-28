@@ -35,7 +35,11 @@ code {
   }
 
   if (self.getToken()) {
-    qs['access_token'] = self.getToken();</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>//could also use headers for the token<br />    xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());<br />    xhr.withCredentials = true;</p></div><pre><code class="language-javascript">}
+    qs['access_token'] = self.getToken();
+    //could also use headers for the token
+    //xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
+    //xhr.withCredentials = true;
+  }
 
   //append params to the path
   var encoded_params = encodeParams(qs);

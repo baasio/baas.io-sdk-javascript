@@ -61,10 +61,10 @@ module.exports = function(grunt) {
       }
     },
 
-    compress: {
+    zip: {
       startup: {
         options: {
-          archive: 'build/Release/<%= pkg.version %>/baasio_js_client_SDK_V<%= pkg.version %>.zip'
+          archive: 'build/Release/<%= pkg.version %>/baasio_js_startup_V<%= pkg.version %>.zip'
         },
 
         files: [
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('default', ['concat:dist', 'uglify:dist']);
-  grunt.registerTask('release', ['concat:release', 'concat:kitchen', 'compress:startup' ]);
+  grunt.registerTask('release', ['concat:release', 'concat:kitchen', 'zip:startup' ]);
   grunt.registerTask('docs', [ 'shell:base' ]);
   grunt.registerTask('clean', [ 'shell:clean' ]);
 };
