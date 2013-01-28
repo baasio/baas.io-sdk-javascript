@@ -127,6 +127,9 @@ $ grunt docs
 $ grunt clear
 ```
 
+### github wiki
+* gollum 기반으로 로컬에서 작업
+
 ### 실행방법
 
 ```
