@@ -1,2 +1,4 @@
 .DS_Store
-*.swp
+npm_debug.log
+./build
+./docs/about

@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>BAAS.IO JAVASCRIPT SDK</title> 
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <link rel="stylesheet" href="css/doc.css" />
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <script src="js/baas.io.js"></script>
+  <script src="js/doc.js"></script>
+  <script src="js/config.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" class="type-home">
+  <div data-role="content">
+    <p class="jqm-version"></p>
+
+    <div class="content-secondary">
+
+      <div id="jqm-homeheader">
+        <h1 id="jqm-logo"><img src="images/baas.io.png" alt="BaaS.io Mobile Framework" /></h1>
+        <p>A Touch-Optimized UI Framework built with jQuery and HTML5.</p>
+      </div>
+
+
+      <p class="intro"><strong>환영합니다.</strong><br/> 바스아이오 키친싱크 앱은 바스아이오 플랫폼을 실무에서 가벼운 학습 비용으로 빠르게 개발할 수 있도록 SDK 를 이용한 가이드를 제공합니다.
+      <br/><br/>
+      현재 버젼의 키친싱크 앱에서는 둘러보기, 엔티티, 컬렉션, 쿼리 이렇게 네가지 기본 구성으로 이루어져 있습니다. 
+      </p>
+
+      <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+        <li data-role="list-divider">둘러보기</li>
+        <li><a href="about/intro.html">바스아이오 소개</a></li>
+        <li><a href="about/getting-started.html">바스아이오 시작하기</a></li>
+        <li><a href="about/features.html">자바스크립트 라이브러리 주요 기능</a></li>
+        <!-- <li><a href="docs/about/accessibility.html">Accessibility</a></li> -->
+        <li><a href="about/platforms.html">제공하는 플랫폼</a></li>
+      </ul>
+
+    </div><!--/content-primary-->
+
+    <div class="content-primary">
+      <nav>
+
+        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+          <li data-role="list-divider">컬렉션</li>
+          <!--li><a href="collection/create/index.html">컬렉션 생성</a></li-->
+          <li><a href="collection/read/index.html">컬렉션 정보 가져오기</a></li>
+          <li><a href="collection/delete/index.html">컬렉션 엔티티 삭제</a></li>
+          <li><a href="collection/update/index.html">컬렉션 엔티티 업데이트</a></li>
+          <li><a href="collection/query/index.html">컬렉션 쿼리</a></li>
+
+          <li data-role="list-divider">엔티티</li>
+          <li><a href="entity/create/index.html">엔티티 생성</a></li>
+          <li><a href="entity/read/index.html">엔티티 가져오기</a></li>
+          <li><a href="entity/update/index.html">엔티티 업데이트</a></li>
+          <li><a href="entity/delete/index.html">엔티티 삭제</a></li>
+
+          <li data-role="list-divider">쿼리</li>
+          <li><a href="docs/api/globalconfig.html">Configuring defaults</a></li>
+          <li><a href="docs/api/events.html">Events</a></li>
+          <li><a href="docs/api/methods.html">Methods &amp; Utilities</a></li>
+          <li><a href="docs/api/data-attributes.html">Data attribute reference</a></li>
+
+        </ul>
+        
+      </nav>
+    </div>
+
+
+
+  </div>
+
+  <div data-role="footer" class="footer-docs" data-theme="c">
+            <p class="jqm-version"></p>
+      <p>&copy; 2012 jQuery Foundation and other contributors</p>
+  </div>
+
+</div>
+
+</body>
+</html>
