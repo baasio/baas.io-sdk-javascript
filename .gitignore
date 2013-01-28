@@ -1,5 +1,4 @@
 .DS_Store
 npm_debug.log
-./build
-./docs/about
-./kitchen_sink/desktop
+build
+kitchen_sink/desktop/
