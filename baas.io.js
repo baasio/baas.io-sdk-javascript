@@ -77,10 +77,9 @@ Baas.IO.prototype.request = function (options, callback) {
 
   if (self.getToken()) {
     qs['access_token'] = self.getToken();
-    /* //could also use headers for the token
-    xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
-    xhr.withCredentials = true;
-    */
+    //could also use headers for the token
+    //xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
+    //xhr.withCredentials = true;
   }
 
   //append params to the path
