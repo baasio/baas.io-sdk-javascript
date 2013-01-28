@@ -78,7 +78,10 @@ module.exports = function(grunt) {
         command: 'dox-foundation --title "baas.io Javascript SDK v<%= pkg.version %>" -s ./src/base -T ./build/Release/<%= pkg.version %>/docs'
       },
       clean: {
-        command: 'rm -rf build/docs/*'
+        command: 'rm -rf build/Release/<%= pkg.version %>/docs/*'
+      },
+      cpdoc: {
+        command: 'cp -R build/Release/<%= pkg.version %>/docs/* <%= pkg.deploy.docs %>'
       }
     }
   });
@@ -86,6 +89,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['concat:dist', 'uglify:dist']);
   grunt.registerTask('release', ['concat:release', 'concat:kitchen', 'compress:startup' ]);
-  grunt.registerTask('docs', [ 'shell:base' ]);
+  grunt.registerTask('docs', [ 'shell:clean', 'shell:base', 'shell:cpdoc' ]);
   grunt.registerTask('clean', [ 'shell:clean' ]);
 };
