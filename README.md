@@ -1,8 +1,11 @@
 # baas.io Javascript SDK
 
+JavaScript SDK for Hybrid Web Application based on [baas.io](https://baas.io)
+
 ## 설치(Installation)
 
 #### 소스를 이용하는 방법
+
 ``` 
 git clone https://github.com/kthcorp/baas.io-SDK-JavaScript.git
 cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
@@ -15,7 +18,9 @@ cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
 ## 사용법(Usage)
 
 #### 기본 사용법
-* [기본 페이지 템플릿 생성](wiki/getting-started)
+* [소개](https://github.com/baasio/baas.io-sdk-javascript/wiki/intro)
+* [주요기능]()
+* [기본 페이지 템플릿 생성](https://github.com/baasio/baas.io-sdk-javascript/wiki/getting-started)
 
 ## 히스토리(History)
 
