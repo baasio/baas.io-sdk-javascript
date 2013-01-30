@@ -25,7 +25,7 @@ Baas.IO = function(options) {
   //Baas enpoint
   this.URI = 'https://api.baas.io';
 
-  //Find your Orgname and Appname in the Admin portal (http://apigee.com/Baas)
+  //Find your Baas.io ID and Application ID in the portal Dashboard (http://baas.io/app/)
   this.orgName = options.orgName;
   this.appName = options.appName;
   
