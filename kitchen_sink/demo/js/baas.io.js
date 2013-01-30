@@ -7,7 +7,7 @@
 	root.console.log = root.console.log || function() {};
 
 	// Current version.
-	Baas.VERSION = '0.1.0';
+	Baas.VERSION = '0.4.1';
 
 	// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
 	if (typeof exports !== 'undefined') {
@@ -25,7 +25,7 @@ Baas.IO = function(options) {
   //Baas enpoint
   this.URI = 'https://api.baas.io';
 
-  //Find your Orgname and Appname in the Admin portal (http://apigee.com/Baas)
+  //Find your Baas.io ID and Application ID in the portal Dashboard (http://baas.io/app/)
   this.orgName = options.orgName;
   this.appName = options.appName;
   
