@@ -145,9 +145,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', [ 'build', 'packing' ]);
+  grunt.registerTask('default', [ 'build', 'packing', 'concat:kitchen' ]);
   grunt.registerTask('build', [ 'concat:dist', 'replace:sdk', 'uglify:dist', 'concat:release', 'shell:base', 'replace:docs' ]);
   grunt.registerTask('packing', [ 'compress:sdk', 'compress:startup' ]);
-  grunt.registerTask('deploy', [ 'concat:kitchen','shell:sdk', 'shell:startup', 'shell:cpdoc' ]);
+  grunt.registerTask('deploy', [ 'shell:sdk', 'shell:startup', 'shell:cpdoc' ]);
   grunt.registerTask('clean', [ 'shell:clean' ]);
 };
