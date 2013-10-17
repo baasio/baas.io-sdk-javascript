@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>Baas.io-sdk-javascript Push Notification Examples</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 30px;
+        
+      }
+      .bs-old-docs {
+        padding: 15px 20px;
+        color: #777;
+        background-color: #fafafa;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .bs-old-docs strong {
+        color: #555;
+      }
+      pre {
+        border : 0;
+        margin : 0;
+      }
+      .result_console {
+        min-height: 20px;
+        padding: 19px;
+        background-color: #f5f5f5;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px; 
+      }
+    </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="../../baas.io.js"></script>
+    <script src="app.js"></script>
+    
+  </head>
+
+  <body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" style="padding:5px 0px 5px 15px"> 
+          <img src="../resources/img/bi_baasio.png">
+        </a>
+      </div>
+      </div>
+    </div>
+
+    <div class="bs-old-docs">
+      <div class="container">
+        <strong>
+          <a href="../../index.html"><< home</a>
+        </strong>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="dropdowns">Push Examples</h1>
+        </div>
+
+        <ul class="nav nav-tabs myTab">
+          <li class="active"><a href="#Send" data-toggle="tab">Send</a></li>
+        </ul>
+
+        <div class="tab-content" style='padding:20px'>
+          <div class="tab-pane active" id="Send">
+            <form role="form">
+              <div class="form-group">
+                
+                <!-- baas.io id or name -->
+                <label>baas.io ID or Name</label>
+                <input type="text" class="form-control __push_org_id" placeholder="baas.io ID or Name" style="margin:0 10px 15px 0;">
+
+                <!-- appication id or name -->
+                <label>Application ID or Name</label>
+                <input type="text" class="form-control __push_app_id" placeholder="Application ID or Name">
+              </div>
+              
+              <!-- select target -->
+              <!-- target:user -> insert uuid -->
+              <!-- target:device -> insert device id -->
+              <!-- target:tag -> insert tag name -->
+              <div class="form-group __setting" style="margin-bottom:20px;">
+                <div class="page-header">
+                  <h3 >Setting</h3>
+                </div>
+
+                <!-- push target  -->
+                <h4>target</h4>
+                <label style="margin:0 10px 0 0;">
+                  <input class='radio-inline' type="radio" name="target" value="all" style="margin:-2px 5px;" checked>all
+                </label>
+                <label style="margin:0 10px 0 0;">
+                  <input class='radio-inline' type="radio" name="target" value="user" style="margin:-2px 5px;">user
+                </label>
+                <label style="margin:0 10px 0 0;">
+                  <input class='radio-inline' type="radio" name="target" value="device" style="margin:-2px 5px;">device
+                </label>
+                <label style="margin:0 10px 15px 0;">
+                  <input class='radio-inline' type="radio" name="target" value="tag" style="margin:-2px 5px;">tag
+                </label>
+
+                <!-- 'user id' or 'device id' or 'tag name' -->
+                <input type="text" class="form-control __target_id" placeholder="disabled">
+               
+                <!-- push send message -->
+                <h4>message</h4>
+                <textarea class="form-control __message" rows="3" style='margin-bottom:15px;' placeholder="메세지 내용은 iOS 220Byte, Android 4000Byte 로 제한되어 발송됩니다."></textarea>
+
+                <!-- push send badge -->
+                <h4>badge</h4>
+                <input type="text" class="form-control __badge" placeholder="badge" style='margin-bottom:15px;'>
+
+                <!-- push sound -->
+                <h4>sound</h4>
+                <input type="text" class="form-control __sound" placeholder="sound" style='margin-bottom:15px;'>
+                
+                <!-- push reserve -->
+                <h4>reserve</h4>
+                <input type="text" class="form-control __reserve" placeholder="201310161200" style='margin-bottom:15px;'>
+
+                <!-- select platform -->
+                <h4>platform</h4>
+                <label style="margin:0 10px 0 0;">
+                  <input class='radio-inline' type="radio" name="platform" value="I" style="margin:-2px 5px;" checked>iOS
+                </label>
+                <label style="margin:0 10px 0 0;">
+                  <input class='radio-inline' type="radio" name="platform" value="G" style="margin:-2px 5px;">Android
+                </label>
+
+                <!-- option memo ex > 'portal' -->
+                <h4>memo</h4>
+                <input type="text" class="form-control __memo" placeholder="memo" style='margin-bottom:15px;'>
+                
+                <!-- send button -->
+                <button class="btn btn-primary __send"> send </button>
+              </div>
+            </form>
+            <div class="result_console">
+              <pre>// 'send' 버튼을 클릭하시면, Push가 보내집니다. </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,50 +1,104 @@
-# baas.io Javascript SDK
+## Quickstart
 
-JavaScript SDK for Hybrid Web Application based on [baas.io](https://baas.io)
+## Overview
 
-## 설치(Installation)
+앱 서비스에 연결하여 javascript/html 또는 hybrid app에 사용을 간단하게 해주는 오픈 소스 SDK다.
 
-#### 소스를 이용하는 방법
+Repository 주소 :
 
-``` 
-git clone https://github.com/kthcorp/baas.io-SDK-JavaScript.git
-cp ./baas.io-SDK-JavaScript/baas.io.js /path/to/your-project
+https://github.com/baasio/baas.io-sdk-javascript
+
+Package 다운로드 주소 :
+
+Download as a zip file: https://github.com/baasio/baas.io-sdk-javascript/archive/master.zip
+
+Download as a tar.gz file: https://github.com/baasio/baas.io-sdk-javascript/archive/master.tar.gz
+
+baas.io 앱 개발에 대한 더 많은 정보 :
+
+https://baas.io/docs/ko/devguide/
+
+## Version
+
+Current Version: 0.9.7
+
+변경 된 내용:
+
+https://github.com/baasio/baas.io-sdk-javascript/blob/master/changelog.md
+
+## Installing
+
+먼저 SDK를 다운로드하여 프로젝트에 baas.io.js 파일을 추가합니다. 이 파일은 SDK의 root에 있다. Html 의 상단에 추가한다. (head 태그 사이에)
+
+```
+<script src="path/to/baas.io.js" type="text/javascript"></script>
 ```
 
-#### 다운로드하는 방법 
-* [Development Version(0.4.0)](./baas.io-sdk-javascript/blob/master/baas.io.js)	- 개발/디버깅용
-* [Production Version(0.4.0)](./baas.io-sdk-javascript/blob/master/baas.io.min.js) - 압축/배포용
+## Validation
 
-## 사용법(Usage)
+유효성 검사를 위한 확장 js파일은 앱에서 사용할 수 있다.
 
-#### 기본 사용법
-* [소개](https://github.com/baasio/baas.io-sdk-javascript/wiki/intro)
-* [주요기능]()
-* [기본 페이지 템플릿 생성](https://github.com/baasio/baas.io-sdk-javascript/wiki/getting-started)
+파일 위치 :
 
-## 히스토리(History)
+```
+/extensions/usergrid.session.js
+```
 
-* v0.4.0rc0
-	- 가이드 문서 업데이트
-	- merge usergrid sdk v0.10.3
-* v0.3.0
-	- 스타트업 프로젝트 작성
-* v0.2.0
-	- 키친싱크 앱 작성
-	- API 문서 자동화
-* v0.1.0
-	- merge usergrid sdk v0.9.0
+HTML파일의 상단에 파일을 추가 - SDK를 추가 한 다음에 :
 
-## 위키
+```
+<script src="path/to/baas.io.js" type="text/javascript"></script>
+<script src="path/to/extensions/baas.io.validation.js" type="text/javascript"></script>
+```
 
-## 참여(Contributing)
+username, passwords 그리고 많은 일반적인 타입의 유효성 확인하는 다양한 함수가 있습니다. 프로젝트에 사용하기 위해 수정을 하시거나 복사를 하여 사용할 수 있습니다.
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+## cURL
 
-## 라이센스(License)
+cURL은 API를 직접 호출하는 가장 좋은 방법이다. IO을 선언할때 options에 buildCurl를 추가하면 된다.
 
-라이센스는 [LICENSE.md](./baas.io-sdk-javascript/blob/devel/LICENSE.md) 를 참조하세요.
+```
+var io = new Baas.IO({
+    orgName:'yourorgname',
+    appName:'sandbox',
+    logging: true, // Optional - turn on logging, off by default
+    buildCurl: true // Optional - turn on curl commands, off by default
+});
+```
+만약에 buildCurl의 값을 true로 하면, curl의 명령어를 만들고, console.log를 통해 명령어를 볼 수 있다.
+
+cURL의 더 자세한 내용 :
+
+http://curl.haxx.se/
+
+## Contributing
+
+SDK의 향상을 위한 당신의 참여를 환영합니다.
+
+참여 하시는 방법 :
+
+1. SDK를 Fork한다.
+2. 새로운 Branch를 생성한다.(git checkout -b my-new-feature).
+3. 코드를 변경하고, 변경된 내용을 commit 한다.(git commit -am '변경된 간단한 내용').
+4. 변경된 내용의 Branch를 Push한다.(git push origin my-new-feature).
+5. Pull Request를 만들어 요청한다.(변경된 내용과 왜 수정하였는지를 적음)
+
+## Comments/Question
+
+SDK의 도움말
+
+https://baas.io/docs/ko/javascript/index.html
+
+SDK 관련 질문 또는 검색
+
+https://baas.io/support/
+
+## Copyright
+
+Copyright 2013 baas.io
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use thisfile except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
