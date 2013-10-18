@@ -63,8 +63,8 @@ $(document).ready(function(){
 		//option memo
 		if(setting.find('.__memo').val()) options.memo = setting.find('.__memo').val();
 
-		var org_id 	= $('.__push_org_id').val();
-    		var app_id 	= $('.__push_app_id').val();
+		var org_id 	= $('.__org_id').val();
+    		var app_id 	= $('.__app_id').val();
 
     		var io    	= new Baas.IO({'orgName' : org_id, 'appName' : app_id});
 		var push 	= new Baas.Push({'client':io});

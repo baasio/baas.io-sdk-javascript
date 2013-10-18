@@ -1,17 +1,11 @@
 $(document).ready(function(){
-
-  $('.myTab li').each(function(i,element){
-    $(element).bind('click',function(e){
-      $(this).tab('show')
-    })
-  })
   
   $('.upload_start').click(function(e){
 
     e.preventDefault();
 
-    var org_id      = $('.upload_org_id').val();
-    var app_id      = $('.upload_app_id').val();
+    var org_id      = $('.__org_id').val();
+    var app_id      = $('.__app_id').val();
     var file_upload = $('.file_upload');
 
     var io    = new Baas.IO({'orgName' : org_id, 'appName' : app_id});
@@ -26,8 +20,8 @@ $(document).ready(function(){
 
     e.preventDefault();
 
-    var org_id      = $('.download_org_id').val();
-    var app_id      = $('.download_app_id').val();
+    var org_id      = $('.__org_id').val();
+    var app_id      = $('.__app_id').val();
     var file_uuid   = $('.file_uuid').val();
 
     var io    = new Baas.IO({'orgName' : org_id, 'appName' : app_id});
