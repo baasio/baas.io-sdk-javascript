@@ -5,9 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="shortcut icon" href="../../assets/ico/favicon.png">
+		<link rel="shortcut icon" href="../resources/img/favbaas.ico">
 
-		<title>Baas.io-sdk-javascript Push Notification Examples</title>
+		<title>baas.io-sdk-javascript Push Notification Examples</title>
 
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-		<script src="http://baasio.github.io/baas.io-sdk-javascript-admin/baas.io.js"></script>
+		<script src="../../baas.io.js"></script>
 		<script src="app.js"></script>
 		
 	</head>
@@ -28,7 +28,7 @@
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#" style="padding:5px 0px 5px 15px"> 
+					<a class="navbar-brand" href="../../index.html" style="padding:5px 0px 5px 15px"> 
 						<img src="../resources/img/bi_baasio.png">
 					</a>
 				</div>
@@ -37,34 +37,31 @@
 		</div>
 		<div class="bs-old-docs">
 			<div class="container">
-				<strong>
-					<a href="../../index.html"><< home</a>
-				</strong>
+				<a href="../../index.html" class="btn btn-success btn-ms">home</a>
 			</div>
 		</div>
 		<div class="container">
-			<div class="bs-docs-section">
-				<div class="page-header">
-					<h1 id="dropdowns">Push Examples</h1>
-				</div>
+			<div class="page-header">
+				<h1>Push Examples</h1>
 			</div>
 
 			<div class="alert alert-default" style="margin-bottom:30px;">
-				<strong>Push Message</strong>를 다양한 옵션을 사용하여 보내는 방법을 테스트 할 수 있는 예제입니다. 테스트 전 <a href='http://baas.io'><strong>baas.io</strong></a> 에 가입하시고 인증서를 등록하셔야 합니다. 또한 guest의 권한 전체 권한(/**)으로 변경 후 테스트를 진행하시기 바랍니다. 
+				<strong>Push Message</strong>를 다양한 옵션을 사용하여 보내는 방법을 테스트 할 수 있는 예제입니다. 테스트 전 <a href='http://baas.io'><strong>baas.io</strong></a> 에 가입하시고 인증서를 등록하셔야 합니다. 또한 guest의 권한을 <strong>전체 권한(/**)</strong>으로 변경 후 테스트를 진행하시기 바랍니다. 
 			</div>
 
 			<ul class="nav nav-tabs myTab">
 				<li class="active"><a href="#Send" data-toggle="tab">Send</a></li>
 			</ul>
 
-			<form role="form" style="padding-top:15px">
+			<form role="form" style="margin-top:15px">
+				<!-- insert baas.io "id" or "username" -->
 				<div class="form-group">
-					<!-- baas.io id or name -->
 					<label>baas.io ID or Name</label>
-					<input type="text" class="form-control __org_id" placeholder="baas.io ID or Name" style="margin:0 10px 15px 0;">
-
-					<!-- appication id or name -->
-					<label>Application ID or Name</label>
+					<input type="text" class="form-control __org_id" placeholder="baas.io ID or Name">
+				</div>
+				<!-- insert Application "id" or "username" -->
+				<div class="form-group">
+					<label >Application ID or Name</label>
 					<input type="text" class="form-control __app_id" placeholder="Application ID or Name">
 					
 				</div>	
@@ -72,72 +69,81 @@
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="Send">
-					<form role="form"  style="margin-bottom:20px;">
+					
+					<h3><strong>Setting</strong></h3>
+
+					<form role="form" class='__setting' style="margin-bottom:20px;">
 						
 						<!-- select target -->
 						<!-- target:user -> insert uuid -->
 						<!-- target:device -> insert device id -->
 						<!-- target:tag -> insert tag name -->
-						<div class="form-group __setting" style="margin-bottom:20px;">
-							<!-- <div class="page-header"> -->
-								<h3 >Setting</h3>
-							<!-- </div> -->
-								<h3 >Setting</h3>
-							<!-- push target  -->
-							<label>target</label>
-							<div class="form-group">
-								<label style="margin:0 10px 0 0;">
-									<input class='radio-inline' type="radio" name="target" value="all" style="margin:-2px 5px;" checked>all
-								</label>
-								<label style="margin:0 10px 0 0;">
-									<input class='radio-inline' type="radio" name="target" value="user" style="margin:-2px 5px;">user
-								</label>
-								<label style="margin:0 10px 0 0;">
-									<input class='radio-inline' type="radio" name="target" value="device" style="margin:-2px 5px;">device
-								</label>
-								<label style="margin:0 10px 15px 0;">
-									<input class='radio-inline' type="radio" name="target" value="tag" style="margin:-2px 5px;">tag
-								</label>
-							</div>
+						<label>target</label>
 
+						<div class="form-group">
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="target" value="all" style="margin:-2px 5px;" checked>all
+							</label>
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="target" value="user" style="margin:-2px 5px;">user
+							</label>
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="target" value="device" style="margin:-2px 5px;">device
+							</label>
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="target" value="tag" style="margin:-2px 5px;">tag
+							</label>
+						</div>
+						
+						<div class="form-group">
 							<!-- 'user id' or 'device id' or 'tag name' -->
-							<input type="text" class="form-control __target_id" placeholder="disabled" style="margin:0 0 15px 0">
-						 
+							<input type="text" class="form-control __target_id" placeholder="disabled">
+						</div>
+
+						<div class="form-group">
 							<!-- push send message -->
 							<label>message</label>
-							<textarea class="form-control __message" rows="3" style='margin-bottom:15px;' placeholder="메세지 내용은 iOS 220Byte, Android 4000Byte 로 제한되어 발송됩니다."></textarea>
+							<textarea class="form-control __message" rows="3" placeholder="메세지 내용은 iOS 220Byte, Android 4000Byte 로 제한되어 발송됩니다."></textarea>
+						</div>
 
+						<div class="form-group">
 							<!-- push send badge -->
 							<label>badge</label>
-							<input type="text" class="form-control __badge" placeholder="badge" style='margin-bottom:15px;'>
+							<input type="text" class="form-control __badge" placeholder="badge">
+						</div>
 
+						<div class="form-group">
 							<!-- push sound -->
 							<label>sound</label>
-							<input type="text" class="form-control __sound" placeholder="sound" style='margin-bottom:15px;'>
-							
+							<input type="text" class="form-control __sound" placeholder="sound">
+						</div>
+
+						<div class="form-group">	
 							<!-- push reserve -->
 							<label>reserve</label>
-							<input type="text" class="form-control __reserve" placeholder="201310161200" style='margin-bottom:15px;'>
+							<input type="text" class="form-control __reserve" placeholder="201310161200">
+						</div>
 
-							<!-- select platform -->
-							<label>platform</label>
+						<!-- select platform -->
+						<label>platform</label>
 
-							<div class="form-group">
-								<label style="margin:0 10px 0 0;">
-									<input class='radio-inline' type="radio" name="platform" value="I" style="margin:-2px 5px;" checked>iOS
-								</label>
-								<label style="margin:0 10px 0 0;">
-									<input class='radio-inline' type="radio" name="platform" value="G" style="margin:-2px 5px;">Android
-								</label>
-							</div>
+						<div class="form-group">
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="platform" value="I" style="margin:-2px 5px;" checked>iOS
+							</label>
+							<label style="margin:0 10px 0 0;">
+								<input class='radio-inline' type="radio" name="platform" value="G" style="margin:-2px 5px;">Android
+							</label>
+						</div>
 
+						<div class="form-group">
 							<!-- option memo ex > 'portal' -->
 							<label>memo</label>
-							<input type="text" class="form-control __memo" placeholder="memo" style='margin-bottom:15px;'>
-							
-							<!-- send button -->
-							<button class="btn btn-primary __send"> send </button>
+							<input type="text" class="form-control __memo" placeholder="memo">
 						</div>
+
+						<!-- send button -->
+						<button class="btn btn-primary __send"> send </button>
 					</form>
 
 					<h4><strong>PUSH</strong> API Response</h4>

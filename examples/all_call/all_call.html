@@ -5,13 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="shortcut icon" href="../../assets/ico/favicon.png">
+		<link rel="shortcut icon" href="../resources/img/favbaas.ico">
 
-		<title>Baas.io-sdk-javascript Get, Post, Put, Delete, Login Examples</title>
+		<title>baas.io-sdk-javascript Get, Post, Put, Delete, Login Examples</title>
 
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+		
 		<!-- Baas.io CSS -->
 		<link rel="stylesheet" href="../resources/css/baas.io.css">
 
@@ -22,12 +23,12 @@
 		
 	</head>
 
-	<body style='min-height:800px'>
+	<body>
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#" style="padding:5px 0px 5px 15px"> 
+					<a class="navbar-brand" href="../../index.html" style="padding:5px 0px 5px 15px"> 
 						<img src="../resources/img/bi_baasio.png">
 					</a>
 				</div>
@@ -36,27 +37,18 @@
 
 		<div class="bs-old-docs">
 			<div class="container">
-				<strong>
-					<a href="../../index.html"><< home</a>
-				</strong>
+				<a href="../../index.html" class="btn btn-success btn-ms">home</a>
 			</div>
 		</div>
 
 		<div class="container">
-			<!-- <div class="bs-docs-section">
-				<div class="page-header">
-					<h1 id="dropdowns">All Calls Examples</h1>
-				</div>
-			</div> -->
-			
-			<!-- <h1>All Calls Examples</h1> -->
 
 			<div class="page-header">
-				<h1 id="dropdowns">All Calls Examples</h1>
+				<h1>All Calls Examples</h1>
 			</div>
 
 			<div class="alert alert-default" style="margin:30px 0 30px 0;">
-				<strong>GET, POST, PUT, DELETE</strong> 의 4가지는 예제는 baas.io sdk를 사용하는 간단한 예제입니다. <a href='http://baas.io'><strong>baas.io</strong></a> 에 가입 후 기본으로 제공되는 sandbox의 앱을 통해 예제를 테스트 하시면 됩니다. 추가적으로 <strong>Login</strong> 예제도 제공합니다.
+				<strong>GET, POST, PUT, DELETE</strong> 의 4가지는 예제는 baas.io sdk를 사용하는 간단한 예제입니다. <a href='http://baas.io'><strong>baas.io</strong></a> 에 가입 후 기본으로 제공되는 <strong>sandbox</strong>의 앱을 통해 예제를 테스트 하시면 됩니다. 추가적으로 <strong>Login</strong> 예제도 제공합니다.
 			</div>
 
 			<h3><strong>Select method to test</strong></h3>
@@ -69,24 +61,25 @@
 				<li><a href="#login" data-toggle="tab"><strong>LOG IN</strong></a></li>
 			</ul>
 			
-			
-			<form role="form">
-				<div class="form-group" style='padding:15px 0 0 0'>
-					
+			<form role="form" style="margin-top:15px">
+				<!-- insert baas.io "id" or "username" -->
+				<div class="form-group">
 					<label>baas.io ID or Name</label>
 					<input type="text" class="form-control __org_id" placeholder="baas.io ID or Name">
 				</div>
-				<div class="form-group" style='padding:15px 0 0 0'>
+				<!-- insert Application "id" or "username" -->
+				<div class="form-group">
 					<label >Application ID or Name</label>
 					<input type="text" class="form-control __app_id" placeholder="Application ID or Name">
 					
 				</div>	
 			</form>
 
-
 			<div class="tab-content">
+
+				<!-- get data-->
 				<div class="tab-pane active" id="get">
-					<form role="form">
+					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Path</label>
 							<input type="text" class="form-control __path" placeholder="users/r2fresh">
@@ -103,7 +96,7 @@
 
 				<!-- post data -->
 				<div class="tab-pane" id="post">
-					<form role="form">
+					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Path</label>
 							<input type="text" class="form-control __path" placeholder="users" style="margin-bottom:15px;">
@@ -123,7 +116,7 @@
 
 				<!-- put data -->
 				<div class="tab-pane" id="put">
-					<form role="form">
+					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Path</label>
 							<input type="text" class="form-control __path" placeholder="users/r2fresh" style="margin-bottom:15px;">
@@ -142,7 +135,7 @@
 
 				<!-- delete data -->
 				<div class="tab-pane" id="delete">
-					<form role="form">
+					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Path</label>
 							<input type="text" class="form-control __path" placeholder="users/r2fresh">
@@ -156,9 +149,10 @@
 						<pre>// Press 'Run Query' to send the API call.</pre>
 					</div>
 				</div>
-
+				
+				<!-- user login -->
 				<div class="tab-pane" id="login">
-					<form role="form">
+					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Username</label>
 							<input type="text" class="form-control __username" placeholder="r2fresh" style="margin-bottom:15px;">

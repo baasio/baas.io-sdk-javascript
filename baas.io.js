@@ -21,27 +21,12 @@
 	}
 
 	/*
-	*  This module is a collection of classes designed to make working with
-	*  the Appigee App Services API as easy as possible.
-	*  Learn more at http://apigee.com/docs/usergrid
+	*  The class models Baas io.
 	*
-	*   Copyright 2012 Apigee Corporation
-	*
-	*  Licensed under the Apache License, Version 2.0 (the "License");
-	*  you may not use this file except in compliance with the License.
-	*  You may obtain a copy of the License at
-	*
-	*      http://www.apache.org/licenses/LICENSE-2.0
-	*
-	*  Unless required by applicable law or agreed to in writing, software
-	*  distributed under the License is distributed on an "AS IS" BASIS,
-	*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	*  See the License for the specific language governing permissions and
-	*  limitations under the License.
-	*
-	*  @author rod simpson (rod@apigee.com)
+	*  @constructor
+	*  @param {string} options - configuration object
 	*/
-	
+
 	Baas.IO = function(options) {
 		//usergrid enpoint
 		this.URI = options.URI || 'https://api.baas.io';
@@ -104,7 +89,6 @@
 		}
 
 		//stringify the body object
-		//body = JSON.stringify(body);
 		body = (body instanceof FormData) ? body : JSON.stringify(body);
 
 		//so far so good, so run the query
@@ -1880,6 +1864,8 @@
   /**
   *  Push Message Send
   *
+  *  @method fetch
+  *  @public
   *  @param {object} options
   *  @param {function} callback(err, data, entity)
   */
@@ -1962,7 +1948,7 @@
         return;
       }
     } else {
-      // badge 타입이 숫자가 아니면
+      // badge is not number
       if(typeof payload.badge !== 'number'){
         callback(true, {'error_code':100 , 'error_description' : 'Invalid payload.badge type'})
         return;
@@ -2053,273 +2039,257 @@
       }
     }) 
   }
-  
-  /*
-   *  A class to model a Baas File.
-   *  Set the path in the options object.
-   *
-   *  @constructor
-   *  @param {object} options {client:client, data: {'key': 'value'}}
-   */
-  Baas.File = function(options) {
+	
+	/*
+	 *  A class to model a Baas File.
+	 *  Set the path in the options object.
+	 *
+	 *  @constructor
+	 *  @param {object} options {client:client, data: {'key': 'value'}}
+	 */
+	Baas.File = function(options) {
 
-    if(options){
-      this._client = options.client;
-      this._data = options.data || {};
-      this._data.type = "files";
-      this._data.minsize = options.minsize || 1;
-      this._data.maxsize = options.maxsize || 10485760;
-      this._data.allowExts = options.allowExts || "";
-      this.count = 0;
-    }
-  }
+		if(options){
+			this._client = options.client;
+			this._data = options.data || {};
+			this._data.type = "files";
+			this._data.minsize = options.minsize || 1;
+			this._data.maxsize = options.maxsize || 10485760;
+			this._data.allowExts = options.allowExts || "";
+			this.count = 0;
+		}
+	}
 
-  // Baas.File.getFileExt = function (filename){
-  //   if(filename){
-  //     if(filename.length > 0){
-  //       var lidx = filename.lastIndexOf(".");
-  //       var filename_len = filename.length;
-   
-  //       if(lidx > -1){
-  //         return filename.substring(lidx+1);
-  //       }  
-  //     }
-  //   }
-  //   return "";
-  // }
+	/*
+	 *  Inherit from Baas.Entity.
+	 *  Note: This only accounts for data on the file object itself.\
+	 */
+	Baas.File.prototype = new Baas.Entity();
 
-  // function checkFileExt(p_filename,p_allow_exts){
-  //   if(p_allow_exts){
-  //     var exts = p_allow_exts.toLowerCase().split(",");
-  //     var fext = getFileExt(p_filename).toLowerCase();
+	/*
+	 *  Upload files and Create file Entity
+	 *  
+	 *  @method save
+	 *  @public
+	 *  @param {object} fileObj
+	 *  @param {function} callback
+	 *  @return {callback} callback(err, data, entity)
+	 */
+	Baas.File.prototype.upload = function(fileObj, callback){
 
-  //     if(fext && fext.length > 0){
-  //       for(var i=0;i<exts.length;i++){
-  //         var ext = exts[i].toLowerCase();
-  //           if(fext==ext){
-  //           return true;
-  //         }
-  //       }
-  //     }
-  //   }
+		var type = this.get('type');
 
-  //   return false;
-  // }
+		var fileNameRegex = /<|>|"|\\/;
 
-  Baas.File.prototype = new Baas.Entity();
+		var self = this;
 
-  Baas.File.prototype.upload = function(fileObj, callback){
+		var formData = new FormData();
 
-    var type = this.get('type');
-    //var method = 'POST';
+		var fileSize = fileObj.file[0].files[self.count].size;
+		var fileName = fileObj.file[0].files[self.count].name;
 
-    var fileNameRegex = /<|>|"|\\/;
+		// fileSize Check
+		if(fileSize < this._data.minsize  || fileSize > this._data.maxsize){
+			callback(true, {'error_code':100, 'error_description' : 'min : 1byte, max : 10MB'});
+			return
+		} else if(fileNameRegex.test(fileName)){
+			callback(true, {'error_code':100, 'error_description' : 'Invalid file name'});
+			return 
+		}
 
-    var self = this;
+		//file ext check
+		if(this.get('allowExts')){
+			var allowExts = (this.get('allowExts')).toLowerCase().split(",");
 
-    var formData = new FormData();
+			if(fileName.length > 0){
+				var lidx = fileName.lastIndexOf(".");
+				var fext = fileName.substring(lidx+1).toLowerCase();  
+			}
+			
+			var checkCount = 0;
 
-    var fileSize = fileObj.file[0].files[self.count].size;
-    var fileName = fileObj.file[0].files[self.count].name;
+			if(fext && fext.length > 0){
+				for(var i=0;i<allowExts.length;i++){
+					var ext = allowExts[i].toLowerCase();
+					if(fext == ext){
+						checkCount+=1;
+					}
+				}
+			}
 
-    // fileSize Check
-    if(fileSize < this._data.minsize  || fileSize > this._data.maxsize){
-      callback(true, {'error_code':100, 'error_description' : 'min : 1byte, max : 10MB'});
-      return
-    } else if(fileNameRegex.test(fileName)){
-      callback(true, {'error_code':100, 'error_description' : 'Invalid file name'});
-      return 
-    }
+			if(checkCount === 0) {
+				callback(true, {'error_code':100, 'error_description' : 'Invalid file ext'});
+				return;
+			}
+		}
 
-    //file ext check
-    if(this.get('allowExts')){
-      var allowExts = (this.get('allowExts')).toLowerCase().split(",");
+		formData.append("file" , fileObj.file[0].files[self.count]);    
 
-      if(fileName.length > 0){
-        var lidx = fileName.lastIndexOf(".");
-        var fext = fileName.substring(lidx+1).toLowerCase();  
-      }
-      
-      var checkCount = 0;
+		var options =  {
+			method:'POST',
+			endpoint:type,
+			body:formData
+		};
 
-      if(fext && fext.length > 0){
-        for(var i=0;i<allowExts.length;i++){
-          var ext = allowExts[i].toLowerCase();
-          if(fext == ext){
-            checkCount+=1;
-          }
-        }
-      }
+		this._client.request(options, function(err, retdata){
+			if(err) {
+				if(self._client.logging) {
+					console.log('error getting push');
+				}
+				if(typeof(callback) === 'function') {
+					callback(err, retdata);
+				}
+			} else {
+				if (retdata.entities) {
+					if (retdata.entities.length) {
+						var entity = retdata.entities[0];
+						self.set(entity);
+					}
+				}
+				callback(err, retdata, self);
+			}
+		});
+	}
+	
+	/*
+	 *  download files
+	 *
+	 *  @param {function} callback
+	 *  @return {callback} callback(err, data, entity)
+	 */
+	Baas.File.prototype.download = function(callback){
 
-      if(checkCount === 0) {
-        callback(true, {'error_code':100, 'error_description' : 'Invalid file ext'});
-        return;
-      }
-    }
+		var type = 'files/' + this.get('uuid') + '/data';
 
-    formData.append("file" , fileObj.file[0].files[self.count]);    
+		var self = this;
 
-    var options =  {
-      method:'POST',
-      endpoint:type,
-      body:formData
-    };
+		var options =  {
+			method:'GET',
+			endpoint:type
+		};
 
-    this._client.request(options, function(err, retdata){
-      if(err) {
-        if(self._client.logging) {
-          console.log('error getting push');
-        }
-        if(typeof(callback) === 'function') {
-          callback(err, retdata);
-        }
-      } else {
-        if (retdata.entities) {
-          if (retdata.entities.length) {
-            var entity = retdata.entities[0];
-            self.set(entity);
-          }
-        }
-        callback(err, retdata, self);
-      }
-    });
-  }
-  
-  Baas.File.prototype.download = function(callback){
+		this._client.request(options, function (err, retdata){
+			if(err) {
+				if(self._client.logging) {
+					console.log('error getting push');
+				}
+				if(typeof(callback) === 'function') {
+					callback(err, self);
+				}
+			} else {
+				callback(err, self);
+				window.location = self.getDownloadURL();
+			}
+		});
+	}
 
-    var type = 'files/' + this.get('uuid') + '/data';
+	/*
+	*  Saves the entity back to the database
+	*
+	*  @method save
+	*  @public
+	*  @param {function} callback
+	*  @return {callback} callback(err, data)
+	*/
+	Baas.Entity.prototype.save = function (callback) {
+		//TODO:  API will be changed soon to accomodate PUTs via name which create new entities
+		//       This function should be changed to PUT only at that time, and updated to use
+		//       either uuid or name
+		var type = this.get('type');
+		var method = 'POST';
+		if (Baas.Utils.isUUID(this.get('uuid'))) {
+			method = 'PUT';
+			type += '/' + this.get('uuid');
+		}
 
-    var self = this;
+		//update the entity
+		var self = this;
+		var data = {};
+		var entityData = this.get();
+		//remove system specific properties
+		for (var item in entityData) {
+			if (item === 'metadata' || item === 'created' || item === 'modified' ||
+					item === 'type' || item === 'activated' || item ==='uuid' || item ==='minsize' || item ==='maxsize') { continue; }
+			data[item] = entityData[item];
+		}
+		var options =  {
+			method:method,
+			endpoint:type,
+			body:data
+		};
+		//save the entity first
+		this._client.request(options, function (err, retdata) {
+			if (err && self._client.logging) {
+				console.log('could not save entity');
+				if (typeof(callback) === 'function') {
+					return callback(err, retdata, self);
+				}
+			} else {
+				if (retdata.entities) {
+					if (retdata.entities.length) {
+						var entity = retdata.entities[0];
+						self.set(entity);
+					}
+				}
+				callback(err, retdata, self);
+			}
+		});
+	}
 
-    var options =  {
-      method:'GET',
-      endpoint:type
-    };
+	/*
+	*  refreshes the entity by making a GET call back to the database
+	*
+	*  @method fetch
+	*  @public
+	*  @param {function} callback
+	*  @return {callback} callback(err, data)
+	*/
+	Baas.File.prototype.fetch = function (callback) {
+		var type = this.get('type');
+		var self = this;
 
-    this._client.request(options, function (err, retdata){
-      if(err) {
-        if(self._client.logging) {
-          console.log('error getting push');
-        }
-        if(typeof(callback) === 'function') {
-          callback(err, self);
-        }
-      } else {
-        callback(err, self);
-        window.location = self.getDownloadURL();
-      }
-    });
-  }
+		//if a uuid is available, use that, otherwise, use the name
+		if (this.get('uuid')) {
+			type += '/' + this.get('uuid');
+		} else {
+			if (typeof(callback) === 'function') {
+				var error = 'no_uuid_specified';
+				if (self._client.logging) {
+					console.log(error);
+				}
+				return callback(true, {error:error}, self)
+			}
+		}
 
-  /*
-  *  Saves the entity back to the database
-  *
-  *  @method save
-  *  @public
-  *  @param {function} callback
-  *  @return {callback} callback(err, data)
-  */
-  Baas.Entity.prototype.save = function (callback) {
-    //TODO:  API will be changed soon to accomodate PUTs via name which create new entities
-    //       This function should be changed to PUT only at that time, and updated to use
-    //       either uuid or name
-    var type = this.get('type');
-    var method = 'POST';
-    if (Baas.Utils.isUUID(this.get('uuid'))) {
-      method = 'PUT';
-      type += '/' + this.get('uuid');
-    }
+		var options = {
+			method:'GET',
+			endpoint:type
+		};
 
-    //update the entity
-    var self = this;
-    var data = {};
-    var entityData = this.get();
-    //remove system specific properties
-    for (var item in entityData) {
-      if (item === 'metadata' || item === 'created' || item === 'modified' ||
-          item === 'type' || item === 'activated' || item ==='uuid' || item ==='minsize' || item ==='maxsize') { continue; }
-      data[item] = entityData[item];
-    }
-    var options =  {
-      method:method,
-      endpoint:type,
-      body:data
-    };
-    //save the entity first
-    this._client.request(options, function (err, retdata) {
-      if (err && self._client.logging) {
-        console.log('could not save entity');
-        if (typeof(callback) === 'function') {
-          return callback(err, retdata, self);
-        }
-      } else {
-        if (retdata.entities) {
-          if (retdata.entities.length) {
-            var entity = retdata.entities[0];
-            self.set(entity);
-          }
-        }
-        callback(err, retdata, self);
-      }
-    });
-  }
+		this._client.request(options, function (err, data) {
+			if (err && self._client.logging) {
+				console.log('could not get entity');
+			} else {
+					if (data.entities.length) {
+						var entity = data.entities[0];
+						self.set(entity);
+					}
+			}
+			if (typeof(callback) === 'function') {
+				callback(err, data, self);
+			}
+		});
+	}
 
-  /*
-  *  refreshes the entity by making a GET call back to the database
-  *
-  *  @method fetch
-  *  @public
-  *  @param {function} callback
-  *  @return {callback} callback(err, data)
-  */
-  Baas.File.prototype.fetch = function (callback) {
-    var type = this.get('type');
-    var self = this;
-
-    //if a uuid is available, use that, otherwise, use the name
-    if (this.get('uuid')) {
-      type += '/' + this.get('uuid');
-    } else {
-      if (typeof(callback) === 'function') {
-        var error = 'no_uuid_specified';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        return callback(true, {error:error}, self)
-      }
-    }
-
-    var options = {
-      method:'GET',
-      endpoint:type
-    };
-
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('could not get entity');
-      } else {
-          if (data.entities.length) {
-            var entity = data.entities[0];
-            self.set(entity);
-          }
-      }
-      if (typeof(callback) === 'function') {
-        callback(err, data, self);
-      }
-    });
-  }
-
-  /**
-   * html markup use file download url
-   *
-   * @method getDownloadURL
-   * @public
-   * @param {obejct} options
-   * @return {string} url
-   */
-  Baas.File.prototype.getDownloadURL = function(){
-    return this._client.URI + '/' + this._client.orgName + '/' + this._client.appName + '/' + this.get('type') + '/' + this.get('uuid') + '/data'
-  }
+	/**
+	 * html markup use file download url
+	 *
+	 * @method getDownloadURL
+	 * @return {string} url
+	 */
+	Baas.File.prototype.getDownloadURL = function(){
+		return this._client.URI + '/' + this._client.orgName + '/' + this._client.appName + '/' + this.get('type') + '/' + this.get('uuid') + '/data'
+	}
   
   /*
    *  A class to model a Baas Utils.
