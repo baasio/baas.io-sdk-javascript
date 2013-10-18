@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+		<title>Baas.io-sdk-javascript File Examples</title>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+		<!-- Baas.io CSS -->
+		<link rel="stylesheet" href="../resources/css/baas.io.css">
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="../../baas.io.js"></script>
+		<script src="app.js"></script>
+		
+	</head>
+
+	<body>
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#" style="padding:5px 0px 5px 15px"><img src="../resources/img/bi_baasio.png"></a>
+				</div>
+			</div>
+		</div>
+		<div class="bs-old-docs">
+			<div class="container">
+				<strong>
+					<a href="../../index.html"><< home</a>
+				</strong>
+			</div>
+		</div>
+		<div class="container">
+			<div class="bs-docs-section">
+				<div class="page-header">
+					<h1 id="dropdowns">File Examples</h1>
+				</div>
+
+				<div class="alert alert-default" style="margin-bottom:30px;">
+				<strong>GET, POST, PUT, DELETE</strong> 의 4가지는 예제는 baas.io sdk를 사용하는 간단한 예제입니다. <a href='http://baas.io'><strong>baas.io</strong></a> 에 가입 후 기본으로 제공되는 sandbox의 앱을 통해 예제를 테스트 하시면 됩니다. 추가적으로 <strong>Login</strong> 예제도 제공합니다.
+				</div>
+
+				<h4><strong>Select method to test</strong></h4>
+
+				<ul class="nav nav-tabs myTab">
+					<li class="active"><a href="#upload" data-toggle="tab">Upload</a></li>
+					<li><a href="#download" data-toggle="tab">Download</a></li>
+				</ul>
+
+				<form role="form" style="padding-top:15px">
+					<div class="form-group">
+						<!-- baas.io id or name -->
+						<label>baas.io ID or Name</label>
+						<input type="text" class="form-control __org_id" placeholder="baas.io ID or Name" style="margin:0 10px 15px 0;">
+
+						<!-- appication id or name -->
+						<label>Application ID or Name</label>
+						<input type="text" class="form-control __app_id" placeholder="Application ID or Name">
+						
+					</div>	
+				</form>
+
+				<div class="tab-content">
+					<div class="tab-pane active" id="upload">
+						<form role="form"  style="margin-bottom:20px;">
+							<div class="form-group">
+								<label for="exampleInputFile">File input</label>
+								<input type="file" class='file_upload'>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary upload_start"> upload Start </button>
+							</div>
+						</form>
+
+						<h4><strong>UPLOAD</strong> API Response</h4>
+						<div class="result_console">
+							<pre>// Press 'uplosd Start' to send the API call. </pre>
+						</div>
+					</div>
+					<div class="tab-pane" id="download">
+						<form role="form"  style="margin-bottom:20px;">
+							<div class="form-group">
+								<label for="exampleInputPassword1">File Entity UUID</label>
+								<input type="text" class="form-control file_uuid" placeholder="File entity uuid">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary download_start"> download Start </button>
+							</div>
+						</form>
+
+						<h4><strong>DOWNLOAD</strong> API Response</h4>
+						<div class="result_console">
+							<pre>// Press 'download Start' to send the API call. </pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
