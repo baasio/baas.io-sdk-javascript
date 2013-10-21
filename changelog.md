@@ -1,6 +1,6 @@
 ##Change log
 
-###0.9.7
+###0.9.0
 
 - merge usergrid sdk v0.10.6
 - bugs fix

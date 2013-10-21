@@ -65,7 +65,7 @@ https://baas.io/docs/ko/devguide/
 
 ## Version
 
-Current Version: 0.9.7
+Current Version: 0.9.0
 
 변경 된 내용:
 
