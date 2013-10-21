@@ -1,0 +1,344 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width" charset="utf-8"><title>baas.io Javascript SDK v0.9.0</title><!-- Foundation CSS--><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/css/foundation.min.css"><!-- Prism CSS--><style type="text/css">/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0,0%,100%,.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+
+.token.regex,
+.token.important {
+	color: #e90;
+}
+
+.token.important {
+	font-weight: bold;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style><!-- Custom Styles--><style type="text/css">h1.page-title small {
+  font-weight: 400;
+}
+/*.section-container, .section-container .section .title
+  border-color #e6e6e6*/
+#nav .section.active {
+  padding-top: 0 !important;
+}
+#nav .section.active .title {
+  background: #ddd;
+}
+#nav .section .title {
+  background-color: #eee;
+}
+#nav .section .title a {
+  font-weight: 700;
+  padding: 0.6em;
+}
+#nav .section .title a small {
+  font-size: 0.8em;
+  line-height: 1em;
+  display: block;
+  color: #888;
+  margin: 2px 0 -2px;
+}
+#nav .section .title:hover {
+  background: #ddd;
+}
+#nav ul.solo {
+  border-top: 1px solid #ccc;
+  padding: 0.875em;
+}
+code {
+  background: transparent;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+.comment {
+  position: relative;
+  padding-bottom: 1.5em;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #ddd;
+}
+.comment ol,
+.comment ul {
+  margin-left: 2.25em;
+}
+.comment ol.no-bullet,
+.comment ul.no-bullet {
+  margin-left: 0;
+}
+.comment header {
+  margin-bottom: 1.5em;
+}
+.comment header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2em;
+}
+.comment .section-container,
+.comment .section-container > .section > .content {
+  border: none;
+}
+.comment .section-container > .section > .title {
+  padding: auto;
+  background: none !important;
+  border: none !important;
+}
+.comment .section-container > .section > .title a {
+  border-radius: 4px;
+  font-weight: 700;
+  padding: 1px 10px 1px 0;
+  margin-right: 5px;
+  color: #ccc;
+}
+.comment .section-container > .section:hover .title a {
+  color: #999;
+}
+.comment .section-container > .section.active .title a {
+  color: #2ba6cb;
+}
+.comment .section-container > .section > .content {
+  padding: 0.9em 0 0;
+}
+.comment div.description h2 {
+  font-size: 1.2em;
+}
+.comment .tags span {
+  margin-right: 4px;
+}
+.comment .tags .name,
+.comment .tags .type {
+  font-weight: 700;
+}
+.comment .tags .types {
+  color: #666;
+}
+.comment .tags .description {
+  margin-left: 15px;
+}
+.ctx-type {
+  margin-right: 6px;
+  font-size: 0.7em;
+}
+</style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">baas.io Javascript SDK v0.9.0<small> src/extensions/baas.io.validation.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html"><small>src/collection/</small>collection.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#Collection">Collection</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#serialize">serialize</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#fetch">fetch</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#addEntity">addEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#destroyEntity">destroyEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getEntityByUUID">getEntityByUUID</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getFirstEntity">getFirstEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getLastEntity">getLastEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#hasNextEntity">hasNextEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getNextEntity">getNextEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#hasPrevEntity">hasPrevEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getPrevEntity">getPrevEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#resetEntityPointer">resetEntityPointer</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#saveCursor">saveCursor</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#resetPaging">resetPaging</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#hasNextPage">hasNextPage</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getNextPage">getNextPage</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#hasPreviousPage">hasPreviousPage</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/collection/collection.js.html#getPreviousPage">getPreviousPage</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html"><small>src/core/</small>core.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#IO">IO</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#request">request</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#createGroup">createGroup</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#createEntity">createEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#getOnExist">getOnExist</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#restoreEntity">restoreEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#getEntity">getEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#createCollection">createCollection</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#restoreCollection">restoreCollection</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#getFeedForUser">getFeedForUser</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#createUserActivity">createUserActivity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#createUserActivityWithEntity">createUserActivityWithEntity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#calcTimeDiff">calcTimeDiff</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#setToken">setToken</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#getToken">getToken</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#signup">signup</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#login">login</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#loginFacebook">loginFacebook</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#getLoggedInUser">getLoggedInUser</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#isLoggedIn">isLoggedIn</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#logout">logout</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/core/core.js.html#buildCurlCall">buildCurlCall</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html"><small>src/entity/</small>entity.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#Entity">Entity</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#serialize">serialize</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#get">get</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#set">set</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#save">save</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#fetch">fetch</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#destroy">destroy</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#connect">connect</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#getEntityId">getEntityId</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#getConnections">getConnections</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/entity/entity.js.html#disconnect">disconnect</a></li></ul></div></div><div class="section active"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html"><small>src/extensions/</small>baas.io.validation.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validation">validation</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validateUsername">validateUsername</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getUsernameAllowedChars">getUsernameAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validateName">validateName</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getNameAllowedChars">getNameAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validatePassword">validatePassword</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getPasswordAllowedChars">getPasswordAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validateEmail">validateEmail</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getEmailAllowedChars">getEmailAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validatePath">validatePath</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getPathAllowedChars">getPathAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#validateCollectionName">validateCollectionName</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#getCollectionNameAllowedChars">getCollectionNameAllowedChars</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#checkLength">checkLength</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/extensions/baas.io.validation.js.html#isUUID">isUUID</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html"><small>src/file/</small>file.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#File">File</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#upload">upload</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#download">download</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#save">save</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#fetch">fetch</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/file/file.js.html#getDownloadURL">getDownloadURL</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html"><small>src/group/</small>group.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#Group">Group</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#fetch">fetch</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#members">members</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#add">add</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#remove">remove</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#feed">feed</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/group/group.js.html#createGroupActivity">createGroupActivity</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/push/push.js.html"><small>src/push/</small>push.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/push/push.js.html#Push">Push</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/push/push.js.html#send">send</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../../../build/Release/0.9.0/reference/src/util/util.js.html"><small>src/util/</small>util.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../../../build/Release/0.9.0/reference/src/util/util.js.html#Utils">Utils</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/util/util.js.html#isUUID">isUUID</a></li><li><a href="../../../../../../build/Release/0.9.0/reference/src/util/util.js.html#encodeParams">encodeParams</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header><h1 id="validation">validation</h1><h5 class="subheader"><div class="label radius ctx-type">property</div>Usergrid.validation</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@class: </span><span class="string">Usergrid.validation</span></li><li class="tag"><span class="type">@author: </span><span class="string">Rod Simpson (rod@apigee.com)</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>validation is a Singleton that provides methods for validating common field types</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">Usergrid.validation = (function () {
+
+  var usernameRegex = new RegExp(&quot;^([0-9a-zA-Z.-]){1,80}$&quot;);
+  var nameRegex     = new RegExp(&quot;^[a-zA-Z0-9]+[a-zA-Z0-9_\.]{0,80}$&quot;);
+  var emailRegex    = new RegExp(&quot;^(([0-9a-zA-Z]+[_\+.-]?)+@[0-9a-zA-Z]+[0-9,a-z,A-Z,.,-]*(.){1}[a-zA-Z]{2,4})+$&quot;);
+  var passwordRegex = new RegExp(&quot;^([0-9a-zA-Z`@#$%^&amp;!?&lt;&gt;;:.,'\&quot;~*-=+_\[\\](){}/\]{6,20}$)&quot;);
+  var pathRegex     = new RegExp(&quot;^[a-zA-Z0-9\-\.\/]{2,80}$&quot;);
+  var collectionNameRegex = new RegExp(&quot;^[0-9a-z\-]+[0-9a-z\-_]{3,80}$&quot;);</code></pre></div></div></div></article><article class="comment"><header><h1 id="validateUsername">validateUsername</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validateUsername()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validateUsername</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">username</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validateUsername(username, failureCallback) {
+    if (usernameRegex.test(username) &amp;&amp; checkLength(username, 1, 80)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getUsernameAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getUsernameAllowedChars">getUsernameAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getUsernameAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getUsernameAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getUsernameAllowedChars(){
+    return '1 ~ 80자까지 입력가능, 입력가능문자: &quot;A-Z, a-z, 0-9, dot, and dash&quot;';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="validateName">validateName</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validateName()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validateName</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">name</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validateName(name, failureCallback) {
+    if (nameRegex.test(name) &amp;&amp; checkLength(name, 0, 80)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getNameAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getNameAllowedChars">getNameAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getNameAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getNameAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getNameAllowedChars(){
+    return '1 ~ 80자까지 입력가능, 입력가능문자: &quot;A-Z, a-z, 0-9, dot, and dash&quot;';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="validatePassword">validatePassword</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validatePassword()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validatePassword</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">password</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validatePassword(password, failureCallback) {
+    if (passwordRegex.test(password) &amp;&amp; checkLength(password, 5, 16)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getPasswordAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getPasswordAllowedChars">getPasswordAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getPasswordAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getPasswordAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getPasswordAllowedChars(){
+    return '6 ~ 20자까지 입력가능, 입력가능문자: &quot;A-Z, a-z, 0-9&quot;, 입력가능특수문자 : &quot;`@#$%^&amp;!?&lt;&gt;;:.,\'&quot;~*-=+_[](){}/&quot;';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="validateEmail">validateEmail</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validateEmail()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validateEmail</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">email</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validateEmail(email, failureCallback) {
+    if (emailRegex.test(email)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getEmailAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getEmailAllowedChars">getEmailAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getEmailAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getEmailAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getEmailAllowedChars(){
+    return 'Email 기본 형태: e.g. baas@Baas.io';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="validatePath">validatePath</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validatePath()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validatePath</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">path</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validatePath(path, failureCallback) {
+    if (pathRegex.test(path) &amp;&amp; checkLength(path, 2, 80)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getPathAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getPathAllowedChars">getPathAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getPathAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getPathAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getPathAllowedChars(){
+    return '2 ~ 80자까지 입력가능, 입력가능문자: &quot;/, a-z, 0-9, dot, and dash&quot;';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="validateCollectionName">validateCollectionName</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>validateCollectionName()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">validateTitle</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">title</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{function}</span><span class="name">failureCallback</span><span class="description">- (optional), the function to call on a failure</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string passes regex, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests the string against the allowed chars regex</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function validateCollectionName(name, failureCallback) {
+    if (collectionNameRegex.test(name) &amp;&amp; checkLength(name, 4, 80)) {
+      return true;
+    } else {
+      if (failureCallback &amp;&amp; typeof(failureCallback) === &quot;function&quot;) {
+        failureCallback(this.getCollectionNameAllowedChars());
+      }
+      return false;
+    }
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="getCollectionNameAllowedChars">getCollectionNameAllowedChars</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>getCollectionNameAllowedChars()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">getTitleAllowedChars</span></li><li class="tag"><span class="type">@return: </span><span class="types">{string}</span><span class="description">Returns a string with the allowed chars</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Returns the regex of allowed chars</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function getCollectionNameAllowedChars(){
+    return '&quot;a-z,0-9,dash&quot; 로 시작하고 &quot;_,dash,0-9,a-z&quot; 로 구성된 4~80의 문자열';
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="checkLength">checkLength</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>checkLength()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">checkLength</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">string</span><span class="description">- The string to test</span></li><li class="tag"><span class="type">@param: </span><span class="types">{integer}</span><span class="name">min</span><span class="description">- the lower bound</span></li><li class="tag"><span class="type">@param: </span><span class="types">{integer}</span><span class="name">max</span><span class="description">- the upper bound</span></li><li class="tag"><span class="type">@return: </span><span class="types">{boolean}</span><span class="description">Returns true if string is correct length, false if not</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests if the string is the correct length</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function checkLength(string, min, max) {
+    if (string.length &gt; max || string.length &lt; min) {
+      return false;
+    }
+    return true;
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="isUUID">isUUID</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>isUUID()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@public: </span><span class="string"></span></li><li class="tag"><span class="type">@method: </span><span class="string">isUUID</span></li><li class="tag"><span class="type">@param: </span><span class="types">{string}</span><span class="name">uuid</span><span class="description">The string to test</span></li><li class="tag"><span class="type">@returns: </span><span class="string">{Boolean} true if string is uuid</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Tests if the string is a uuid</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function isUUID (uuid) {
+    var uuidValueRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    if (!uuid) return false;
+    return uuidValueRegex.test(uuid);
+  }
+
+  return {
+    validateUsername:validateUsername,
+    getUsernameAllowedChars:getUsernameAllowedChars,
+    validateName:validateName,
+    getNameAllowedChars:getNameAllowedChars,
+    validatePassword:validatePassword,
+    getPasswordAllowedChars:getPasswordAllowedChars,
+    validateEmail:validateEmail,
+    getEmailAllowedChars:getEmailAllowedChars,
+    validatePath:validatePath,
+    getPathAllowedChars:getPathAllowedChars,
+    validateCollectionName:validateCollectionName,
+    getCollectionNameAllowedChars:getCollectionNameAllowedChars,
+    isUUID:isUUID
+  }
+})();</code></pre></div></div></div></article></div></div><!-- Foundation JS--><script type="text/javascript">document.write('<script src=' +
+('__proto__' in {} ? 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min') +
+'.js><\/script>')
+</script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js"></script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation/foundation.reveal.min.js"></script><!-- Prism js--><script type="text/javascript">
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data),o);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar,l.language);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r,i){return n.stringify(t.tokenize(e,r),i)},tokenize:function(e,n,r){var i=t.Token,s=[e],o=n.rest;if(o){for(var u in o)n[u]=o[u];delete n.rest}e:for(var u in n){if(!n.hasOwnProperty(u)||!n[u])continue;var a=n[u],f=a.inside,l=!!a.lookbehind,c=0;a=a.pattern||a;for(var h=0;h<s.length;h++){var p=s[h];if(s.length>e.length)break e;if(p instanceof i)continue;a.lastIndex=0;var d=a.exec(p);if(d){l&&(c=d[1].length);var v=d.index-1+c,d=d[0].slice(c),m=d.length,g=v+m,y=p.slice(0,v+1),b=p.slice(g+1),w=[h,1];y&&w.push(y);var E=new i(u,f?t.tokenize(d,f):d);w.push(E);b&&w.push(b);Array.prototype.splice.apply(s,w)}}}return s},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e,r,i){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]")return e.map(function(t){return n.stringify(t,r,e)}).join("");var s={type:e.type,content:n.stringify(e.content,r,i),tag:"span",classes:["token",e.type],attributes:{},language:r,parent:i};s.type=="comment"&&(s.attributes.spellcheck="true");t.hooks.run("wrap",s);var o="";for(var u in s.attributes)o+=u+'="'+(s.attributes[u]||"")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'" '+o+">"+s.content+"</"+s.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+Prism.languages.markup={comment:/&lt;!--[\w\W]*?-->/g,prolog:/&lt;\?.+?\?>/,doctype:/&lt;!DOCTYPE.+?>/,cdata:/&lt;!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|>|"/g}},punctuation:/\/?>/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*{))/gi,inside:{punctuation:/[;:]/g}},url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\};]*(?=\s*\{)/g,property:/(\b|\B)[\w-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,"class-name":{pattern:/((?:(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/ig,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,"function":{pattern:/[a-z0-9_]+\(/ig,inside:{punctuation:/\(/}}, number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,operator:/[-+]{1,2}|!|&lt;=?|>=?|={1,3}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+Prism.languages.coffeescript=Prism.languages.extend("javascript",{"block-comment":/([#]{3}\s*\r?\n(.*\s*\r*\n*)\s*?\r?\n[#]{3})/g,comment:/(\s|^)([#]{1}[^#^\r^\n]{2,}?(\r?\n|$))/g,keyword:/\b(this|window|delete|class|extends|namespace|extend|ar|let|if|else|while|do|for|each|of|return|in|instanceof|new|with|typeof|try|catch|finally|null|undefined|break|continue)\b/g});Prism.languages.insertBefore("coffeescript","keyword",{"function":{pattern:/[a-z|A-z]+\s*[:|=]\s*(\([.|a-z\s|,|:|{|}|\"|\'|=]*\))?\s*-&gt;/gi,inside:{"function-name":/[_?a-z-|A-Z-]+(\s*[:|=])| @[_?$?a-z-|A-Z-]+(\s*)| /g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g}},"attr-name":/[_?a-z-|A-Z-]+(\s*:)| @[_?$?a-z-|A-Z-]+(\s*)| /g});;
+Prism.languages.scss=Prism.languages.extend("css",{comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},atrule:/@[\w-]+(?=\s+(\(|\{|;))/gi,url:/([-a-z]+-)*url(?=\()/gi,selector:/([^@;\{\}\(\)]?([^@;\{\}\(\)]|&amp;|\#\{\$[-_\w]+\})+)(?=\s*\{(\}|\s|[^\}]+(:|\{)[^\}]+))/gm});Prism.languages.insertBefore("scss","atrule",{keyword:/@(if|else if|else|for|each|while|import|extend|debug|warn|mixin|include|function|return)|(?=@for\s+\$[-_\w]+\s)+from/i});Prism.languages.insertBefore("scss","property",{variable:/((\$[-_\w]+)|(#\{\$[-_\w]+\}))/i});Prism.languages.insertBefore("scss","ignore",{placeholder:/%[-_\w]+/i,statement:/\B!(default|optional)\b/gi,"boolean":/\b(true|false)\b/g,"null":/\b(null)\b/g,operator:/\s+([-+]{1,2}|={1,2}|!=|\|?\||\?|\*|\/|\%)\s+/g});
+;
+</script><script type="text/javascript">
+  var headerHeight = 64;
+
+  $(document).foundation();
+
+  $(function(){
+    $('pre code').addClass('language-javascript');
+  //   $('#nav > ul > li > a[href$="'+location.pathname.substring(location.pathname.lastIndexOf('/')+1, location.pathname.length)+'"]').parent().addClass('active');
+  })</script></body></html>

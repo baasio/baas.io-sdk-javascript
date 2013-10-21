@@ -1,5 +1,50 @@
 ## Quickstart
 
+```javascript
+<DOCTYPE html>
+<html>
+    <head>
+        <script src="http://baasio.github.io/baas.io-sdk-javascript/baas.io.min.js"></script>
+        <script type="text/javascript">
+
+
+            // Initializing the SDK
+            var io = new Baas.IO({
+                orgName:'yourorgname', // Your baas.io organization name (or baas.io username for App Services)
+                appName:'sandbox' // Your baas.io app name
+            });
+
+            // members colllection을 만들고, 데이터를 읽음
+            var options = {
+                type:'members',
+                qs:{ql:'order by created DESC'}
+            }
+
+            var members;
+
+            io.createCollection(options, function (err, members) {
+                if (err) {
+                    alert("Couldn't get the list of members.");
+                } else {
+                    while(members.hasNextEntity()) {
+                        var member = members.getNextEntity();
+                        alert(member.get("name")); // Output the name of the members
+                    }
+                }
+            });
+
+            // member 의 추가를 원한다면, 아래의 4줄의 주석을 제거
+
+            // member = { "title": "r2fresh" };
+            // members.addEntity(member, function (error, response) {
+            //  if (error) { alert("Couldn't add the member.");
+            //  } else { alert("The member was added."); } });
+        </script>
+    </head>
+    <body></body>
+</html>
+```
+
 ## Overview
 
 앱 서비스에 연결하여 javascript/html 또는 hybrid app에 사용을 간단하게 해주는 오픈 소스 SDK다.
