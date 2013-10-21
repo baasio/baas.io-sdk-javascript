@@ -86,7 +86,7 @@ https://github.com/baasio/baas.io-sdk-javascript/blob/master/changelog.md
 파일 위치 :
 
 ```
-/extensions/usergrid.session.js
+/extensions/baas.io.validation.js
 ```
 
 HTML파일의 상단에 파일을 추가 - SDK를 추가 한 다음에 :
@@ -137,6 +137,8 @@ https://baas.io/docs/ko/javascript/index.html
 SDK 관련 질문 또는 검색
 
 https://baas.io/support/
+
+https://github.com/baasio/baas.io-sdk-javascript/issues
 
 ## Copyright
 
