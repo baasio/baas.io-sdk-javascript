@@ -66,7 +66,6 @@ $(document).ready(function(){
     		}
 
     		var io 	= new Baas.IO({
-    			'URI' : 'https://stgapi.baas.io',
     			'orgName' : org_id, 
     			'appName' : app_id, 
     			'token':baas_token
