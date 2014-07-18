@@ -10,7 +10,7 @@ $(document).ready(function(){
 		var org_id 	= $('.__org_id').val();
     		var app_id 	= $('.__app_id').val();
 
-    		var io    	= new Baas.IO({'orgName' : org_id, 'appName' : app_id});
+    		var io    	= new Baas.IO({'URI' : 'http://stgapi.baas.io','orgName' : org_id, 'appName' : app_id});
 
     		var endpoint = baas_get.find('.__path').val();
 
@@ -90,7 +90,7 @@ $(document).ready(function(){
 		var org_id 	= $('.__org_id').val();
     		var app_id 	= $('.__app_id').val();
 
-    		var io    	= new Baas.IO({'orgName' : org_id, 'appName' : app_id});
+    		var io    	= new Baas.IO({'URI' : 'http://stgapi.baas.io','orgName' : org_id, 'appName' : app_id});
 
     		var endpoint = baas_delete.find('.__path').val();
 
@@ -114,7 +114,7 @@ $(document).ready(function(){
 		var org_id 	= $('.__org_id').val();
     		var app_id 	= $('.__app_id').val();
 
-    		var io    	= new Baas.IO({'orgName' : org_id, 'appName' : app_id});
+    		var io    	= new Baas.IO({'URI' : 'https://stgapi.baas.io','orgName' : org_id, 'appName' : app_id});
 
     		var username = baas_login.find('.__username').val();
     		var password = baas_login.find('.__password').val();

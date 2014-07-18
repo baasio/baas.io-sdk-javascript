@@ -17,13 +17,23 @@ pre {
 	border : 0;
 	margin : 0;
 }
-.result_console {
+.result_console,
+.result_table {
 	min-height: 20px;
 	padding: 19px;
 	background-color: #f5f5f5;
 	border: 1px solid #e3e3e3;
 	border-radius: 4px;
 }
+
+.result_table {
+	background-color: #fff;
+}
+
+.result_table pre {
+	background-color: #fff;
+}
+
 .alert-default {
   	color: #000000;
   	background-color: #f0f0f0;
@@ -37,3 +47,64 @@ pre {
 .alert-default .alert-link {
   	color: #cccccc;
 }
+
+.tab-content h4 {
+	margin-top:25px;
+}
+
+
+.__kakao_login_btn {
+	background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_narrow.png');
+	width:222px;
+	height:49px;
+	float:left;
+	display: inline-block;
+	margin-right:10px;
+	cursor:pointer;
+}
+
+.__kakao_login_btn:hover {
+	background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_narrow_ov.png');
+}
+
+.__sign_up_btn, .__sign_in_btn {
+	margin-top:2px;
+}
+
+@media (max-width: 372px) {
+	.__btns {
+		text-align:center;
+	}
+
+	.__kakao_login_btn {
+		float:none;
+		background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_wide.png');
+		width:300px;
+		margin-right:0;	
+	}
+
+	.__kakao_login_btn:hover {
+		background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_wide_ov.png');
+	}
+
+	.__sign_up_btn, .__sign_in_btn {
+		margin-top:10px;
+		width:100%;
+		padding-right:0px;
+		padding-left:0px;
+	}
+}
+
+@media (max-width: 320px) {
+
+	.__kakao_login_btn {
+		background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_narrow.png');
+		width:222px;
+	}
+
+	.__kakao_login_btn:hover {
+		background-image:url('../img/kakao_login_btn/kr/kakao_account_login_btn_medium_narrow_ov.png');
+	}
+
+}
+

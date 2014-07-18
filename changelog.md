@@ -1,5 +1,9 @@
 ##Change log
 
+###0.9.2
+
+- kakao API를 사용한 회원가입 및 로그인 기능 추가
+
 ###0.9.0
 
 - merge usergrid sdk v0.10.6
