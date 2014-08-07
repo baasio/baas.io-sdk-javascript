@@ -71,6 +71,11 @@ $(document).ready(function(){
     			'token':baas_token
     		});
 
+<<<<<<< HEAD
+=======
+    		console.log($(e.currentTarget).hasClass('__sign_up_btn'));
+
+>>>>>>> a119dfb55126fd855676e6e3bf281c21d2af0c49
     		if($(e.currentTarget).hasClass('__sign_up_btn')){
     			io.kakao_signup(kakao_data,function(err, data){
 	    			
