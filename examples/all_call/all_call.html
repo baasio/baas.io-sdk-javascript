@@ -14,10 +14,15 @@
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
 		
 		<!-- Baas.io CSS -->
+		<link rel="stylesheet" href="../vendor/json-human/css/json.human.css"/>
 		<link rel="stylesheet" href="../resources/css/baas.io.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+		<script src="../vendor/json-human/lib/crel.js"></script>
+		<script src="../vendor/json-human/src/json.human.js"></script>
+
 		<script src="../../baas.io.js"></script>
 		<script src="app.js"></script>
 		
@@ -62,6 +67,10 @@
 			</ul>
 			
 			<form role="form" style="margin-top:15px">
+				<div class="form-group">
+					<label>Baas.io Token</label>
+					<input type="text" class="form-control __auth" placeholder="Baas.io Token">
+				</div>
 				<!-- insert baas.io "id" or "username" -->
 				<div class="form-group">
 					<label>baas.io ID or Name</label>
@@ -89,8 +98,27 @@
 					</form>
 
 					<h4><strong>GET</strong> API Response</h4>
-					<div class="result_console">
-						<pre>// Press 'Run Query' to send the API call.</pre>
+
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#get_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#get_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="get_json">
+							<div class="result_console">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="get_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+
+						</div>
 					</div>
 				</div>
 
@@ -109,8 +137,27 @@
 					</form>
 
 					<h4><strong>POST</strong> API Response</h4>
-					<div class="result_console">
-						<pre>// Press 'Run Query' to send the API call.</pre>
+					
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#post_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#post_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="post_json">
+							<div class="result_console">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="post_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+
+						</div>
 					</div>
 				</div>
 
@@ -119,7 +166,7 @@
 					<form role="form" style="margin-bottom:20px;">
 						<div class="form-group">
 							<label>Path</label>
-							<input type="text" class="form-control __path" placeholder="users/r2fresh" style="margin-bottom:15px;">
+							<input type="text" class="form-control __path" placeholder="collectionName/uuid" style="margin-bottom:15px;">
 
 							<label>Json Request Body</label>
 							<input type="text" class="form-control __body" placeholder='{"othervalue":"12345"}'>
@@ -128,9 +175,30 @@
 					</form>
 
 					<h4><strong>PUT</strong> API Response</h4>
-					<div class="result_console">
-						<pre>// Press 'Run Query' to send the API call.</pre>
+
+					
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#put_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#put_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="put_json">
+							<div class="result_console">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="put_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+
+						</div>
 					</div>
+
 				</div>
 
 				<!-- delete data -->
@@ -145,9 +213,29 @@
 					</form>
 
 					<h4><strong>DELETE</strong> API Response</h4>
-					<div class="result_console">
-						<pre>// Press 'Run Query' to send the API call.</pre>
+					
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#delete_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#delete_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="delete_json">
+							<div class="result_console">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="delete_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+
+						</div>
 					</div>
+
 				</div>
 				
 				<!-- user login -->
@@ -164,9 +252,29 @@
 					</form>
 
 					<h4><strong>Log In</strong> API Response</h4>
-					<div class="result_console">
-						<pre>// Press 'Run Query' to send the API call.</pre>
+
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#login_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#login_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="login_json">
+							<div class="result_console">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="login_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Run Query' to send the API call.</pre>
+							</div>
+
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>

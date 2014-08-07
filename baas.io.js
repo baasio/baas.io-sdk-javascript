@@ -7,7 +7,7 @@
 	root.console.log = root.console.log || function() {};
 
 	// Current version.
-	Baas.VERSION = '0.9.0';
+	Baas.VERSION = '0.9.2';
 
 	// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
 	if (typeof exports !== 'undefined') {
@@ -66,6 +66,7 @@
 		var method = options.method || 'GET';
 		var endpoint = options.endpoint;
 		var body = options.body || {};
+		var contentType = options.contentType || 'application/json';
 		var qs = options.qs || {};
 		var mQuery = options.mQuery || false; //is this a query to the management endpoint?
 		if (mQuery) {
@@ -74,13 +75,13 @@
 			var uri = this.URI + '/' + this.orgName + '/' + this.appName + '/' + endpoint;
 		}
 
-		if (self.getToken()) {
-			qs['access_token'] = self.getToken();
+		//if (self.getToken()) {
+			//qs['access_token'] = self.getToken();
 			/* //could also use headers for the token
 			xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
 			xhr.withCredentials = true;
 			*/
-		}
+		//}
 
 		//append params to the path
 		var encoded_params = Baas.Utils.encodeParams(qs);
@@ -89,11 +90,21 @@
 		}
 
 		//stringify the body object
-		body = (body instanceof FormData) ? body : JSON.stringify(body);
+		//body = (body instanceof FormData) ? body : body;
+		//20140807 modify
+		body = (contentType === 'application/json') ? JSON.stringify(body) : body;
 
 		//so far so good, so run the query
 		var xhr = new XMLHttpRequest();
 		xhr.open(method, uri, true);
+
+		if (self.getToken()) {
+			xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
+		}
+
+		if(contentType){
+			xhr.setRequestHeader("Content-Type", contentType);
+		}
 
 		// Handle response.
 		xhr.onerror = function() {
@@ -551,20 +562,66 @@
 	 * @params {string} username
 	 * @params {string} password
 	 * @params {string} email
-	 * @params {string} name
 	 * @param {function} callback
 	 * @return {callback} callback(err, data)
 	 */
-	Baas.IO.prototype.signup = function(username, password, email, name, callback) {
+	Baas.IO.prototype.signup = function(username, password, email, callback) {
 		var options = {
 			type:"users",
 			username:username,
 			password:password,
 			email:email,
-			name:name
 		};
 
 		this.createEntity(options, callback);
+	}
+
+
+	/*
+	 * Kakao의 API를 사용하여 Baas.io User Collection에 User를 추가하는 메소드
+	 *
+	 * @method kakao_signup
+	 * @public
+	 * @params {object} kakao_data
+	 * @param {function} callback
+	 */
+	Baas.IO.prototype.kakao_signup = function(kakao_data, callback){
+
+		var options = {
+			method:'POST',
+			endpoint : 'auth/kakaotalk',
+			contentType : 'application/x-www-form-urlencoded',
+			token : this.getToken(),
+			body:'kkt_access_token=' + kakao_data.kkt_access_token
+		}
+
+		this.request(options, callback);
+
+	}
+
+	/*
+	 * Kakao의 token으로 signin을 할 수 있는 메소드
+	 *
+	 * @method kakao_signup
+	 * @public
+	 * @params {object} kakao_data
+	 * @param {function} callback
+	 */
+	Baas.IO.prototype.kakao_signin = function(kakao_data, callback){
+		this.kakao_signup.apply(this,arguments);
+	}
+
+
+	/*
+	 * Kakao의 token으로 login을 할 수 있는 메소드
+	 *
+	 * @method kakao_signup
+	 * @public
+	 * @params {object} kakao_data
+	 * @param {function} callback
+	 */
+	Baas.IO.prototype.kakao_login = function(kakao_data, callback){
+		this.kakao_signup.apply(this,arguments);
 	}
 
 	/*
@@ -753,10 +810,10 @@
   *  @param {object} options {client:client, data:{'type':'collection_type', 'key':'value'}, uuid:uuid}}
   */
   Baas.Entity = function(options) {
-    if(options){
-      this._client = options.client;
-      this._data = options.data || {};
-    }
+	if(options){
+	  this._client = options.client;
+	  this._data = options.data || {};
+	}
   };
 
   /*
@@ -768,7 +825,7 @@
    *  @return {string} data
    */
   Baas.Entity.prototype.serialize = function () {
-    return JSON.stringify(this._data);
+	return JSON.stringify(this._data);
   }
 
   /*
@@ -780,11 +837,11 @@
   *  @return {string} || {object} data
   */
   Baas.Entity.prototype.get = function (field) {
-    if (field) {
-      return this._data[field];
-    } else {
-      return this._data;
-    }
+	if (field) {
+	  return this._data[field];
+	} else {
+	  return this._data;
+	}
   }
 
   /*
@@ -798,19 +855,19 @@
   *  @return none
   */
   Baas.Entity.prototype.set = function (key, value) {
-    if (typeof key === 'object') {
-      for(var field in key) {
-        this._data[field] = key[field];
-      }
-    } else if (typeof key === 'string') {
-      if (value === null) {
-        delete this._data[key];
-      } else {
-        this._data[key] = value;
-      }
-    } else {
-      this._data = null;
-    }
+	if (typeof key === 'object') {
+	  for(var field in key) {
+		this._data[field] = key[field];
+	  }
+	} else if (typeof key === 'string') {
+	  if (value === null) {
+		delete this._data[key];
+	  } else {
+		this._data[key] = value;
+	  }
+	} else {
+	  this._data = null;
+	}
   }
 
   /*
@@ -822,74 +879,80 @@
   *  @return {callback} callback(err, data)
   */
   Baas.Entity.prototype.save = function (callback) {
-    //TODO:  API will be changed soon to accomodate PUTs via name which create new entities
-    //       This function should be changed to PUT only at that time, and updated to use
-    //       either uuid or name
-    var type = this.get('type');
-    var method = 'POST';
-    if (Baas.Utils.isUUID(this.get('uuid'))) {
-      method = 'PUT';
-      type += '/' + this.get('uuid');
-    }
+	//TODO:  API will be changed soon to accomodate PUTs via name which create new entities
+	//       This function should be changed to PUT only at that time, and updated to use
+	//       either uuid or name
+	var type = this.get('type');
+	var method = 'POST';
+	if (Baas.Utils.isUUID(this.get('uuid'))) {
+	  method = 'PUT';
+	  type += '/' + this.get('uuid');
+	} else if(type === 'users' && this.get('username')) {
+	  method = 'PUT';
+	  type += '/' + this.get('username');
+	} else if(this.get('name')){
+	   method = 'PUT';
+	  type += '/' + this.get('name');
+	}
 
-    //update the entity
-    var self = this;
-    var data = {};
-    var entityData = this.get();
-    //remove system specific properties
-    for (var item in entityData) {
-      if (item === 'metadata' || item === 'created' || item === 'modified' ||
-          item === 'type' || item === 'activated' || item ==='uuid') { continue; }
-      data[item] = entityData[item];
-    }
-    var options =  {
-      method:method,
-      endpoint:type,
-      body:data
-    };
-    //save the entity first
-    this._client.request(options, function (err, retdata) {
-      if (err && self._client.logging) {
-        console.log('could not save entity');
-        if (typeof(callback) === 'function') {
-          return callback(err, retdata, self);
-        }
-      } else {
-        if (retdata.entities) {
-          if (retdata.entities.length) {
-            var entity = retdata.entities[0];
-            self.set(entity);
-          }
-        }
-        //if this is a user, update the password if it has been specified;
-        var needPasswordChange = (self.get('type') === 'user' && entityData.oldpassword && entityData.newpassword);
-        if (needPasswordChange) {
-          //Note: we have a ticket in to change PUT calls to /users to accept the password change
-          //      once that is done, we will remove this call and merge it all into one
-          var pwdata = {};
-          pwdata.oldpassword = entityData.oldpassword;
-          pwdata.newpassword = entityData.newpassword;
-          var options = {
-            method:'PUT',
-            endpoint:type+'/password',
-            body:pwdata
-          }
-          self._client.request(options, function (err, data) {
-            if (err && self._client.logging) {
-              console.log('could not update user');
-            }
-            //remove old and new password fields so they don't end up as part of the entity object
-            self.set('oldpassword', null);
-            self.set('newpassword', null);
-            if (typeof(callback) === 'function') {
-              callback(err, data, self);
-            }
-          });
-        } else if (typeof(callback) === 'function') {
-          callback(err, retdata, self);
-        }
-      }
-    });
+	//update the entity
+	var self = this;
+	var data = {};
+	var entityData = this.get();
+	//remove system specific properties
+	for (var item in entityData) {
+	  if (item === 'metadata' || item === 'created' || item === 'modified' ||
+		  item === 'type' || item === 'activated' || item ==='uuid') { continue; }
+	  data[item] = entityData[item];
+	}
+	var options =  {
+	  method:method,
+	  endpoint:type,
+	  body:data
+	};
+	//save the entity first
+	this._client.request(options, function (err, retdata) {
+	  if (err && self._client.logging) {
+		console.log('could not save entity');
+		if (typeof(callback) === 'function') {
+		  return callback(err, retdata, self);
+		}
+	  } else {
+		if (retdata.entities) {
+		  if (retdata.entities.length) {
+			var entity = retdata.entities[0];
+			self.set(entity);
+		  }
+		}
+		//if this is a user, update the password if it has been specified;
+		var needPasswordChange = (self.get('type') === 'user' && entityData.oldpassword && entityData.newpassword);
+		if (needPasswordChange) {
+		  //Note: we have a ticket in to change PUT calls to /users to accept the password change
+		  //      once that is done, we will remove this call and merge it all into one
+		  var pwdata = {};
+		  pwdata.oldpassword = entityData.oldpassword;
+		  pwdata.newpassword = entityData.newpassword;
+		  var options = {
+			method:'PUT',
+			endpoint:type+'/password',
+			body:pwdata
+		  }
+		  self._client.request(options, function (err, data) {
+			if (err && self._client.logging) {
+			  console.log('could not update user');
+			}
+			//remove old and new password fields so they don't end up as part of the entity object
+			self.set('oldpassword', null);
+			self.set('newpassword', null);
+			if (typeof(callback) === 'function') {
+			  callback(err, data, self);
+			}
+		  });
+		} else if (typeof(callback) === 'function') {
+		  callback(err, retdata, self);
+		}
+	  }
+	});
   }
 
   /*
@@ -901,118 +964,143 @@
   *  @return {callback} callback(err, data)
   */
   Baas.Entity.prototype.fetch = function (callback) {
-    var type = this.get('type');
-    var self = this;
+	var type = this.get('type');
+	var self = this;
 
-    //if a uuid is available, use that, otherwise, use the name
-    if (this.get('uuid')) {
-      type += '/' + this.get('uuid');
-    } else {
-      if (type === 'users') {
-        if (this.get('username')) {
-          type += '/' + this.get('username');
-        } else {
-          if (typeof(callback) === 'function') {
-            var error = 'no_name_specified';
-            if (self._client.logging) {
-              console.log(error);
-            }
-            return callback(true, {error:error}, self)
-          }
-        }
-      } else if (type === 'a path') {
+	//if a uuid is available, use that, otherwise, use the name
+	if (this.get('uuid')) {
+	  type += '/' + this.get('uuid');
+	} else {
+	  if (type === 'users') {
+		if (this.get('username')) {
+		  type += '/' + this.get('username');
+		} else {
+		  if (typeof(callback) === 'function') {
+			var error = 'no_name_specified';
+			if (self._client.logging) {
+			  console.log(error);
+			}
+			return callback(true, {error:error}, self)
+		  }
+		}
+	  } else if (type === 'a path') {
 
-        ///TODO add code to deal with the type as a path
+		///TODO add code to deal with the type as a path
 
-        if (this.get('path')) {
-          type += '/' + encodeURIComponent(this.get('name'));
-        } else {
-          if (typeof(callback) === 'function') {
-            var error = 'no_name_specified';
-            if (self._client.logging) {
-              console.log(error);
-            }
-            return callback(true, {error:error}, self)
-          }
-        }
+		if (this.get('path')) {
+		  type += '/' + encodeURIComponent(this.get('name'));
+		} else {
+		  if (typeof(callback) === 'function') {
+			var error = 'no_name_specified';
+			if (self._client.logging) {
+			  console.log(error);
+			}
+			return callback(true, {error:error}, self)
+		  }
+		}
 
-      } else {
-        if (this.get('name')) {
-          type += '/' + encodeURIComponent(this.get('name'));
-        } else {
-          if (typeof(callback) === 'function') {
-            var error = 'no_name_specified';
-            if (self._client.logging) {
-              console.log(error);
-            }
-            return callback(true, {error:error}, self)
-          }
-        }
-      }
-    }
-    var options = {
-      method:'GET',
-      endpoint:type
-    };
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('could not get entity');
-      } else {
-        if (data.user) {
-          self.set(data.user);
-          self._json = JSON.stringify(data.user, null, 2);
-        } else if (data.entities) {
-          if (data.entities.length) {
-            var entity = data.entities[0];
-            self.set(entity);
-          }
-        }
-      }
-      if (typeof(callback) === 'function') {
-        callback(err, data, self);
-      }
-    });
+	  } else {
+		if (this.get('name')) {
+		  type += '/' + encodeURIComponent(this.get('name'));
+		} else {
+		  if (typeof(callback) === 'function') {
+			var error = 'no_name_specified';
+			if (self._client.logging) {
+			  console.log(error);
+			}
+			return callback(true, {error:error}, self)
+		  }
+		}
+	  }
+	}
+	var options = {
+	  method:'GET',
+	  endpoint:type
+	};
+	this._client.request(options, function (err, data) {
+	  if (err && self._client.logging) {
+		console.log('could not get entity');
+	  } else {
+		if (data.user) {
+		  self.set(data.user);
+		  self._json = JSON.stringify(data.user, null, 2);
+		} else if (data.entities) {
+		  if (data.entities.length) {
+			var entity = data.entities[0];
+			self.set(entity);
+		  }
+		}
+	  }
+	  if (typeof(callback) === 'function') {
+		callback(err, data, self);
+	  }
+	});
   }
   
-  /*
-  *  deletes the entity from the database - will only delete
-  *  if the object has a valid uuid
-  *
-  *  @method destroy
-  *  @public
-  *  @param {function} callback
-  *  @return {callback} callback(err, data)
-  *
-  */
-  Baas.Entity.prototype.destroy = function (callback) {
-    var type = this.get('type');
-    if (Baas.Utils.isUUID(this.get('uuid'))) {
-      type += '/' + this.get('uuid');
-    } else {
-      if (typeof(callback) === 'function') {
-        var error = 'Error trying to delete object - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-    }
-    var self = this;
-    var options = {
-      method:'DELETE',
-      endpoint:type
-    };
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('entity could not be deleted');
-      } else {
-        self.set(null);
-      }
-      if (typeof(callback) === 'function') {
-        callback(err, data);
-      }
-    });
-  }
+	/*
+	*  deletes the entity from the database - will only delete
+	*  if the object has a valid uuid
+	*
+	*  @method destroy
+	*  @public
+	*  @param {function} callback
+	*  @return {callback} callback(err, data)
+	*
+	*/
+	Baas.Entity.prototype.destroy = function (callback) {
+
+		var type = this.get('type');
+
+		if (Baas.Utils.isUUID(this.get('uuid'))) {
+			type += '/' + this.get('uuid');
+		} else {
+
+			if (type === 'users') {
+				if (this.get('username')) {
+					type += '/' + this.get('username');
+				} else {
+					if (typeof(callback) === 'function') {
+						var error = 'Error trying to delete object - no uuid specified.';
+						if (self._client.logging) {
+							console.log(error);
+						}
+						callback(true, error);
+					}
+				}
+			} else {
+				if(this.get('name')) {
+					type += '/' + this.get('name');
+				} else {
+					if (typeof(callback) === 'function') {
+						var error = 'Error trying to delete object - no uuid specified.';
+						if (self._client.logging) {
+							console.log(error);
+						}
+						callback(true, error);
+					}
+				}
+			} 
+		} 
+
+		var self = this;
+		var options = {
+			method:'DELETE',
+			endpoint:type
+		};
+
+		this._client.request(options, function (err, data) {
+			if (err && self._client.logging) {
+				console.log('entity could not be deleted');
+			} else {
+				self.set(null);
+			}
+
+			if (typeof(callback) === 'function') {
+				callback(err, data);
+			}
+		});
+	}
+
 
   /*
   *  connects one entity to another
@@ -1027,49 +1115,49 @@
   */
   Baas.Entity.prototype.connect = function (connection, entity, callback) {
 
-    var self = this;
+	var self = this;
 
-    //connectee info
-    var connecteeType = entity.get('type');
-    var connectee = this.getEntityId(entity);
-    if (!connectee) {
-      if (typeof(callback) === 'function') {
-        var error = 'Error trying to delete object - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-      return;
-    }
+	//connectee info
+	var connecteeType = entity.get('type');
+	var connectee = this.getEntityId(entity);
+	if (!connectee) {
+	  if (typeof(callback) === 'function') {
+		var error = 'Error trying to delete object - no uuid specified.';
+		if (self._client.logging) {
+		  console.log(error);
+		}
+		callback(true, error);
+	  }
+	  return;
+	}
 
-    //connector info
-    var connectorType = this.get('type');
-    var connector = this.getEntityId(this);
-    if (!connector) {
-      if (typeof(callback) === 'function') {
-        var error = 'Error in connect - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-      return;
-    }
+	//connector info
+	var connectorType = this.get('type');
+	var connector = this.getEntityId(this);
+	if (!connector) {
+	  if (typeof(callback) === 'function') {
+		var error = 'Error in connect - no uuid specified.';
+		if (self._client.logging) {
+		  console.log(error);
+		}
+		callback(true, error);
+	  }
+	  return;
+	}
 
-    var endpoint = connectorType + '/' + connector + '/' + connection + '/' + connecteeType + '/' + connectee;
-    var options = {
-      method:'POST',
-      endpoint:endpoint
-    };
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('entity could not be connected');
-      }
-      if (typeof(callback) === 'function') {
-        callback(err, data);
-      }
-    });
+	var endpoint = connectorType + '/' + connector + '/' + connection + '/' + connecteeType + '/' + connectee;
+	var options = {
+	  method:'POST',
+	  endpoint:endpoint
+	};
+	this._client.request(options, function (err, data) {
+	  if (err && self._client.logging) {
+		console.log('entity could not be connected');
+	  }
+	  if (typeof(callback) === 'function') {
+		callback(err, data);
+	  }
+	});
   }
 
   /*
@@ -1083,17 +1171,17 @@
   *
   */
   Baas.Entity.prototype.getEntityId = function (entity) {
-    var id = false;
-    if (Baas.Utils.isUUID(entity.get('uuid'))) {
-      id = entity.get('uuid');
-    } else {
-      if (type === 'users') {
-        id = entity.get('username');
-      } else if (entity.get('name')) {
-        id = entity.get('name');
-      }
-    }
-    return id;
+	var id = false;
+	if (Baas.Utils.isUUID(entity.get('uuid'))) {
+	  id = entity.get('uuid');
+	} else {
+	  if (type === 'users') {
+		id = entity.get('username');
+	  } else if (entity.get('name')) {
+		id = entity.get('name');
+	  }
+	}
+	return id;
   }
 
   /*
@@ -1109,48 +1197,48 @@
   */
   Baas.Entity.prototype.getConnections = function (connection, callback) {
 
-    var self = this;
+	var self = this;
 
-    //connector info
-    var connectorType = this.get('type');
-    var connector = this.getEntityId(this);
-    if (!connector) {
-      if (typeof(callback) === 'function') {
-        var error = 'Error in getConnections - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-      return;
-    }
+	//connector info
+	var connectorType = this.get('type');
+	var connector = this.getEntityId(this);
+	if (!connector) {
+	  if (typeof(callback) === 'function') {
+		var error = 'Error in getConnections - no uuid specified.';
+		if (self._client.logging) {
+		  console.log(error);
+		}
+		callback(true, error);
+	  }
+	  return;
+	}
 
-    var endpoint = connectorType + '/' + connector + '/' + connection + '/';
-    var options = {
-      method:'GET',
-      endpoint:endpoint
-    };
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('entity could not be connected');
-      }
+	var endpoint = connectorType + '/' + connector + '/' + connection + '/';
+	var options = {
+	  method:'GET',
+	  endpoint:endpoint
+	};
+	this._client.request(options, function (err, data) {
+	  if (err && self._client.logging) {
+		console.log('entity could not be connected');
+	  }
 
-      self[connection] = {};
+	  self[connection] = {};
 
-      var length = data.entities.length;
-      for (var i=0;i<length;i++)
-      {
-        if (data.entities[i].type === 'user'){
-          self[connection][data.entities[i].username] = data.entities[i];
-        } else {
-          self[connection][data.entities[i].name] = data.entities[i]
-        }
-      }
+	  var length = data.entities.length;
+	  for (var i=0;i<length;i++)
+	  {
+		if (data.entities[i].type === 'user'){
+		  self[connection][data.entities[i].username] = data.entities[i];
+		} else {
+		  self[connection][data.entities[i].name] = data.entities[i]
+		}
+	  }
 
-      if (typeof(callback) === 'function') {
-        callback(err, data, data.entities);
-      }
-    });
+	  if (typeof(callback) === 'function') {
+		callback(err, data, data.entities);
+	  }
+	});
 
   }
 
@@ -1167,49 +1255,49 @@
   */
   Baas.Entity.prototype.disconnect = function (connection, entity, callback) {
 
-    var self = this;
+	var self = this;
 
-    //connectee info
-    var connecteeType = entity.get('type');
-    var connectee = this.getEntityId(entity);
-    if (!connectee) {
-      if (typeof(callback) === 'function') {
-        var error = 'Error trying to delete object - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-      return;
-    }
+	//connectee info
+	var connecteeType = entity.get('type');
+	var connectee = this.getEntityId(entity);
+	if (!connectee) {
+	  if (typeof(callback) === 'function') {
+		var error = 'Error trying to delete object - no uuid specified.';
+		if (self._client.logging) {
+		  console.log(error);
+		}
+		callback(true, error);
+	  }
+	  return;
+	}
 
-    //connector info
-    var connectorType = this.get('type');
-    var connector = this.getEntityId(this);
-    if (!connector) {
-      if (typeof(callback) === 'function') {
-        var error = 'Error in connect - no uuid specified.';
-        if (self._client.logging) {
-          console.log(error);
-        }
-        callback(true, error);
-      }
-      return;
-    }
+	//connector info
+	var connectorType = this.get('type');
+	var connector = this.getEntityId(this);
+	if (!connector) {
+	  if (typeof(callback) === 'function') {
+		var error = 'Error in connect - no uuid specified.';
+		if (self._client.logging) {
+		  console.log(error);
+		}
+		callback(true, error);
+	  }
+	  return;
+	}
 
-    var endpoint = connectorType + '/' + connector + '/' + connection + '/' + connecteeType + '/' + connectee;
-    var options = {
-      method:'DELETE',
-      endpoint:endpoint
-    };
-    this._client.request(options, function (err, data) {
-      if (err && self._client.logging) {
-        console.log('entity could not be disconnected');
-      }
-      if (typeof(callback) === 'function') {
-        callback(err, data);
-      }
-    });
+	var endpoint = connectorType + '/' + connector + '/' + connection + '/' + connecteeType + '/' + connectee;
+	var options = {
+	  method:'DELETE',
+	  endpoint:endpoint
+	};
+	this._client.request(options, function (err, data) {
+	  if (err && self._client.logging) {
+		console.log('entity could not be disconnected');
+	  }
+	  if (typeof(callback) === 'function') {
+		callback(err, data);
+	  }
+	});
   }
 	/*
 	*  The Collection class models Baas Collections.  It essentially
@@ -1930,7 +2018,6 @@
       callback(true, {'error_code':100, 'error_description' : 'Bad request'});
       return;
     } else if(typeof payload === 'string' || typeof payload === 'number' || (typeof payload === 'object' && payload instanceof Array)){
-      console.log("121212")
       callback(true, {'error_code':100, 'error_description' : 'Invalid payload.badge type'});
       return;
     }
@@ -2191,7 +2278,7 @@
 	*  @param {function} callback
 	*  @return {callback} callback(err, data)
 	*/
-	Baas.Entity.prototype.save = function (callback) {
+	Baas.File.prototype.save = function (callback) {
 		//TODO:  API will be changed soon to accomodate PUTs via name which create new entities
 		//       This function should be changed to PUT only at that time, and updated to use
 		//       either uuid or name
@@ -2200,6 +2287,9 @@
 		if (Baas.Utils.isUUID(this.get('uuid'))) {
 			method = 'PUT';
 			type += '/' + this.get('uuid');
+		} else {
+			method = 'PUT';
+			type += '/' + this.get('username');
 		}
 
 		//update the entity

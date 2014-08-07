@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="../resources/img/favbaas.ico">
+
+		<title>Use signup & signin to Kakao API</title>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+		<!-- Baas.io CSS -->
+		<link rel="stylesheet" href="../vendor/json-human/css/json.human.css"/>
+		<link rel="stylesheet" href="../resources/css/baas.io.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+		<script src="../vendor/json-human/lib/crel.js"></script>
+		<script src="../vendor/json-human/src/json.human.js"></script>
+	
+		<script src="../../baas.io.js"></script>
+		<script src="app.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="../../index.html" style="padding:5px 0px 5px 15px"> 
+						<img src="../resources/img/bi_baasio.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="bs-old-docs">
+			<div class="container">
+				<a href="../../index.html" class="btn btn-success btn-ms">home</a>
+			</div>
+		</div>
+
+		<div class="container">
+
+			<div class="page-header">
+				<h1>Use signup & signin to Kakao API</h1>
+			</div>
+
+			<div class="alert alert-default" style="margin:30px 0 30px 0;">
+				<strong>Baas.io Token, baas.io ID, Application ID, Kakao Token</strong>는 필수 입력 사항입니다. <strong>Kakao Token</strong>은 직접 입력하시거나, <span class="label label-warning">카카오 계정으로 로그인</span> 버튼을 클릭하시면 됩니다. 모두 입력되시면 <span class="label label-primary">Sign up</span> 또는 <span class="label label-primary">Sign in</span>버튼을 클릭하시면 됩니다.
+			</div>
+
+			<h3><strong>Select method to test</strong></h3>
+
+			<ul class="nav nav-tabs myTab">
+				<li class="active"><a href="#signup" data-toggle="tab"><strong>SIGN UP</strong></a></li>
+				<li><a href="#signin" data-toggle="tab"><strong>SIGN IN</strong></a></li>
+			</ul>
+			
+			<div style="margin-top:15px">
+
+				<div class="form-group">
+					<label>Baas.io Token</label>
+					<input type="text" class="form-control __auth" placeholder="Baas.io Token">
+				</div>
+
+				<div class="form-group">
+					<label>baas.io ID or Name</label>
+					<input type="text" class="form-control __org_id" placeholder="baas.io ID or Name">
+				</div>
+
+				<div class="form-group">
+					<label >Application ID or Name</label>
+					<input type="text" class="form-control __app_id" placeholder="Application ID or Name">
+				</div>
+
+				<div class="form-group">
+					<label>Kakao App Key</label>
+					<input type="text" class="form-control __kakao_key" placeholder="Kakao App Key">
+				</div>
+
+				<div class="form-group">
+					<label>Kakao Token</label>
+					<input type="text" class="form-control __kakao_token" placeholder="Kakao Token">
+				</div>
+
+			</div>
+
+			<div class="tab-content" style="margin-top:15px">
+				<!-- get data-->
+				<div class="tab-pane active" id="signup">
+
+					<div class="__btns">
+						<div class="__kakao_login_btn"></div>
+						<button class="__sign_up_btn btn btn-primary __run_query btn-lg"> Sign up </button>	
+					</div>
+
+					<h4><strong>Sign up</strong> API Response</h4>
+
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#signup_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#signup_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="signup_json">
+							<div class="result_console">
+								<pre>// Press 'Sign up' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="signup_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Sign up' to send the API call.</pre>
+							</div>
+
+						</div>
+					</div>					
+				</div>
+
+				<!-- post data -->
+				<div class="tab-pane" id="signin">
+
+					<div class="__btns">
+						<div class="__kakao_login_btn"></div>
+						<button class="__sign_in_btn btn btn-primary __run_query btn-lg"> Sign in</button>	
+					</div>
+
+					<h4><strong>Sign in & Login</strong> API Response</h4>
+					
+					<ul class="nav nav-tabs myTab">
+						<li class="active"><a href="#signin_json" data-toggle="tab"><strong>JSON</strong></a></li>
+						<li><a href="#signin_table" data-toggle="tab"><strong>TABLE</strong></a></li>
+					</ul>
+
+					<div class="tab-content" style="margin-top:15px">
+						<!-- get data-->
+						<div class="tab-pane active" id="signin_json">
+							<div class="result_console">
+								<pre>// Press 'Sign in' to send the API call.</pre>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="signin_table">
+
+							<div class="result_table table-responsive">
+								<pre>// Press 'Sign in' to send the API call.</pre>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="_jsonHtml table-responsive">
+			</div>
+		</div>
+	</body>
+</html>
