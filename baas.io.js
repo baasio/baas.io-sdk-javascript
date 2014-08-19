@@ -2415,7 +2415,7 @@
         for (i in params) {
           item = params[i];
           if ((item instanceof Array) && (item.length > 1)) {
-            tail.push(item[0] + "=" + encodeURI(item[1]));
+            tail.push(item[0] + "=" + encodeURIComponent(item[1]));
           }
         }
       } else {
@@ -2425,10 +2425,10 @@
             if (value instanceof Array) {
               for (i in value) {
                 item = value[i];
-                tail.push(key + "=" + encodeURI(item));
+                tail.push(key + "=" + encodeURIComponent(item));
               }
             } else {
-              tail.push(key + "=" + encodeURI(value));
+              tail.push(key + "=" + encodeURIComponent(value));
             }
           }
         }
