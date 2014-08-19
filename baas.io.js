@@ -7,11 +7,7 @@
 	root.console.log = root.console.log || function() {};
 
 	// Current version.
-<<<<<<< HEAD
 	Baas.VERSION = '0.9.2';
-=======
-	Baas.VERSION = '0.9.1';
->>>>>>> a119dfb55126fd855676e6e3bf281c21d2af0c49
 
 	// AMD 모듈 방식 - require() -과 Node.js 모듈 시스템을 위한 코드 
 	if (typeof exports !== 'undefined') {
@@ -70,11 +66,7 @@
 		var method = options.method || 'GET';
 		var endpoint = options.endpoint;
 		var body = options.body || {};
-<<<<<<< HEAD
 		var contentType = options.contentType || 'application/json';
-=======
-		var contentType = options.contentType || null;
->>>>>>> a119dfb55126fd855676e6e3bf281c21d2af0c49
 		var qs = options.qs || {};
 		var mQuery = options.mQuery || false; //is this a query to the management endpoint?
 		if (mQuery) {
@@ -98,13 +90,9 @@
 		}
 
 		//stringify the body object
-<<<<<<< HEAD
 		//body = (body instanceof FormData) ? body : body;
 		//20140807 modify
 		body = (contentType === 'application/json') ? JSON.stringify(body) : body;
-=======
-		body = (body instanceof FormData) ? body : body;
->>>>>>> a119dfb55126fd855676e6e3bf281c21d2af0c49
 
 		//so far so good, so run the query
 		var xhr = new XMLHttpRequest();
